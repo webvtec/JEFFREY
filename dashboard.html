@@ -363,7 +363,7 @@
       var storage = firebase.storage(app);
 
       /* UPLOAD */
-      window.fbUpload = function(files, category, isBefore) {
+      window.fbUpload = function(files, category) {
         var grid = document.getElementById("adminGalleryGrid");
         var empty = grid.querySelector(".empty-state");
         if (empty) empty.remove();
@@ -387,12 +387,12 @@
           wrap.appendChild(bar);
           var lbl = document.createElement("div");
           lbl.className = "gt-label";
-          lbl.textContent = (isBefore ? "BEFORE" : "AFTER") + " · " + category;
+          lbl.textContent = category;
           ph.appendChild(wrap);
           ph.appendChild(lbl);
           grid.appendChild(ph);
 
-          var task = sRef.put(file, { customMetadata: { category: category, isBefore: String(isBefore) } });
+          var task = sRef.put(file, { customMetadata: { category: category } });
 
           task.on("state_changed",
             function(snap) {
@@ -414,7 +414,7 @@
                   el.innerHTML = "";
                   var l = document.createElement("div");
                   l.className = "gt-label";
-                  l.textContent = (isBefore ? "BEFORE" : "AFTER") + " · " + category;
+                  l.textContent = category;
                   var btn = document.createElement("button");
                   btn.className = "gt-del";
                   btn.textContent = "✕";
@@ -459,7 +459,7 @@
           }
           var promises = result.items.map(function(item) {
             return Promise.all([item.getDownloadURL(), item.getMetadata()]).then(function(vals) {
-              return { url: vals[0], path: item.fullPath, category: (vals[1].customMetadata && vals[1].customMetadata.category) || "General", isBefore: vals[1].customMetadata && vals[1].customMetadata.isBefore === "true" };
+              return { url: vals[0], path: item.fullPath, category: (vals[1].customMetadata && vals[1].customMetadata.category) || "General" };
             });
           });
           Promise.all(promises).then(function(photos) {
@@ -471,7 +471,7 @@
               div.style.backgroundPosition = "center";
               var lbl = document.createElement("div");
               lbl.className = "gt-label";
-              lbl.textContent = (photo.isBefore ? "BEFORE" : "AFTER") + " · " + photo.category;
+              lbl.textContent = photo.category;
               var btn = document.createElement("button");
               btn.className = "gt-del";
               btn.textContent = "✕";
@@ -554,13 +554,7 @@
         <option>General</option>
       </select>
     </div>
-    <div class="form-group" style="flex:1;min-width:120px;">
-      <label class="form-label">Type</label>
-      <select class="form-select" id="uploadType">
-        <option value="after">After</option>
-        <option value="before">Before</option>
-      </select>
-    </div>
+    
   </div>
 
   <div class="section-title">Uploaded Photos</div>
@@ -691,8 +685,7 @@ window.showToast = function(msg, success) {
 // ── GALLERY UPLOAD ───────────────────────────────────────────────────────────
 window.handleUpload = function(files) {
   const category = document.getElementById('uploadCategory').value;
-  const isBefore = document.getElementById('uploadType').value === 'before';
-  window.fbUpload(files, category, isBefore);
+  window.fbUpload(files, category);
 };
 </script>
 

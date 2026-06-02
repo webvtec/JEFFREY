@@ -691,9 +691,6 @@ h1 span.accent { color: var(--neon); }
   align-items: center;
   justify-content: space-between;
 }
-.ba-label-before { color: var(--text-dim); }
-.ba-label-after { color: var(--neon); }
-.ba-label-arrow { color: var(--hot); font-size: 12px; }
 
 /* ========================= ESTIMATE FORM ========================= */
 .estimate-section { padding: 0 18px 36px; }
@@ -1053,7 +1050,7 @@ h1 span.accent { color: var(--neon); }
 
           var promises = result.items.map(function(item) {
             return Promise.all([item.getDownloadURL(), item.getMetadata()]).then(function(vals) {
-              return { url: vals[0], category: (vals[1].customMetadata && vals[1].customMetadata.category) || "General", isBefore: vals[1].customMetadata && vals[1].customMetadata.isBefore === "true" };
+              return { url: vals[0], category: (vals[1].customMetadata && vals[1].customMetadata.category) || "General" };
             });
           });
 
@@ -1087,11 +1084,7 @@ h1 span.accent { color: var(--neon); }
                 img.loading = "lazy";
                 var label = document.createElement("div");
                 label.className = "ba-card-label";
-                if (photo.isBefore) {
-                  label.innerHTML = "<span class='ba-label-before'>BEFORE</span><span class='ba-label-arrow'>&rarr;</span>";
-                } else {
-                  label.innerHTML = "<span class='ba-label-after'>AFTER</span>";
-                }
+                label.textContent = photo.category;
                 card.appendChild(img);
                 card.appendChild(label);
                 grid.appendChild(card);
@@ -1135,7 +1128,7 @@ h1 span.accent { color: var(--neon); }
     <span class="snav-icon">◈</span> Home
   </button>
   <button class="sidebar-nav-item" id="snav-gallery" onclick="showSection('gallerySection'); closeSidebar();">
-    <span class="snav-icon">◈</span> Before &amp; After
+    <span class="snav-icon">◈</span> Our Work
   </button>
   <button class="sidebar-nav-item" id="snav-services" onclick="showSection('servicesSection'); closeSidebar();">
     <span class="snav-icon">◈</span> Our Services
@@ -1162,7 +1155,7 @@ h1 span.accent { color: var(--neon); }
   <div class="sidebar-phone-block">
     <div class="spb-label">Call Anytime</div>
     <a href="tel:+13322608942">(332) 260-8942</a>
-    <div class="spb-days">7 Days a Week</div>
+    <div class="spb-days">Mon–Fri &amp; Weekends Flexible</div>
   </div>
 </div>
 
@@ -1173,7 +1166,7 @@ h1 span.accent { color: var(--neon); }
     <div class="hero-title"><span class="accent">LXL</span><br>HOME<br>IMPROVEMENT</div>
     <div class="hero-sub">Licensed Home Improvement Contractor</div>
     <div class="hero-badge">
-      <span class="dot"></span> Open 7 Days a Week
+      <span class="dot"></span> Open Mon–Fri &amp; Weekends Flexible
     </div>
     <div class="hero-cta-row">
       <button class="cta-btn cta-btn--primary" onclick="showSection('estimateSection')">Get Free Estimate</button>
@@ -1188,8 +1181,8 @@ h1 span.accent { color: var(--neon); }
     <h1 style="margin:8px 0 18px;">OUR <span class="accent">SERVICES</span></h1>
     <div class="services-grid">
       <div class="service-card" onclick="showSection('servicesSection')"><span class="svc-icon">🪚</span><div class="svc-name">Carpentry</div></div>
-      <div class="service-card" onclick="showSection('servicesSection')"><span class="svc-icon">🖌️</span><div class="svc-name">Painting</div></div>
-      <div class="service-card" onclick="showSection('servicesSection')"><span class="svc-icon">🏗️</span><div class="svc-name">Flooring</div></div>
+      <div class="service-card" onclick="showSection('servicesSection')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="36" height="36" style="display:block;margin:0 auto 8px;"><defs><linearGradient id="pb_h" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#6B3E1E"/><stop offset="35%" stop-color="#A0622A"/><stop offset="65%" stop-color="#C07A38"/><stop offset="100%" stop-color="#7A4820"/></linearGradient><linearGradient id="pb_f" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#6A7885"/><stop offset="40%" stop-color="#B8C8D4"/><stop offset="70%" stop-color="#D8E4EE"/><stop offset="100%" stop-color="#8A9AAA"/></linearGradient><linearGradient id="pb_b" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#C8A860"/><stop offset="40%" stop-color="#ECD898"/><stop offset="70%" stop-color="#F4E8B0"/><stop offset="100%" stop-color="#C8A860"/></linearGradient><linearGradient id="pb_p" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00E5BF"/><stop offset="100%" stop-color="#00A888"/></linearGradient></defs><g transform="rotate(-40,60,60)"><rect x="52" y="8" width="10" height="56" rx="5" fill="url(#pb_h)"/><line x1="55" y1="10" x2="54" y2="62" stroke="#6B3E1E" stroke-width="0.6" opacity="0.5"/><line x1="59" y1="10" x2="60" y2="62" stroke="#C07A38" stroke-width="0.5" opacity="0.35"/><ellipse cx="57" cy="10" rx="5" ry="2.5" fill="#5A3010"/><rect x="50" y="62" width="14" height="12" rx="1" fill="url(#pb_f)"/><line x1="50" y1="65" x2="64" y2="65" stroke="#9AAAB8" stroke-width="0.6" opacity="0.6"/><line x1="50" y1="68" x2="64" y2="68" stroke="#9AAAB8" stroke-width="0.6" opacity="0.6"/><line x1="50" y1="71" x2="64" y2="71" stroke="#9AAAB8" stroke-width="0.6" opacity="0.4"/><path d="M48 74 L66 74 L68 96 Q62 100 57 101 Q52 100 46 96 Z" fill="url(#pb_b)"/><path d="M48 74 L51 74 L49 96 Q47 97 46 96 Z" fill="#B09050" opacity="0.5"/><path d="M63 74 L66 74 L68 96 Q67 97 65 96 L63 96 Z" fill="#B09050" opacity="0.5"/><line x1="51" y1="74" x2="50" y2="100" stroke="#A08040" stroke-width="0.7" opacity="0.45"/><line x1="54" y1="74" x2="53" y2="101" stroke="#A08040" stroke-width="0.7" opacity="0.4"/><line x1="57" y1="74" x2="57" y2="101" stroke="#907030" stroke-width="0.8" opacity="0.45"/><line x1="60" y1="74" x2="61" y2="101" stroke="#A08040" stroke-width="0.7" opacity="0.4"/><line x1="63" y1="74" x2="64" y2="100" stroke="#A08040" stroke-width="0.7" opacity="0.45"/><path d="M47 94 Q52 98 57 99 Q62 98 67 94 L68 96 Q62 101 57 102 Q52 101 46 96 Z" fill="url(#pb_p)"/><path d="M50 96 Q57 100 64 96" fill="none" stroke="#00FFD0" stroke-width="0.8" opacity="0.5"/></g></svg><div class="svc-name">Painting</div></div>
+      <div class="service-card" onclick="showSection('servicesSection')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="32" height="32" style="display:block;margin:0 auto 8px;"><rect x="1" y="2" width="22" height="9" rx="0.4" fill="#C8914A"/><rect x="1" y="2" width="22" height="2.5" fill="#DDA85C" opacity="0.6"/><rect x="24" y="2" width="23" height="9" rx="0.4" fill="#B8814A"/><rect x="24" y="2" width="23" height="2.5" fill="#D09858" opacity="0.6"/><line x1="7" y1="3" x2="6" y2="10" stroke="#8B5C2A" stroke-width="0.6" opacity="0.35"/><line x1="15" y1="3" x2="16" y2="10" stroke="#8B5C2A" stroke-width="0.6" opacity="0.3"/><line x1="31" y1="3" x2="30" y2="10" stroke="#7A4C20" stroke-width="0.6" opacity="0.35"/><line x1="40" y1="3" x2="41" y2="10" stroke="#7A4C20" stroke-width="0.6" opacity="0.3"/><rect x="1" y="11" width="46" height="1.2" fill="#13161D"/><rect x="1" y="12.2" width="32" height="9" rx="0.4" fill="#BA7C3E"/><rect x="1" y="12.2" width="32" height="2.5" fill="#D49050" opacity="0.6"/><rect x="34" y="12.2" width="13" height="9" rx="0.4" fill="#C48944"/><rect x="34" y="12.2" width="13" height="2.5" fill="#D89A54" opacity="0.6"/><line x1="10" y1="13" x2="11" y2="20" stroke="#8B5C2A" stroke-width="0.6" opacity="0.35"/><line x1="22" y1="13" x2="21" y2="20" stroke="#8B5C2A" stroke-width="0.6" opacity="0.3"/><line x1="39" y1="13" x2="40" y2="20" stroke="#7A4C20" stroke-width="0.6" opacity="0.35"/><rect x="1" y="21.2" width="46" height="1.2" fill="#13161D"/><rect x="1" y="22.4" width="15" height="9" rx="0.4" fill="#C8914A"/><rect x="1" y="22.4" width="15" height="2.5" fill="#DDA85C" opacity="0.6"/><rect x="17" y="22.4" width="30" height="9" rx="0.4" fill="#B8814A"/><rect x="17" y="22.4" width="30" height="2.5" fill="#D09858" opacity="0.6"/><line x1="6" y1="23" x2="7" y2="30" stroke="#8B5C2A" stroke-width="0.6" opacity="0.35"/><line x1="25" y1="23" x2="24" y2="30" stroke="#7A4C20" stroke-width="0.6" opacity="0.35"/><line x1="37" y1="23" x2="38" y2="30" stroke="#7A4C20" stroke-width="0.6" opacity="0.3"/><rect x="1" y="31.4" width="46" height="1.2" fill="#13161D"/><rect x="1" y="32.6" width="24" height="9" rx="0.4" fill="#BA7C3E"/><rect x="1" y="32.6" width="24" height="2.5" fill="#D49050" opacity="0.6"/><rect x="26" y="32.6" width="21" height="9" rx="0.4" fill="#C48944"/><rect x="26" y="32.6" width="21" height="2.5" fill="#D89A54" opacity="0.6"/><line x1="9" y1="33" x2="8" y2="40" stroke="#8B5C2A" stroke-width="0.6" opacity="0.35"/><line x1="18" y1="33" x2="19" y2="40" stroke="#8B5C2A" stroke-width="0.6" opacity="0.3"/><line x1="33" y1="33" x2="34" y2="40" stroke="#7A4C20" stroke-width="0.6" opacity="0.35"/><rect x="1" y="41.6" width="46" height="1.2" fill="#13161D"/><rect x="1" y="42.8" width="36" height="4" rx="0.4" fill="#C8914A"/><rect x="38" y="42.8" width="9" height="4" rx="0.4" fill="#B8814A"/><rect x="1" y="2" width="46" height="44.8" rx="0.4" fill="none" stroke="#7A5020" stroke-width="0.8" opacity="0.4"/></svg><div class="svc-name">Flooring</div></div>
       <div class="service-card" onclick="showSection('servicesSection')"><span class="svc-icon">🧱</span><div class="svc-name">Masonry</div></div>
       <div class="service-card" onclick="showSection('servicesSection')"><span class="svc-icon">🪟</span><div class="svc-name">Windows</div></div>
       <div class="service-card" onclick="showSection('servicesSection')"><span class="svc-icon">🔲</span><div class="svc-name">Tiling</div></div>
@@ -1219,9 +1212,9 @@ h1 span.accent { color: var(--neon); }
 <!-- ========================= GALLERY SECTION ========================= -->
 <div class="content-section relative-z" id="gallerySection">
   <div class="gallery-hero">
-    <div class="hero-kicker">Real Results</div>
-    <h1>BEFORE &amp;<br><span class="accent">AFTER</span></h1>
-    <p style="font-family:'Outfit',sans-serif; font-size:12px; color:var(--text-dim); letter-spacing:1px;">Transformations across all five boroughs.</p>
+    <div class="hero-kicker">Our Projects</div>
+    <h1>OUR <span class="accent">WORK</span></h1>
+    <p style="font-family:'Outfit',sans-serif; font-size:12px; color:var(--text-dim); letter-spacing:1px;">Projects across all five boroughs.</p>
   </div>
 
   <!-- Photos loaded from Firebase Storage -->
@@ -1244,8 +1237,8 @@ h1 span.accent { color: var(--neon); }
   <div class="services-section">
     <div class="services-grid">
       <div class="service-card"><span class="svc-icon">🪚</span><div class="svc-name">Carpentry</div><div class="svc-desc">Custom cabinetry, trim work, framing, doors &amp; structural woodwork.</div></div>
-      <div class="service-card"><span class="svc-icon">🖌️</span><div class="svc-name">Painting</div><div class="svc-desc">Interior &amp; exterior painting with premium finishes and clean lines.</div></div>
-      <div class="service-card"><span class="svc-icon">🏗️</span><div class="svc-name">Flooring</div><div class="svc-desc">Hardwood, laminate, vinyl, and engineered flooring installation.</div></div>
+      <div class="service-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="36" height="36" style="display:block;margin:0 auto 8px;"><defs><linearGradient id="pb_h" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#6B3E1E"/><stop offset="35%" stop-color="#A0622A"/><stop offset="65%" stop-color="#C07A38"/><stop offset="100%" stop-color="#7A4820"/></linearGradient><linearGradient id="pb_f" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#6A7885"/><stop offset="40%" stop-color="#B8C8D4"/><stop offset="70%" stop-color="#D8E4EE"/><stop offset="100%" stop-color="#8A9AAA"/></linearGradient><linearGradient id="pb_b" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#C8A860"/><stop offset="40%" stop-color="#ECD898"/><stop offset="70%" stop-color="#F4E8B0"/><stop offset="100%" stop-color="#C8A860"/></linearGradient><linearGradient id="pb_p" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00E5BF"/><stop offset="100%" stop-color="#00A888"/></linearGradient></defs><g transform="rotate(-40,60,60)"><rect x="52" y="8" width="10" height="56" rx="5" fill="url(#pb_h)"/><line x1="55" y1="10" x2="54" y2="62" stroke="#6B3E1E" stroke-width="0.6" opacity="0.5"/><line x1="59" y1="10" x2="60" y2="62" stroke="#C07A38" stroke-width="0.5" opacity="0.35"/><ellipse cx="57" cy="10" rx="5" ry="2.5" fill="#5A3010"/><rect x="50" y="62" width="14" height="12" rx="1" fill="url(#pb_f)"/><line x1="50" y1="65" x2="64" y2="65" stroke="#9AAAB8" stroke-width="0.6" opacity="0.6"/><line x1="50" y1="68" x2="64" y2="68" stroke="#9AAAB8" stroke-width="0.6" opacity="0.6"/><line x1="50" y1="71" x2="64" y2="71" stroke="#9AAAB8" stroke-width="0.6" opacity="0.4"/><path d="M48 74 L66 74 L68 96 Q62 100 57 101 Q52 100 46 96 Z" fill="url(#pb_b)"/><path d="M48 74 L51 74 L49 96 Q47 97 46 96 Z" fill="#B09050" opacity="0.5"/><path d="M63 74 L66 74 L68 96 Q67 97 65 96 L63 96 Z" fill="#B09050" opacity="0.5"/><line x1="51" y1="74" x2="50" y2="100" stroke="#A08040" stroke-width="0.7" opacity="0.45"/><line x1="54" y1="74" x2="53" y2="101" stroke="#A08040" stroke-width="0.7" opacity="0.4"/><line x1="57" y1="74" x2="57" y2="101" stroke="#907030" stroke-width="0.8" opacity="0.45"/><line x1="60" y1="74" x2="61" y2="101" stroke="#A08040" stroke-width="0.7" opacity="0.4"/><line x1="63" y1="74" x2="64" y2="100" stroke="#A08040" stroke-width="0.7" opacity="0.45"/><path d="M47 94 Q52 98 57 99 Q62 98 67 94 L68 96 Q62 101 57 102 Q52 101 46 96 Z" fill="url(#pb_p)"/><path d="M50 96 Q57 100 64 96" fill="none" stroke="#00FFD0" stroke-width="0.8" opacity="0.5"/></g></svg><div class="svc-name">Painting</div><div class="svc-desc">Interior &amp; exterior painting with premium finishes and clean lines.</div></div>
+      <div class="service-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="32" height="32" style="display:block;margin:0 auto 8px;"><rect x="1" y="2" width="22" height="9" rx="0.4" fill="#C8914A"/><rect x="1" y="2" width="22" height="2.5" fill="#DDA85C" opacity="0.6"/><rect x="24" y="2" width="23" height="9" rx="0.4" fill="#B8814A"/><rect x="24" y="2" width="23" height="2.5" fill="#D09858" opacity="0.6"/><line x1="7" y1="3" x2="6" y2="10" stroke="#8B5C2A" stroke-width="0.6" opacity="0.35"/><line x1="15" y1="3" x2="16" y2="10" stroke="#8B5C2A" stroke-width="0.6" opacity="0.3"/><line x1="31" y1="3" x2="30" y2="10" stroke="#7A4C20" stroke-width="0.6" opacity="0.35"/><line x1="40" y1="3" x2="41" y2="10" stroke="#7A4C20" stroke-width="0.6" opacity="0.3"/><rect x="1" y="11" width="46" height="1.2" fill="#13161D"/><rect x="1" y="12.2" width="32" height="9" rx="0.4" fill="#BA7C3E"/><rect x="1" y="12.2" width="32" height="2.5" fill="#D49050" opacity="0.6"/><rect x="34" y="12.2" width="13" height="9" rx="0.4" fill="#C48944"/><rect x="34" y="12.2" width="13" height="2.5" fill="#D89A54" opacity="0.6"/><line x1="10" y1="13" x2="11" y2="20" stroke="#8B5C2A" stroke-width="0.6" opacity="0.35"/><line x1="22" y1="13" x2="21" y2="20" stroke="#8B5C2A" stroke-width="0.6" opacity="0.3"/><line x1="39" y1="13" x2="40" y2="20" stroke="#7A4C20" stroke-width="0.6" opacity="0.35"/><rect x="1" y="21.2" width="46" height="1.2" fill="#13161D"/><rect x="1" y="22.4" width="15" height="9" rx="0.4" fill="#C8914A"/><rect x="1" y="22.4" width="15" height="2.5" fill="#DDA85C" opacity="0.6"/><rect x="17" y="22.4" width="30" height="9" rx="0.4" fill="#B8814A"/><rect x="17" y="22.4" width="30" height="2.5" fill="#D09858" opacity="0.6"/><line x1="6" y1="23" x2="7" y2="30" stroke="#8B5C2A" stroke-width="0.6" opacity="0.35"/><line x1="25" y1="23" x2="24" y2="30" stroke="#7A4C20" stroke-width="0.6" opacity="0.35"/><line x1="37" y1="23" x2="38" y2="30" stroke="#7A4C20" stroke-width="0.6" opacity="0.3"/><rect x="1" y="31.4" width="46" height="1.2" fill="#13161D"/><rect x="1" y="32.6" width="24" height="9" rx="0.4" fill="#BA7C3E"/><rect x="1" y="32.6" width="24" height="2.5" fill="#D49050" opacity="0.6"/><rect x="26" y="32.6" width="21" height="9" rx="0.4" fill="#C48944"/><rect x="26" y="32.6" width="21" height="2.5" fill="#D89A54" opacity="0.6"/><line x1="9" y1="33" x2="8" y2="40" stroke="#8B5C2A" stroke-width="0.6" opacity="0.35"/><line x1="18" y1="33" x2="19" y2="40" stroke="#8B5C2A" stroke-width="0.6" opacity="0.3"/><line x1="33" y1="33" x2="34" y2="40" stroke="#7A4C20" stroke-width="0.6" opacity="0.35"/><rect x="1" y="41.6" width="46" height="1.2" fill="#13161D"/><rect x="1" y="42.8" width="36" height="4" rx="0.4" fill="#C8914A"/><rect x="38" y="42.8" width="9" height="4" rx="0.4" fill="#B8814A"/><rect x="1" y="2" width="46" height="44.8" rx="0.4" fill="none" stroke="#7A5020" stroke-width="0.8" opacity="0.4"/></svg><div class="svc-name">Flooring</div><div class="svc-desc">Hardwood, laminate, vinyl, and engineered flooring installation.</div></div>
       <div class="service-card"><span class="svc-icon">🧱</span><div class="svc-name">Masonry</div><div class="svc-desc">Brick, stone, concrete, and block work for walls, steps &amp; facades.</div></div>
       <div class="service-card"><span class="svc-icon">🪟</span><div class="svc-name">Window Replacement</div><div class="svc-desc">Energy-efficient window installation and frame repairs.</div></div>
       <div class="service-card"><span class="svc-icon">🔲</span><div class="svc-name">Tiling</div><div class="svc-desc">Floor and wall tiling for kitchens, bathrooms, and living spaces.</div></div>
@@ -1313,10 +1306,10 @@ h1 span.accent { color: var(--neon); }
     <div class="about-card">
       <p class="about-text">LXL Home Improvement LLC is a fully licensed home improvement contractor based in New York City. We serve homeowners across all five boroughs — the Bronx, Queens, Brooklyn, Manhattan, and Staten Island.</p>
       <p class="about-text">Our team of skilled tradespeople specializes in full residential remodels — from carpentry and flooring to complete kitchen and bathroom transformations. We take pride in clean workmanship, honest pricing, and treating every home like our own.</p>
-      <p class="about-text">We are available 7 days a week because we know home emergencies and project timelines don't wait for the work week.</p>
+      <p class="about-text">We are available Monday to Friday and offer flexible weekend availability to work around your schedule.</p>
       <div class="badge-row">
         <div class="info-badge-pill">🏛️ Licensed Contractor</div>
-        <div class="info-badge-pill">📅 7 Days a Week</div>
+        <div class="info-badge-pill">📅 Mon–Fri &amp; Weekends Flexible</div>
       </div>
     </div>
     <div style="margin-top:18px;">
@@ -1397,12 +1390,12 @@ h1 span.accent { color: var(--neon); }
         <div class="info-card-title"><span class="ic-icon">📞</span> Contact Info</div>
         <div class="info-item"><span class="ii-icon">📞</span><a href="tel:+13322608942">(332) 260-8942</a></div>
         <div class="info-item"><span class="ii-icon">📧</span><a href="mailto:lucansfrancis21@gmail.com">lucansfrancis21@gmail.com</a></div>
-        <div class="info-item"><span class="ii-icon">📅</span><span>7 Days a Week</span></div>
+        <div class="info-item"><span class="ii-icon">📅</span><span>Mon–Fri &amp; Weekends Flexible</span></div>
       </div>
       <div class="info-card">
         <div class="info-card-title"><span class="ic-icon">🏛️</span> License &amp; Hours</div>
         <div class="info-item"><span class="ii-icon">✅</span><span>Licensed Home Improvement Contractor</span></div>
-        <div class="info-item"><span class="ii-icon">🕐</span><span>Mon – Sun: 7:00 AM – 7:00 PM</span></div>
+        <div class="info-item"><span class="ii-icon">🕐</span><span>Mon–Fri: 7:00 AM – 7:00 PM · Weekends Flexible</span></div>
         <div class="info-item"><span class="ii-icon">🆓</span><span>Free Estimates Available</span></div>
       </div>
       <div class="info-card">
