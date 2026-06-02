@@ -1028,11 +1028,6 @@ const _app = initializeApp({
 }, "gallery-app");
 const _db = getFirestore(_app);
 
-const CATEGORIES = [
-  "Kitchen Refurbishment","Bathroom Refurbishment","Flooring & Tiling",
-  "Painting & Carpentry","Masonry","Window Replacement","General"
-];
-
 async function loadGallery() {
   const container = document.getElementById("firebaseGalleryContainer");
   if (!container) return;
@@ -1047,17 +1042,18 @@ async function loadGallery() {
 
     const photos = snap.docs.map(d => d.data());
 
-    // Group preserving sortOrder but using CATEGORIES for display order
+    // Derive category order from first appearance in sorted Firestore results
+    // This matches exactly what the admin set in the dashboard
     const groups = {};
-    CATEGORIES.forEach(c => { groups[c] = []; });
+    const catOrder = [];
     photos.forEach(p => {
       const cat = p.category || "General";
-      if (!groups[cat]) groups[cat] = [];
+      if (!groups[cat]) { groups[cat] = []; catOrder.push(cat); }
       groups[cat].push(p);
     });
 
     container.innerHTML = "";
-    CATEGORIES.forEach(cat => {
+    catOrder.forEach(cat => {
       if (!groups[cat] || !groups[cat].length) return;
 
       const section = document.createElement("div");
