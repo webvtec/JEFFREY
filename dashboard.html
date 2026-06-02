@@ -75,35 +75,6 @@
     .brand-teal { color: var(--neon); }
     .brand-admin { font-size: 9px; letter-spacing: 4px; font-weight: 500; opacity: 0.45; margin-left: 10px; }
 
-    /* ======= TOP NAV ======= */
-    .top-menu {
-      display: flex;
-      gap: 4px;
-      background: var(--surface);
-      padding: 8px;
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 52px;
-      z-index: 90;
-    }
-    .top-menu button {
-      background: transparent;
-      color: var(--text-dim);
-      border: 1px solid transparent;
-      padding: 7px 6px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      font-size: clamp(9px, 2.8vw, 11px);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      flex: 1;
-      transition: all 0.18s ease;
-    }
-    .top-menu button:hover { color: var(--text-mid); background: rgba(255,255,255,0.04); }
-    .top-menu button.active { background: var(--neon-dim); color: var(--neon); border-color: var(--border-lit); }
-
     /* ======= CONTENT ======= */
     .page-section { display: none; padding: 14px; }
     .page-section.active { display: block; }
@@ -482,25 +453,10 @@
 
 <!-- ======= HEADER ======= -->
 <div class="header-bar" style="position:relative;">
-  <span class="brand-teal">LXL</span>&nbsp;HOME IMPROVEMENT
-  <span class="brand-admin">ADMIN</span>
-  <div style="position:absolute;right:12px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:8px;">
-    <span id="adminUserEmail" style="font-size:9px;letter-spacing:1px;color:var(--text-dim);text-transform:none;font-weight:400;"></span>
-    <button onclick="handleSignOut()" style="background:transparent;border:1px solid var(--border);color:var(--text-dim);border-radius:5px;padding:4px 10px;font-family:'Outfit',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;">Sign Out</button>
-  </div>
+  <span class="brand-teal">LXL</span>&nbsp;ADMIN
+  <button onclick="handleSignOut()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:transparent;border:1px solid var(--border);color:var(--text-dim);border-radius:5px;padding:4px 12px;font-family:'Outfit',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;">Sign Out</button>
 </div>
 
-<!-- ======= TOP NAV ======= -->
-<div class="top-menu">
-  <button id="tab-gallery"   onclick="showTab('gallery')" class="active">🖼️ Gallery</button>
-  <button id="tab-estimates" onclick="showTab('estimates')">📋 Estimates</button>
-</div>
-
-  <div class="section-title">⏳ Pending Approval</div>
-  <div id="pendingList"><div class="empty-state"><div class="es-icon">⏳</div>Loading...</div></div>
-
-  <div class="section-title" style="margin-top:24px;">✅ Approved Reviews</div>
-  <div id="approvedList"><div class="empty-state"><div class="es-icon">✅</div>Loading...</div></div>
 </div>
 
 <!-- ======= ESTIMATES SECTION ======= -->
@@ -589,7 +545,6 @@ onAuthStateChanged(auth, user => {
   }
 
   // Verified admin — reveal dashboard
-  document.getElementById('adminUserEmail').textContent = user.email;
   status.textContent = 'Access granted';
   status.style.color = 'var(--green)';
   setTimeout(() => {
@@ -612,9 +567,7 @@ window.handleSignOut = async function() {
 let galleryLoaded = false;
 window.showTab = function(tab) {
   document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.top-menu button').forEach(b => b.classList.remove('active'));
   document.getElementById('sec-' + tab).classList.add('active');
-  document.getElementById('tab-' + tab).classList.add('active');
   if (tab === 'gallery' && !galleryLoaded) {
     galleryLoaded = true;
     window.fbLoadGallery();
