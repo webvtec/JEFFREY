@@ -366,7 +366,7 @@
 <!-- ======= FIREBASE MODULE SCRIPT ======= -->
 <script type="module">
 import { initializeApp }        from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, getDocs, doc, query, orderBy, where }
+import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, query, orderBy, where }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, signOut }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -453,25 +453,97 @@ async function loadEstimates() {
       el.innerHTML = '<div class="empty-state"><div class="es-icon">📋</div>No estimates yet.</div>';
       return;
     }
-    el.innerHTML = snap.docs.map(d => {
-      const e = d.data();
-      const date = e.submittedAt ? new Date(e.submittedAt.seconds * 1000).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }) : '—';
+
+    const pending  = [];
+    const accepted = [];
+    const cancelled = [];
+
+    snap.docs.forEach(d => {
+      const e = { id: d.id, ...d.data() };
+      if (e.status === 'accepted') accepted.push(e);
+      else if (e.status === 'cancelled') cancelled.push(e);
+      else pending.push(e);
+    });
+
+    function renderCard(e) {
+      const date = e.submittedAt
+        ? new Date(e.submittedAt.seconds * 1000).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' })
+        : '—';
+      const isPending   = !e.status || e.status === 'pending';
+      const isAccepted  = e.status === 'accepted';
+      const isCancelled = e.status === 'cancelled';
       return `
-        <div class="estimate-card-admin">
-          <div class="ec-name">${e.name || '—'}</div>
+        <div class="estimate-card-admin" id="est-${e.id}" style="${isCancelled ? 'opacity:0.5;' : ''}">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+            <div class="ec-name">${e.name || '—'}</div>
+            <span class="ec-status ${isAccepted ? 'completed' : isCancelled ? 'cancelled' : 'new'}">
+              ${isAccepted ? 'Accepted' : isCancelled ? 'Cancelled' : 'Pending'}
+            </span>
+          </div>
           <div class="ec-detail">📞 ${e.phone || '—'}</div>
-          ${e.email ? `<div class="ec-detail">📧 ${e.email}</div>` : ''}
-          ${e.borough ? `<div class="ec-detail">📍 ${e.borough}${e.address ? ' · ' + e.address : ''}</div>` : ''}
+          ${e.email    ? `<div class="ec-detail">📧 ${e.email}</div>` : ''}
+          ${e.borough  ? `<div class="ec-detail">📍 ${e.borough}${e.address ? ' · ' + e.address : ''}</div>` : ''}
           <div class="ec-detail">🛠 ${e.service || '—'}</div>
           ${e.description ? `<div class="ec-detail" style="margin-top:6px;color:var(--text-mid);">${e.description}</div>` : ''}
           <div class="ec-detail" style="margin-top:8px;font-size:10px;color:var(--text-dim);letter-spacing:1px;">${date}</div>
+          ${!isCancelled ? `
+          <div class="ec-actions">
+            ${isPending ? `<button class="ec-btn success" onclick="updateEstimate('${e.id}','accepted')">✓ Accept</button>` : ''}
+            ${isAccepted ? `<button class="ec-btn primary" onclick="updateEstimate('${e.id}','pending')">↩ Revert</button>` : ''}
+            <button class="ec-btn danger" onclick="updateEstimate('${e.id}','cancelled')">✕ Cancel</button>
+          </div>` : `
+          <div class="ec-actions">
+            <button class="ec-btn danger" onclick="deleteEstimate('${e.id}')">🗑 Delete</button>
+          </div>`}
         </div>`;
-    }).join('');
+    }
+
+    let out = '';
+
+    if (pending.length) {
+      out += `<div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--amber,#F5A623);padding:12px 0 8px;border-top:1px solid var(--border);margin-top:4px;">⏳ Pending (${pending.length})</div>`;
+      out += pending.map(renderCard).join('');
+    }
+
+    if (accepted.length) {
+      out += `<div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--green);padding:12px 0 8px;border-top:1px solid var(--border);margin-top:4px;">✅ Accepted (${accepted.length})</div>`;
+      out += accepted.map(renderCard).join('');
+    }
+
+    if (cancelled.length) {
+      out += `<div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--red);padding:12px 0 8px;border-top:1px solid var(--border);margin-top:4px;">✕ Cancelled (${cancelled.length})</div>`;
+      out += cancelled.map(renderCard).join('');
+    }
+
+    el.innerHTML = out;
+
   } catch(err) {
     console.error(err);
     el.innerHTML = '<div class="empty-state"><div class="es-icon">⚠️</div>Failed to load estimates.</div>';
   }
 }
+
+window.updateEstimate = async function(id, status) {
+  try {
+    await updateDoc(doc(db, 'estimates', id), { status });
+    loadEstimates();
+    showToast(status === 'accepted' ? 'Estimate accepted!' : status === 'cancelled' ? 'Estimate cancelled.' : 'Reverted to pending.', status !== 'cancelled');
+  } catch(e) {
+    console.error(e);
+    showToast('Failed to update.', false);
+  }
+};
+
+window.deleteEstimate = async function(id) {
+  if (!confirm('Delete this estimate permanently?')) return;
+  try {
+    await deleteDoc(doc(db, 'estimates', id));
+    loadEstimates();
+    showToast('Estimate deleted.', false);
+  } catch(e) {
+    showToast('Failed to delete.', false);
+  }
+};
 
 // ── TOAST ───────────────────────────────────────────────────────────────────
 window.showToast = function(msg, success) {
