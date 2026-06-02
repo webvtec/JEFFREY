@@ -863,9 +863,97 @@ h1 span.accent { color: var(--neon); }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 2px; }
 
+@keyframes spin { to { transform: rotate(360deg); } }
 .relative-z { position: relative; z-index: 1; }
 .services-section { padding: 0 18px 36px; }
 </style>
+
+  <!-- Firebase Storage: load gallery photos -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+    import { getStorage, ref, listAll, getDownloadURL, getMetadata }
+      from "https://www.gstatic.com/firebasejs/11.0.0/firebase-storage.js";
+
+    const app = initializeApp({
+      apiKey:            "AIzaSyDZsl7wCM4ABai7-YMg_6PzPUOsq2M9CKM",
+      authDomain:        "lxl-home-improvement-llc.firebaseapp.com",
+      projectId:         "lxl-home-improvement-llc",
+      storageBucket:     "lxl-home-improvement-llc.firebasestorage.app",
+      messagingSenderId: "690054839471",
+      appId:             "1:690054839471:web:59a803e363766c75e6e85a"
+    });
+    const storage = getStorage(app);
+
+    const CATEGORIES = [
+      "Kitchen Refurbishment",
+      "Bathroom Refurbishment",
+      "Flooring & Tiling",
+      "Painting & Carpentry",
+      "Masonry",
+      "Window Replacement",
+      "General"
+    ];
+
+    async function loadGallery() {
+      const container = document.getElementById("firebaseGalleryContainer");
+      if (!container) return;
+      try {
+        const result = await listAll(ref(storage, "gallery/"));
+        if (!result.items.length) {
+          container.innerHTML = "<p style='text-align:center;color:var(--text-dim);font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:32px;'>Photos coming soon</p>";
+          return;
+        }
+        // Fetch all metadata + URLs in parallel
+        const photos = await Promise.all(result.items.map(async item => {
+          const [url, m] = await Promise.all([getDownloadURL(item), getMetadata(item)]);
+          return {
+            url,
+            category: (m.customMetadata && m.customMetadata.category) || "General",
+            isBefore: m.customMetadata && m.customMetadata.isBefore === "true"
+          };
+        }));
+
+        // Group by category, preserving order
+        const groups = {};
+        for (const cat of CATEGORIES) groups[cat] = [];
+        for (const p of photos) {
+          if (!groups[p.category]) groups[p.category] = [];
+          groups[p.category].push(p);
+        }
+
+        container.innerHTML = "";
+        for (const [cat, items] of Object.entries(groups)) {
+          if (!items.length) continue;
+          const section = document.createElement("div");
+          section.className = "gallery-category";
+          section.innerHTML = "<h3>" + cat + "</h3>";
+          const grid = document.createElement("div");
+          grid.className = "ba-grid";
+          for (const photo of items) {
+            const card = document.createElement("div");
+            card.className = "ba-card";
+            card.style.cursor = "pointer";
+            card.onclick = () => openPhotoModal(photo.url);
+            card.innerHTML =
+              "<img class='ba-card-img' src='" + photo.url + "' alt='" + cat + "' loading='lazy'>" +
+              "<div class='ba-card-label'>" +
+                (photo.isBefore
+                  ? "<span class='ba-label-before'>BEFORE</span><span class='ba-label-arrow'>→</span>"
+                  : "<span class='ba-label-after'>AFTER</span>") +
+              "</div>";
+            grid.appendChild(card);
+          }
+          section.appendChild(grid);
+          container.appendChild(section);
+        }
+      } catch(e) {
+        console.error(e);
+        container.innerHTML = "<p style='text-align:center;color:var(--text-dim);padding:32px;font-size:12px;'>⚠️ Could not load gallery.</p>";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadGallery);
+  <\/script>
 </head>
 <body>
 
@@ -977,40 +1065,9 @@ h1 span.accent { color: var(--neon); }
     <p style="font-family:'Outfit',sans-serif; font-size:12px; color:var(--text-dim); letter-spacing:1px;">Transformations across all five boroughs.</p>
   </div>
 
-  <div class="gallery-category">
-    <h3>Kitchen Refurbishment</h3>
-    <div class="ba-grid">
-      <div class="ba-card"><div class="ba-card-placeholder">🍳<span>Before</span></div><div class="ba-card-label"><span class="ba-label-before">BEFORE</span><span class="ba-label-arrow">→</span></div></div>
-      <div class="ba-card"><div class="ba-card-placeholder" style="background:var(--surface2);">✨<span>After</span></div><div class="ba-card-label"><span class="ba-label-after">AFTER</span></div></div>
-      <div class="ba-card"><div class="ba-card-placeholder">🍳<span>Before</span></div><div class="ba-card-label"><span class="ba-label-before">BEFORE</span><span class="ba-label-arrow">→</span></div></div>
-      <div class="ba-card"><div class="ba-card-placeholder" style="background:var(--surface2);">✨<span>After</span></div><div class="ba-card-label"><span class="ba-label-after">AFTER</span></div></div>
-    </div>
-  </div>
-
-  <div class="gallery-category">
-    <h3>Bathroom Refurbishment</h3>
-    <div class="ba-grid">
-      <div class="ba-card"><div class="ba-card-placeholder">🚿<span>Before</span></div><div class="ba-card-label"><span class="ba-label-before">BEFORE</span><span class="ba-label-arrow">→</span></div></div>
-      <div class="ba-card"><div class="ba-card-placeholder" style="background:var(--surface2);">✨<span>After</span></div><div class="ba-card-label"><span class="ba-label-after">AFTER</span></div></div>
-      <div class="ba-card"><div class="ba-card-placeholder">🚿<span>Before</span></div><div class="ba-card-label"><span class="ba-label-before">BEFORE</span><span class="ba-label-arrow">→</span></div></div>
-      <div class="ba-card"><div class="ba-card-placeholder" style="background:var(--surface2);">✨<span>After</span></div><div class="ba-card-label"><span class="ba-label-after">AFTER</span></div></div>
-    </div>
-  </div>
-
-  <div class="gallery-category">
-    <h3>Flooring &amp; Tiling</h3>
-    <div class="ba-grid">
-      <div class="ba-card"><div class="ba-card-placeholder">🏗️<span>Before</span></div><div class="ba-card-label"><span class="ba-label-before">BEFORE</span><span class="ba-label-arrow">→</span></div></div>
-      <div class="ba-card"><div class="ba-card-placeholder" style="background:var(--surface2);">✨<span>After</span></div><div class="ba-card-label"><span class="ba-label-after">AFTER</span></div></div>
-    </div>
-  </div>
-
-  <div class="gallery-category">
-    <h3>Painting &amp; Carpentry</h3>
-    <div class="ba-grid">
-      <div class="ba-card"><div class="ba-card-placeholder">🖌️<span>Before</span></div><div class="ba-card-label"><span class="ba-label-before">BEFORE</span><span class="ba-label-arrow">→</span></div></div>
-      <div class="ba-card"><div class="ba-card-placeholder" style="background:var(--surface2);">✨<span>After</span></div><div class="ba-card-label"><span class="ba-label-after">AFTER</span></div></div>
-    </div>
+  <!-- Photos loaded from Firebase Storage -->
+  <div id="firebaseGalleryContainer">
+    <div style="text-align:center;padding:48px;color:var(--text-dim);font-size:24px;animation:spin 1s linear infinite;">↻</div>
   </div>
 
   <div style="padding: 0 18px 36px; text-align:center; margin-top:16px;">
