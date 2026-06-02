@@ -289,149 +289,6 @@
     ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 2px; }
   </style>
 
-  <!-- Firebase Storage (compat SDK) -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
-  <script>
-    (function() {
-      var app = firebase.initializeApp({
-        apiKey:            "AIzaSyDZsl7wCM4ABai7-YMg_6PzPUOsq2M9CKM",
-        authDomain:        "lxl-home-improvement-llc.firebaseapp.com",
-        projectId:         "lxl-home-improvement-llc",
-        storageBucket:     "lxl-home-improvement-llc.firebasestorage.app",
-        messagingSenderId: "690054839471",
-        appId:             "1:690054839471:web:59a803e363766c75e6e85a"
-      });
-      var storage = firebase.storage(app);
-
-      /* UPLOAD */
-      window.fbUpload = function(files, category) {
-        var grid = document.getElementById("adminGalleryGrid");
-        var empty = grid.querySelector(".empty-state");
-        if (empty) empty.remove();
-        var total = files.length;
-        var done = 0;
-
-        Array.from(files).forEach(function(file) {
-          var safe = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-          var path = "gallery/" + Date.now() + "_" + safe;
-          var sRef = storage.ref(path);
-          var pid = "ph_" + Math.random().toString(36).slice(2);
-
-          var ph = document.createElement("div");
-          ph.className = "gallery-thumb";
-          ph.id = pid;
-          var wrap = document.createElement("div");
-          wrap.style.cssText = "position:absolute;inset:0;background:var(--surface2);display:flex;align-items:flex-end";
-          var bar = document.createElement("div");
-          bar.id = "bar_" + pid;
-          bar.style.cssText = "height:3px;width:0%;background:var(--neon);transition:width .15s";
-          wrap.appendChild(bar);
-          var lbl = document.createElement("div");
-          lbl.className = "gt-label";
-          lbl.textContent = category;
-          ph.appendChild(wrap);
-          ph.appendChild(lbl);
-          grid.appendChild(ph);
-
-          var task = sRef.put(file, { customMetadata: { category: category } });
-
-          task.on("state_changed",
-            function(snap) {
-              var b = document.getElementById("bar_" + pid);
-              if (b) b.style.width = Math.round(snap.bytesTransferred / snap.totalBytes * 100) + "%";
-            },
-            function(err) {
-              console.error(err);
-              var el = document.getElementById(pid);
-              if (el) el.remove();
-            },
-            function() {
-              task.snapshot.ref.getDownloadURL().then(function(url) {
-                var el = document.getElementById(pid);
-                if (el) {
-                  el.style.backgroundImage = "url(" + url + ")";
-                  el.style.backgroundSize = "cover";
-                  el.style.backgroundPosition = "center";
-                  el.innerHTML = "";
-                  var l = document.createElement("div");
-                  l.className = "gt-label";
-                  l.textContent = category;
-                  var btn = document.createElement("button");
-                  btn.className = "gt-del";
-                  btn.textContent = "✕";
-                  btn.setAttribute("data-path", path);
-                  btn.onclick = function() { window.fbDelete(path, btn); };
-                  el.appendChild(l);
-                  el.appendChild(btn);
-                }
-                done++;
-                window.showToast("Uploaded " + done + " / " + total, true);
-                if (done === total) window.showToast(total + " photo" + (total > 1 ? "s" : "") + " saved!", true);
-              });
-            }
-          );
-        });
-      };
-
-      /* DELETE */
-      window.fbDelete = function(path, btn) {
-        if (!confirm("Remove this photo?")) return;
-        storage.ref(path).delete().then(function() {
-          btn.closest(".gallery-thumb").remove();
-          window.showToast("Photo deleted.", false);
-          var grid = document.getElementById("adminGalleryGrid");
-          if (!grid.querySelector(".gallery-thumb"))
-            grid.innerHTML = "<div class='empty-state' style='grid-column:1/-1'>No photos yet</div>";
-        }).catch(function(e) {
-          console.error(e);
-          window.showToast("Delete failed.", false);
-        });
-      };
-
-      /* LOAD */
-      window.fbLoadGallery = function() {
-        var grid = document.getElementById("adminGalleryGrid");
-        grid.innerHTML = "<div style='grid-column:1/-1;text-align:center;padding:40px;color:var(--text-dim);font-size:24px;animation:spin 1s linear infinite'>↻</div>";
-        storage.ref("gallery/").listAll().then(function(result) {
-          grid.innerHTML = "";
-          if (!result.items.length) {
-            grid.innerHTML = "<div class='empty-state' style='grid-column:1/-1'>No photos yet — upload above</div>";
-            return;
-          }
-          var promises = result.items.map(function(item) {
-            return Promise.all([item.getDownloadURL(), item.getMetadata()]).then(function(vals) {
-              return { url: vals[0], path: item.fullPath, category: (vals[1].customMetadata && vals[1].customMetadata.category) || "General" };
-            });
-          });
-          Promise.all(promises).then(function(photos) {
-            photos.forEach(function(photo) {
-              var div = document.createElement("div");
-              div.className = "gallery-thumb";
-              div.style.backgroundImage = "url(" + photo.url + ")";
-              div.style.backgroundSize = "cover";
-              div.style.backgroundPosition = "center";
-              var lbl = document.createElement("div");
-              lbl.className = "gt-label";
-              lbl.textContent = photo.category;
-              var btn = document.createElement("button");
-              btn.className = "gt-del";
-              btn.textContent = "✕";
-              btn.onclick = (function(p, b) { return function() { window.fbDelete(p, b); }; })(photo.path, btn);
-              div.appendChild(lbl);
-              div.appendChild(btn);
-              grid.appendChild(div);
-            });
-          });
-        }).catch(function(e) {
-          console.error(e);
-          grid.innerHTML = "<div style='grid-column:1/-1;text-align:center;padding:40px;color:var(--red)'>⚠️ Failed to load. Check Firebase Storage rules.</div>";
-        });
-      };
-
-      // Don't auto-load on DOMContentLoaded — only load when gallery tab is shown
-    })();
-  </script>
 </head>
 <body>
 
@@ -506,6 +363,8 @@ import { getFirestore, collection, getDocs, doc, query, orderBy, where }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, signOut }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject, listAll, getMetadata }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey:            "AIzaSyDZsl7wCM4ABai7-YMg_6PzPUOsq2M9CKM",
@@ -516,9 +375,10 @@ const firebaseConfig = {
   appId:             "1:690054839471:web:59a803e363766c75e6e85a"
 };
 
-const app = initializeApp(firebaseConfig);
-const db   = getFirestore(app);
-const auth = getAuth(app);
+const app     = initializeApp(firebaseConfig);
+const db      = getFirestore(app);
+const auth    = getAuth(app);
+const storage = getStorage(app);
 
 // ── AUTH GUARD ──────────────────────────────────────────────────────────────
 const ADMIN_UID = 'ruPIdPfSUGc81QlcDIAqlRPBMjZ2';
@@ -590,11 +450,134 @@ window.showToast = function(msg, success) {
   }, 2800);
 };
 
-// ── GALLERY UPLOAD ───────────────────────────────────────────────────────────
+// ── GALLERY UPLOAD ────────────────────────────────────────────────────────────
 window.handleUpload = function(files) {
   const category = document.getElementById('uploadCategory').value;
   window.fbUpload(files, category);
 };
+
+window.fbUpload = function(files, category) {
+  const grid = document.getElementById('adminGalleryGrid');
+  const empty = grid.querySelector('.empty-state');
+  if (empty) empty.remove();
+  let total = files.length, done = 0;
+
+  Array.from(files).forEach(file => {
+    const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const path = 'gallery/' + Date.now() + '_' + safe;
+    const storageRef = ref(storage, path);
+    const pid = 'ph_' + Math.random().toString(36).slice(2);
+
+    const ph = document.createElement('div');
+    ph.className = 'gallery-thumb';
+    ph.id = pid;
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'position:absolute;inset:0;background:var(--surface2);display:flex;align-items:flex-end';
+    const bar = document.createElement('div');
+    bar.id = 'bar_' + pid;
+    bar.style.cssText = 'height:3px;width:0%;background:var(--neon);transition:width .15s';
+    wrap.appendChild(bar);
+    const lbl = document.createElement('div');
+    lbl.className = 'gt-label';
+    lbl.textContent = category;
+    ph.appendChild(wrap);
+    ph.appendChild(lbl);
+    grid.appendChild(ph);
+
+    const task = uploadBytesResumable(storageRef, file, { customMetadata: { category } });
+
+    task.on('state_changed',
+      snap => {
+        const b = document.getElementById('bar_' + pid);
+        if (b) b.style.width = Math.round(snap.bytesTransferred / snap.totalBytes * 100) + '%';
+      },
+      err => {
+        console.error(err);
+        const el = document.getElementById(pid);
+        if (el) el.remove();
+        showToast('Upload failed: ' + err.message, false);
+      },
+      () => {
+        getDownloadURL(task.snapshot.ref).then(url => {
+          const el = document.getElementById(pid);
+          if (el) {
+            el.style.backgroundImage = 'url(' + url + ')';
+            el.style.backgroundSize = 'cover';
+            el.style.backgroundPosition = 'center';
+            el.innerHTML = '';
+            const l = document.createElement('div');
+            l.className = 'gt-label';
+            l.textContent = category;
+            const btn = document.createElement('button');
+            btn.className = 'gt-del';
+            btn.textContent = '✕';
+            btn.onclick = () => window.fbDelete(path, btn);
+            el.appendChild(l);
+            el.appendChild(btn);
+          }
+          done++;
+          if (done === total) showToast(total + ' photo' + (total > 1 ? 's' : '') + ' saved!', true);
+          else showToast('Uploaded ' + done + ' / ' + total, true);
+        });
+      }
+    );
+  });
+};
+
+window.fbDelete = function(path, btn) {
+  if (!confirm('Remove this photo?')) return;
+  deleteObject(ref(storage, path)).then(() => {
+    btn.closest('.gallery-thumb').remove();
+    showToast('Photo deleted.', false);
+    const grid = document.getElementById('adminGalleryGrid');
+    if (!grid.querySelector('.gallery-thumb'))
+      grid.innerHTML = "<div class='empty-state' style='grid-column:1/-1'>No photos yet</div>";
+  }).catch(e => {
+    console.error(e);
+    showToast('Delete failed.', false);
+  });
+};
+
+window.fbLoadGallery = function() {
+  const grid = document.getElementById('adminGalleryGrid');
+  grid.innerHTML = "<div style='grid-column:1/-1;text-align:center;padding:40px;color:var(--text-dim);font-size:24px;animation:spin 1s linear infinite'>↻</div>";
+  listAll(ref(storage, 'gallery/')).then(result => {
+    grid.innerHTML = '';
+    if (!result.items.length) {
+      grid.innerHTML = "<div class='empty-state' style='grid-column:1/-1'>No photos yet — upload above</div>";
+      return;
+    }
+    const promises = result.items.map(item =>
+      Promise.all([getDownloadURL(item), getMetadata(item)]).then(([url, meta]) => ({
+        url, path: item.fullPath,
+        category: (meta.customMetadata && meta.customMetadata.category) || 'General'
+      }))
+    );
+    Promise.all(promises).then(photos => {
+      photos.forEach(photo => {
+        const div = document.createElement('div');
+        div.className = 'gallery-thumb';
+        div.style.backgroundImage = 'url(' + photo.url + ')';
+        div.style.backgroundSize = 'cover';
+        div.style.backgroundPosition = 'center';
+        const lbl = document.createElement('div');
+        lbl.className = 'gt-label';
+        lbl.textContent = photo.category;
+        const btn = document.createElement('button');
+        btn.className = 'gt-del';
+        btn.textContent = '✕';
+        btn.onclick = () => window.fbDelete(photo.path, btn);
+        div.appendChild(lbl);
+        div.appendChild(btn);
+        grid.appendChild(div);
+      });
+    });
+  }).catch(e => {
+    console.error(e);
+    grid.innerHTML = "<div style='grid-column:1/-1;text-align:center;padding:40px;color:var(--red)'>⚠️ Failed to load. Check Firebase Storage rules.</div>";
+  });
+};
+
 </script>
 
 </div><!-- end #dashboardContent -->
