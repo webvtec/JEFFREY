@@ -305,31 +305,37 @@
 <style>
   @keyframes dotpulse{0%,100%{opacity:0.2;transform:scale(0.8);}50%{opacity:1;transform:scale(1.2);}}
   #dashboardContent{display:none;}
+  .nav-btn {
+    flex:1;padding:10px 6px;border-radius:6px;cursor:pointer;
+    font-family:'Outfit',sans-serif;font-weight:700;font-size:10px;
+    letter-spacing:2px;text-transform:uppercase;transition:all 0.18s;
+    border:1px solid var(--border);background:transparent;color:var(--text-dim);
+  }
+  .nav-btn.active { background:var(--neon-dim);border-color:var(--border-lit);color:var(--neon); }
 </style>
+
 <div id="dashboardContent">
 
-<!-- ======= HEADER ======= -->
-<div class="header-bar" style="position:relative;">
-  <span class="brand-teal">LXL</span>&nbsp;ADMIN
-  <button onclick="handleSignOut()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:transparent;border:1px solid var(--border);color:var(--text-dim);border-radius:5px;padding:4px 12px;font-family:'Outfit',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;">Sign Out</button>
-</div>
-
-</div>
-
-  <div id="estimatesList"><div class="empty-state"><div class="es-icon">📋</div>No estimates yet.</div></div>
-</div>
-
-<!-- ======= GALLERY SECTION ======= -->
-<div class="page-section active" id="sec-gallery">
-  <!-- Upload zone -->
-  <div class="upload-zone-admin" onclick="document.getElementById('adminPhotoInput').click()">
-    <div style="font-size:28px;">📷</div>
-    <p>Tap to upload photos</p>
+  <!-- HEADER -->
+  <div class="header-bar" style="position:relative;">
+    <span class="brand-teal">LXL</span>&nbsp;ADMIN
+    <button onclick="handleSignOut()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:transparent;border:1px solid var(--border);color:var(--text-dim);border-radius:5px;padding:4px 12px;font-family:'Outfit',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;">Sign Out</button>
   </div>
-  <input type="file" id="adminPhotoInput" accept="image/*" multiple onchange="handleUpload(this.files)">
 
-  <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
-    <div class="form-group" style="flex:1;min-width:140px;">
+  <!-- NAV -->
+  <div style="display:flex;gap:8px;padding:10px 14px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:52px;z-index:90;">
+    <button class="nav-btn active" id="btn-gallery" onclick="showSection('gallery')">🖼️ Gallery</button>
+    <button class="nav-btn" id="btn-estimates" onclick="showSection('estimates')">📋 Estimates</button>
+  </div>
+
+  <!-- GALLERY SECTION -->
+  <div class="page-section active" id="sec-gallery">
+    <div class="upload-zone-admin" onclick="document.getElementById('adminPhotoInput').click()">
+      <div style="font-size:28px;">📷</div>
+      <p>Tap to upload photos</p>
+    </div>
+    <input type="file" id="adminPhotoInput" accept="image/*" multiple onchange="handleUpload(this.files)">
+    <div class="form-group">
       <label class="form-label">Category</label>
       <select class="form-select" id="uploadCategory">
         <option>Kitchen Refurbishment</option>
@@ -341,22 +347,21 @@
         <option>General</option>
       </select>
     </div>
-    
+    <div class="gallery-admin-grid" id="adminGalleryGrid">
+      <div class="empty-state" style="grid-column:1/-1"><div class="es-icon">🖼️</div>Loading gallery...</div>
+    </div>
   </div>
 
-  <div class="section-title">Uploaded Photos</div>
-  <div class="gallery-admin-grid" id="adminGalleryGrid">
-    <div class="empty-state" style="grid-column:1/-1"><div class="es-icon">🖼️</div>Loading gallery...</div>
+  <!-- ESTIMATES SECTION -->
+  <div class="page-section" id="sec-estimates">
+    <div class="section-title">📋 Estimate Requests</div>
+    <div id="estimatesList"><div class="empty-state"><div class="es-icon">📋</div>Loading...</div></div>
   </div>
-</div>
 
-  <div class="section-title" style="margin-top:28px;">📋 Estimate Requests</div>
-  <div id="estimatesList"><div class="empty-state"><div class="es-icon">📋</div>Loading...</div></div>
+</div><!-- end #dashboardContent -->
 
-</div>
-
-<!-- ======= TOAST ======= -->
 <div id="toast"></div>
+
 
 <!-- ======= FIREBASE MODULE SCRIPT ======= -->
 <script type="module">
@@ -427,15 +432,16 @@ window.handleSignOut = async function() {
   window.location.href = 'index.html';
 };
 
-// ── TAB SWITCHER ────────────────────────────────────────────────────────────
-let galleryLoaded = false;
-window.showTab = function(tab) {
+
+// ── SECTION SWITCHER ─────────────────────────────────────────────────────────
+window.showSection = function(name) {
   document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-  document.getElementById('sec-' + tab).classList.add('active');
-  if (tab === 'gallery') {
-    window.fbLoadGallery();
-  }
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + name).classList.add('active');
+  document.getElementById('btn-' + name).classList.add('active');
+  if (name === 'estimates') loadEstimates();
 };
+
 
 // ── ESTIMATES ────────────────────────────────────────────────────────────────
 async function loadEstimates() {
@@ -549,7 +555,7 @@ window.fbUpload = function(files, category) {
             el.appendChild(btn);
           }
           done++;
-          if (done === total) showToast(total + ' photo' + (total > 1 ? 's' : '') + ' saved!', true);
+          if (done === total) { showToast(total + ' photo' + (total > 1 ? 's' : '') + ' saved!', true); window.fbLoadGallery(); }
           else showToast('Uploaded ' + done + ' / ' + total, true);
         });
       }
@@ -572,12 +578,11 @@ window.fbDelete = function(path, btn) {
 };
 
 window.fbLoadGallery = function() {
-  const grid = document.getElementById('adminGalleryGrid');
-  grid.innerHTML = "<div style='grid-column:1/-1;text-align:center;padding:40px;color:var(--text-dim);font-size:24px;animation:spin 1s linear infinite'>↻</div>";
+  const container = document.getElementById('adminGalleryGrid');
+  container.innerHTML = "<div style='text-align:center;padding:40px;color:var(--text-dim);font-size:24px;animation:spin 1s linear infinite'>↻</div>";
   listAll(ref(storage, 'gallery/')).then(result => {
-    grid.innerHTML = '';
     if (!result.items.length) {
-      grid.innerHTML = "<div class='empty-state' style='grid-column:1/-1'>No photos yet — upload above</div>";
+      container.innerHTML = "<div class='empty-state'>No photos yet — upload above</div>";
       return;
     }
     const promises = result.items.map(item =>
@@ -587,32 +592,44 @@ window.fbLoadGallery = function() {
       }))
     );
     Promise.all(promises).then(photos => {
-      photos.forEach(photo => {
-        const div = document.createElement('div');
-        div.className = 'gallery-thumb';
-        div.style.backgroundImage = 'url(' + photo.url + ')';
-        div.style.backgroundSize = 'cover';
-        div.style.backgroundPosition = 'center';
-        const lbl = document.createElement('div');
-        lbl.className = 'gt-label';
-        lbl.textContent = photo.category;
-        const btn = document.createElement('button');
-        btn.className = 'gt-del';
-        btn.textContent = '✕';
-        btn.onclick = () => window.fbDelete(photo.path, btn);
-        div.appendChild(lbl);
-        div.appendChild(btn);
-        grid.appendChild(div);
+      // Group by category
+      const groups = {};
+      photos.forEach(p => {
+        if (!groups[p.category]) groups[p.category] = [];
+        groups[p.category].push(p);
+      });
+
+      container.innerHTML = '';
+      Object.keys(groups).sort().forEach(cat => {
+        // Category heading
+        const heading = document.createElement('div');
+        heading.style.cssText = 'grid-column:1/-1;font-family:Outfit,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--neon);padding:14px 0 8px;border-top:1px solid var(--border);margin-top:8px;';
+        heading.textContent = cat;
+        container.appendChild(heading);
+
+        // Photos for this category
+        groups[cat].forEach(photo => {
+          const div = document.createElement('div');
+          div.className = 'gallery-thumb';
+          div.style.backgroundImage = 'url(' + photo.url + ')';
+          div.style.backgroundSize = 'cover';
+          div.style.backgroundPosition = 'center';
+          const btn = document.createElement('button');
+          btn.className = 'gt-del';
+          btn.textContent = '✕';
+          btn.onclick = () => window.fbDelete(photo.path, btn);
+          div.appendChild(btn);
+          container.appendChild(div);
+        });
       });
     });
   }).catch(e => {
     console.error(e);
-    grid.innerHTML = "<div style='grid-column:1/-1;text-align:center;padding:40px;color:var(--red)'>⚠️ Failed to load. Check Firebase Storage rules.</div>";
+    container.innerHTML = "<div style='grid-column:1/-1;text-align:center;padding:40px;color:var(--red)'>⚠️ Failed to load. Check Firebase Storage rules.</div>";
   });
 };
 
 </script>
 
-</div><!-- end #dashboardContent -->
 </body>
 </html>
