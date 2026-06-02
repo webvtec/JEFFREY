@@ -39,11 +39,11 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 10px 14px 0;
-  padding: 10px 14px;
+  margin: 10px 14px 10px;
+  padding: 11px 14px;
   border-radius: 8px;
-  border: 1px solid rgba(0,201,167,0.25);
-  background: rgba(0,201,167,0.06);
+  border: 1px solid rgba(0,201,167,0.35);
+  background: rgba(0,201,167,0.08);
   color: var(--neon);
   font-family: 'Outfit', sans-serif;
   font-weight: 700;
@@ -53,6 +53,7 @@
   cursor: pointer;
   width: calc(100% - 28px);
   transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 .sidebar-admin-btn:hover { background: rgba(0,201,167,0.14); border-color: var(--neon); }
 .sidebar-admin-btn .admin-avatar {
@@ -1142,10 +1143,6 @@ h1 span.accent { color: var(--neon); }
   <button class="sidebar-nav-item" id="snav-estimate" onclick="showSection('estimateSection'); closeSidebar();">
     <span class="snav-icon">◈</span> Free Estimate
   </button>
-  <button class="sidebar-admin-btn" id="sidebarAdminBtn" onclick="openAdminPanel()">
-    <img class="admin-avatar" id="adminAvatar" src="" alt="">
-    <span id="adminBtnLabel">⚙ Admin</span>
-  </button>
   <div class="sidebar-divider"></div>
   <div class="sidebar-label">Company</div>
   <button class="sidebar-nav-item" id="snav-about" onclick="showSection('aboutSection'); closeSidebar();">
@@ -1158,6 +1155,10 @@ h1 span.accent { color: var(--neon); }
     <span class="snav-icon">◈</span> Contact &amp; Info
   </button>
   <div class="sidebar-divider"></div>
+  <button class="sidebar-admin-btn" id="sidebarAdminBtn" onclick="openAdminPanel()">
+    <img class="admin-avatar" id="adminAvatar" src="" alt="">
+    <span id="adminBtnLabel">⚙ Admin</span>
+  </button>
   <div class="sidebar-phone-block">
     <div class="spb-label">Call Anytime</div>
     <a href="tel:+13322608942">(332) 260-8942</a>
