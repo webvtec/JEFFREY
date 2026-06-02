@@ -1485,27 +1485,17 @@ async function submitEstimate() {
   const service = document.getElementById('service').value;
   if (!first || !phone || !service) { showToast('Please fill in name, phone, and service.', false); return; }
 
-  const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE';
-  const TELEGRAM_CHAT_ID   = 'YOUR_CHAT_ID_HERE';
-
-  const text =
-    `🔨 *NEW ESTIMATE REQUEST*\n` +
-    `👤 Name: ${first} ${document.getElementById('lastName').value}\n` +
-    `📞 Phone: ${phone}\n` +
-    `📧 Email: ${document.getElementById('email').value || '—'}\n` +
-    `📍 Borough: ${document.getElementById('borough').value || '—'}\n` +
-    `🏠 Address: ${document.getElementById('exactAddress').value || '—'}\n` +
-    `🛠 Service: ${service}\n` +
-    `📝 Description: ${document.getElementById('description').value || '—'}`;
-
   try {
-    const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text, parse_mode: 'Markdown' })
+    await addDoc(collection(db, 'estimates'), {
+      name:        first + ' ' + (document.getElementById('lastName').value.trim()),
+      phone:       phone,
+      email:       document.getElementById('email').value.trim() || '',
+      borough:     document.getElementById('borough').value || '',
+      address:     document.getElementById('exactAddress').value.trim() || '',
+      service:     service,
+      description: document.getElementById('description').value.trim() || '',
+      submittedAt: serverTimestamp()
     });
-    const data = await res.json();
-    if (!data.ok) throw new Error(data.description);
     ['firstName','lastName','phone','email','description'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('borough').value = '';
     document.getElementById('exactAddress').value = '';
@@ -1513,7 +1503,7 @@ async function submitEstimate() {
     document.getElementById('service').value = '';
     showToast("Estimate request sent! We'll be in touch soon.", true);
   } catch (err) {
-    console.error('Telegram error:', err);
+    console.error('Firestore error:', err);
     showToast('Something went wrong. Please call us directly.', false);
   }
 }

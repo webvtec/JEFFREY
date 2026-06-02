@@ -316,9 +316,6 @@
 
 </div>
 
-<!-- ======= ESTIMATES SECTION ======= -->
-<div class="page-section" id="sec-estimates">
-  <div class="section-title">📋 Estimate Requests</div>
   <div id="estimatesList"><div class="empty-state"><div class="es-icon">📋</div>No estimates yet.</div></div>
 </div>
 
@@ -351,6 +348,11 @@
   <div class="gallery-admin-grid" id="adminGalleryGrid">
     <div class="empty-state" style="grid-column:1/-1"><div class="es-icon">🖼️</div>Loading gallery...</div>
   </div>
+</div>
+
+  <div class="section-title" style="margin-top:28px;">📋 Estimate Requests</div>
+  <div id="estimatesList"><div class="empty-state"><div class="es-icon">📋</div>Loading...</div></div>
+
 </div>
 
 <!-- ======= TOAST ======= -->
@@ -414,6 +416,7 @@ onAuthStateChanged(auth, user => {
       overlay.style.display = 'none';
       content.style.display = 'block';
       window.fbLoadGallery();
+      loadEstimates();
     }, 400);
   }, 700);
 
@@ -433,6 +436,36 @@ window.showTab = function(tab) {
     window.fbLoadGallery();
   }
 };
+
+// ── ESTIMATES ────────────────────────────────────────────────────────────────
+async function loadEstimates() {
+  const el = document.getElementById('estimatesList');
+  el.innerHTML = '<div class="empty-state"><div class="es-icon">⏳</div>Loading...</div>';
+  try {
+    const snap = await getDocs(query(collection(db, 'estimates'), orderBy('submittedAt', 'desc')));
+    if (snap.empty) {
+      el.innerHTML = '<div class="empty-state"><div class="es-icon">📋</div>No estimates yet.</div>';
+      return;
+    }
+    el.innerHTML = snap.docs.map(d => {
+      const e = d.data();
+      const date = e.submittedAt ? new Date(e.submittedAt.seconds * 1000).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }) : '—';
+      return `
+        <div class="estimate-card-admin">
+          <div class="ec-name">${e.name || '—'}</div>
+          <div class="ec-detail">📞 ${e.phone || '—'}</div>
+          ${e.email ? `<div class="ec-detail">📧 ${e.email}</div>` : ''}
+          ${e.borough ? `<div class="ec-detail">📍 ${e.borough}${e.address ? ' · ' + e.address : ''}</div>` : ''}
+          <div class="ec-detail">🛠 ${e.service || '—'}</div>
+          ${e.description ? `<div class="ec-detail" style="margin-top:6px;color:var(--text-mid);">${e.description}</div>` : ''}
+          <div class="ec-detail" style="margin-top:8px;font-size:10px;color:var(--text-dim);letter-spacing:1px;">${date}</div>
+        </div>`;
+    }).join('');
+  } catch(err) {
+    console.error(err);
+    el.innerHTML = '<div class="empty-state"><div class="es-icon">⚠️</div>Failed to load estimates.</div>';
+  }
+}
 
 // ── TOAST ───────────────────────────────────────────────────────────────────
 window.showToast = function(msg, success) {
