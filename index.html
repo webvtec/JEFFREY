@@ -1625,13 +1625,8 @@ onAuthStateChanged(auth, user => {
   const label = document.getElementById('adminBtnLabel');
   const avatar = document.getElementById('adminAvatar');
   if (user) {
-    btn.classList.add('signed-in');
-    label.textContent = 'Admin ✓';
-    if (user.photoURL) { avatar.src = user.photoURL; avatar.style.display = 'block'; }
-    document.getElementById('adminUserLabel').textContent = 'Signed in as ' + user.email;
-    document.getElementById('adminSigninScreen').style.display = 'none';
-    document.getElementById('adminDashboard').style.display = 'block';
-    loadAdminReviews();
+    // Redirect to the admin dashboard page
+    window.location.href = 'dashboard.html';
   } else {
     btn.classList.remove('signed-in');
     label.textContent = '⚙ Admin';
