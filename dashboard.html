@@ -11,23 +11,21 @@
 
   <style>
     :root {
-      --bg:          #0D0F14;
-      --surface:     #13161D;
-      --surface2:    #1A1E28;
-      --surface3:    #212634;
-      --neon:        #00C9A7;
-      --neon-dim:    rgba(0,201,167,0.1);
-      --neon-glow:   rgba(0,201,167,0.2);
-      --hot:         #FF6B35;
-      --hot-dim:     rgba(255,107,53,0.1);
-      --amber:       #F5A623;
-      --text:        #E8EBF0;
-      --text-dim:    #6B7485;
-      --text-mid:    #9AA3B2;
-      --border:      rgba(255,255,255,0.06);
-      --border-lit:  rgba(0,201,167,0.25);
-      --green:       #22C55E;
-      --red:         #EF4444;
+      --bg:         #0D0F14;
+      --surface:    #13161D;
+      --surface2:   #1A1E28;
+      --surface3:   #212634;
+      --neon:       #00C9A7;
+      --neon-dim:   rgba(0,201,167,0.1);
+      --hot:        #FF6B35;
+      --hot-dim:    rgba(255,107,53,0.1);
+      --text:       #E8EBF0;
+      --text-dim:   #6B7485;
+      --text-mid:   #9AA3B2;
+      --border:     rgba(255,255,255,0.06);
+      --border-lit: rgba(0,201,167,0.25);
+      --green:      #22C55E;
+      --red:        #EF4444;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -75,25 +73,15 @@
       100% { background-position: -100% center; }
     }
     .brand-teal { color: var(--neon); }
-    .brand-admin {
-      font-size: 9px;
-      letter-spacing: 4px;
-      font-weight: 500;
-      opacity: 0.45;
-      margin-left: 10px;
-    }
+    .brand-admin { font-size: 9px; letter-spacing: 4px; font-weight: 500; opacity: 0.45; margin-left: 10px; }
 
     /* ======= TOP NAV ======= */
     .top-menu {
       display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: stretch;
       gap: 4px;
       background: var(--surface);
-      padding: 8px 8px;
+      padding: 8px;
       border-bottom: 1px solid var(--border);
-      flex-wrap: nowrap;
       position: sticky;
       top: 52px;
       z-index: 90;
@@ -112,20 +100,15 @@
       text-transform: uppercase;
       flex: 1;
       transition: all 0.18s ease;
-      white-space: nowrap;
     }
     .top-menu button:hover { color: var(--text-mid); background: rgba(255,255,255,0.04); }
-    .top-menu button.active {
-      background: var(--neon-dim);
-      color: var(--neon);
-      border-color: var(--border-lit);
-    }
+    .top-menu button.active { background: var(--neon-dim); color: var(--neon); border-color: var(--border-lit); }
 
     /* ======= CONTENT ======= */
     .page-section { display: none; padding: 14px; }
     .page-section.active { display: block; }
 
-    /* ======= CARDS ======= */
+    /* ======= STAT CARDS ======= */
     .stat-row {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -147,7 +130,6 @@
       color: var(--neon);
     }
     .stat-card .stat-lbl {
-      font-family: 'Outfit', sans-serif;
       font-size: 9px;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -155,8 +137,8 @@
       margin-top: 3px;
     }
 
+    /* ======= SECTION TITLE ======= */
     .section-title {
-      font-family: 'Outfit', sans-serif;
       font-weight: 700;
       font-size: 10px;
       letter-spacing: 3px;
@@ -183,34 +165,21 @@
       padding: 14px;
       margin-bottom: 8px;
       transition: border-color 0.2s ease;
-      position: relative;
     }
     .estimate-card-admin:hover { border-color: rgba(0,201,167,0.2); }
-    .estimate-card-admin .ec-name {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-    .estimate-card-admin .ec-detail {
-      font-family: 'Outfit', sans-serif;
-      font-size: 12px;
-      color: var(--text-dim);
-      margin-bottom: 2px;
-    }
+    .ec-name { font-weight: 700; font-size: 14px; color: var(--text); margin-bottom: 4px; }
+    .ec-detail { font-size: 12px; color: var(--text-dim); margin-bottom: 2px; }
     .ec-status {
       display: inline-block;
       padding: 2px 9px;
       border-radius: 20px;
-      font-family: 'Outfit', sans-serif;
       font-weight: 600;
       font-size: 9px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       margin-top: 8px;
     }
-    .ec-status.new { background: var(--neon-dim); color: var(--neon); border: 1px solid rgba(0,201,167,0.2); }
+    .ec-status.new       { background: var(--neon-dim); color: var(--neon); border: 1px solid rgba(0,201,167,0.2); }
     .ec-status.in-progress { background: var(--hot-dim); color: var(--hot); border: 1px solid rgba(255,107,53,0.2); }
     .ec-status.completed { background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.2); }
     .ec-status.cancelled { background: rgba(239,68,68,0.1); color: var(--red); border: 1px solid rgba(239,68,68,0.2); }
@@ -230,81 +199,47 @@
     }
     .ec-btn.primary { background: rgba(0,201,167,0.15); color: var(--neon); border: 1px solid rgba(0,201,167,0.3); }
     .ec-btn.primary:hover { background: rgba(0,201,167,0.25); }
-    .ec-btn.danger { background: rgba(239,68,68,0.12); color: var(--red); border: 1px solid rgba(239,68,68,0.25); }
-    .ec-btn.danger:hover { background: rgba(239,68,68,0.22); }
     .ec-btn.success { background: rgba(34,197,94,0.12); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
     .ec-btn.success:hover { background: rgba(34,197,94,0.22); }
-    .ec-btn.ghost { background: transparent; color: var(--text-dim); border: 1px solid var(--border); }
-    .ec-btn.ghost:hover { border-color: rgba(0,201,167,0.3); color: var(--neon); }
+    .ec-btn.danger  { background: rgba(239,68,68,0.12); color: var(--red); border: 1px solid rgba(239,68,68,0.25); }
+    .ec-btn.danger:hover  { background: rgba(239,68,68,0.22); }
 
-    /* ======= FORM ======= */
-    .form-group { margin-bottom: 12px; }
-    .form-label {
-      display: block;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+    /* ======= EMPTY STATE ======= */
+    .empty-state {
+      text-align: center;
+      padding: 48px 20px;
       color: var(--text-dim);
-      margin-bottom: 5px;
-    }
-    .form-input, .form-select, .form-textarea {
-      width: 100%;
-      padding: 9px 12px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      color: var(--text);
-      font-family: 'Outfit', sans-serif;
-      font-size: 13px;
-      transition: border-color 0.2s ease;
-      outline: none;
-    }
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
-      border-color: var(--neon);
-      box-shadow: 0 0 0 3px var(--neon-dim);
-    }
-    .form-select option { background: var(--surface2); }
-    .form-textarea { resize: vertical; min-height: 70px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
-
-    .submit-btn {
-      padding: 10px 20px;
-      background: var(--neon);
-      color: #000;
-      border: none;
-      border-radius: 5px;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
       font-size: 11px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.18s ease;
     }
-    .submit-btn:hover { background: #00E5BF; }
+    .empty-state .es-icon { font-size: 32px; margin-bottom: 10px; opacity: 0.3; }
 
-    /* ======= PANEL WRAPPER ======= */
-    .panel {
-      background: var(--surface);
+    /* ======= FILTER BAR ======= */
+    .filter-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 5px 12px;
+      border-radius: 20px;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 16px;
-      position: relative;
+      background: transparent;
+      color: var(--text-dim);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.15s ease;
     }
-    .panel::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--neon), var(--hot));
-      border-radius: 8px 8px 0 0;
-    }
+    .filter-btn:hover { border-color: var(--border-lit); color: var(--text-mid); }
+    .filter-btn.active { background: var(--neon-dim); color: var(--neon); border-color: var(--border-lit); }
 
-    /* ======= GALLERY ADMIN ======= */
+    /* ======= GALLERY ======= */
     .gallery-admin-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -333,7 +268,6 @@
       bottom: 0; left: 0; right: 0;
       background: rgba(0,0,0,0.75);
       padding: 3px 7px;
-      font-family: 'Outfit', sans-serif;
       font-size: 8px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
@@ -366,8 +300,24 @@
       margin-bottom: 14px;
     }
     .upload-zone-admin:hover { border-color: rgba(0,201,167,0.5); background: rgba(0,201,167,0.06); }
-    .upload-zone-admin p { font-family: 'Outfit', sans-serif; font-size: 10px; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; margin-top: 5px; }
+    .upload-zone-admin p { font-size: 10px; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; margin-top: 5px; }
     #adminPhotoInput { display: none; }
+
+    .form-group { margin-bottom: 12px; }
+    .form-label { display: block; font-weight: 600; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 5px; }
+    .form-select {
+      width: 100%;
+      padding: 9px 12px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      outline: none;
+    }
+    .form-select option { background: var(--surface2); }
+    .form-select:focus { border-color: var(--neon); }
 
     /* ======= TOAST ======= */
     #toast {
@@ -379,7 +329,6 @@
       color: #000;
       padding: 9px 20px;
       border-radius: 6px;
-      font-family: 'Outfit', sans-serif;
       font-weight: 700;
       font-size: 10px;
       letter-spacing: 2px;
@@ -391,7 +340,6 @@
       white-space: nowrap;
     }
 
-    /* ======= SCROLLBAR ======= */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 2px; }
@@ -399,19 +347,19 @@
 </head>
 <body>
 
-<!-- ======= HEADER ======= -->
+<!-- HEADER -->
 <div class="header-bar">
   <span class="brand-teal">LXL</span>&nbsp;HOME IMPROVEMENT
   <span class="brand-admin">ADMIN</span>
 </div>
 
-<!-- ======= TOP NAV ======= -->
+<!-- NAV -->
 <div class="top-menu">
   <button class="active" id="tab-estimates" onclick="showPage('estimatesPage', this)">Estimates</button>
   <button id="tab-gallery" onclick="showPage('galleryPage', this)">Gallery</button>
 </div>
 
-<div id="dashboardContent" style="display:block;">
+<div id="dashboardContent">
 
   <!-- ======= ESTIMATES PAGE ======= -->
   <div class="page-section active" id="estimatesPage">
@@ -436,53 +384,17 @@
       </div>
     </div>
 
-    <!-- Add Estimate -->
-    <div class="panel">
-      <div class="section-title" style="margin-bottom:14px;">Add Estimate Request</div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Client Name</label>
-          <input type="text" class="form-input" id="newName" placeholder="Full Name">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Phone</label>
-          <input type="tel" class="form-input" id="newPhone" placeholder="(718) 000-0000">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Borough</label>
-          <select class="form-select" id="newBorough">
-            <option value="">Select</option>
-            <option>Bronx</option><option>Queens</option><option>Brooklyn</option>
-            <option>Manhattan</option><option>Staten Island</option><option>Other</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Service</label>
-          <select class="form-select" id="newService">
-            <option value="">Select</option>
-            <option>Carpentry</option><option>Painting</option><option>Flooring</option>
-            <option>Masonry</option><option>Window Replacement</option><option>Tiling</option>
-            <option>Kitchen Refurbishment</option><option>Bathroom Refurbishment</option>
-            <option>Multiple Services</option><option>Other</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Notes</label>
-        <textarea class="form-textarea" id="newNotes" placeholder="Project details, address, timeline..."></textarea>
-      </div>
-      <button class="submit-btn" onclick="addEstimate()">+ Add Estimate</button>
+    <!-- Filter -->
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+      <button class="filter-btn" onclick="setFilter('New', this)">New</button>
+      <button class="filter-btn" onclick="setFilter('In Progress', this)">In Progress</button>
+      <button class="filter-btn" onclick="setFilter('Completed', this)">Completed</button>
     </div>
 
-    <!-- Estimates List -->
-    <div class="section-title">Estimate Requests</div>
-    <div id="estimatesList">
-      <div style="text-align:center; padding:36px; color:var(--text-dim); font-family:'Outfit',sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase;">
-        No estimates yet — add one above
-      </div>
-    </div>
+    <!-- List -->
+    <div class="section-title">Incoming Requests</div>
+    <div id="estimatesList"></div>
   </div>
 
   <!-- ======= GALLERY PAGE ======= -->
@@ -509,116 +421,25 @@
       </select>
     </div>
     <div style="margin-bottom:12px;">
-      <label style="display:flex; align-items:center; gap:8px; font-family:'Outfit',sans-serif; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-dim); cursor:pointer;">
+      <label style="display:flex; align-items:center; gap:8px; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-dim); cursor:pointer;">
         <input type="checkbox" id="isBeforePhoto" style="accent-color:var(--neon); width:14px; height:14px;"> Mark as BEFORE photo
       </label>
     </div>
 
     <div class="gallery-admin-grid" id="adminGalleryGrid">
-      <div style="grid-column:1/-1; text-align:center; padding:36px; color:var(--text-dim); font-family:'Outfit',sans-serif; font-size:10px; letter-spacing:2px; text-transform:uppercase;">
+      <div class="empty-state" style="grid-column:1/-1;">
+        <div class="es-icon">📷</div>
         No photos yet — upload above
       </div>
     </div>
   </div>
-<div class="services-grid">
-      <div class="service-item"><div class="service-dot"></div><div><div class="svc-name">Carpentry</div><div class="svc-status">Active</div></div></div>
-      <div class="service-item"><div class="service-dot"></div><div><div class="svc-name">Painting</div><div class="svc-status">Active</div></div></div>
-      <div class="service-item"><div class="service-dot"></div><div><div class="svc-name">Flooring</div><div class="svc-status">Active</div></div></div>
-      <div class="service-item"><div class="service-dot"></div><div><div class="svc-name">Masonry</div><div class="svc-status">Active</div></div></div>
-      <div class="service-item"><div class="service-dot"></div><div><div class="svc-name">Window Replacement</div><div class="svc-status">Active</div></div></div>
-      <div class="service-item"><div class="service-dot"></div><div><div class="svc-name">Tiling</div><div class="svc-status">Active</div></div></div>
-      <div class="service-item"><div class="service-dot"></div><div><div class="svc-name">Kitchen Refurb</div><div class="svc-status">Active</div></div></div>
-      <div class="service-item"><div class="service-dot"></div><div><div class="svc-name">Bathroom Refurb</div><div class="svc-status">Active</div></div></div>
-    </div>
-  </div>
-<div class="panel">
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Client Name</label>
-          <input type="text" class="form-input" id="rvName" placeholder="Maria G.">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Borough</label>
-          <select class="form-select" id="rvBorough">
-            <option>Bronx</option><option>Queens</option><option>Brooklyn</option>
-            <option>Manhattan</option><option>Staten Island</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Stars (1–5)</label>
-        <select class="form-select" id="rvStars">
-          <option value="5">5 Stars</option>
-          <option value="4">4 Stars</option>
-          <option value="3">3 Stars</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Review Text</label>
-        <textarea class="form-textarea" id="rvText" placeholder="What the client said..."></textarea>
-      </div>
-      <button class="submit-btn" onclick="addReview()">Add Review</button>
-    </div>
 
-    <div id="reviewsList">
-      <div style="text-align:center; padding:28px; color:var(--text-dim); font-family:'Outfit',sans-serif; font-size:10px; letter-spacing:2px; text-transform:uppercase;">No reviews yet</div>
-    </div>
-  </div>
-<div class="panel">
-      <div class="sub-label">Company Details</div>
-
-      <div class="form-group">
-        <label class="form-label">Company Name</label>
-        <input type="text" class="form-input" value="LXL Home Improvement LLC" readonly>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Phone Number</label>
-        <input type="tel" class="form-input" id="infoPhone" placeholder="(929) 555-1234">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <input type="email" class="form-input" id="infoEmail" placeholder="info@lxlhome.com">
-      </div>
-
-      <div class="sub-label">License &amp; Hours</div>
-      <div style="display:flex; flex-wrap:wrap; gap:6px;">
-        <div class="info-badge">Licensed Contractor</div>
-        <div class="info-badge">7 Days a Week</div>
-      </div>
-
-      <div class="sub-label">Payment Methods</div>
-      <div style="display:flex; flex-wrap:wrap; gap:6px;">
-        <div class="info-badge" style="color:var(--neon); border-color:rgba(0,201,167,0.2);">Zelle</div>
-        <div class="info-badge" style="color:var(--neon); border-color:rgba(0,201,167,0.2);">Cash</div>
-        <div class="info-badge" style="color:var(--neon); border-color:rgba(0,201,167,0.2);">Direct Deposit</div>
-        <div class="info-badge" style="color:var(--neon); border-color:rgba(0,201,167,0.2);">Cheque</div>
-      </div>
-
-      <div class="sub-label">Service Areas</div>
-      <div style="display:flex; flex-wrap:wrap; gap:6px;">
-        <div class="info-badge">Bronx</div>
-        <div class="info-badge">Queens</div>
-        <div class="info-badge">Brooklyn</div>
-        <div class="info-badge">Manhattan</div>
-        <div class="info-badge">Staten Island</div>
-      </div>
-
-      <div style="margin-top:18px;">
-        <button class="submit-btn" onclick="showToast('Info saved!', true)">Save Info</button>
-      </div>
-    </div>
-
-    <div style="text-align:center; padding:14px;">
-      <a href="index.html" style="font-family:'Outfit',sans-serif; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--text-dim); text-decoration:none;">← Back to Website</a>
-    </div>
-  </div>
-
-</div><!-- end dashboardContent -->
+</div>
 
 <div id="toast">Saved!</div>
 
 <script>
-// ======= PAGE NAVIGATION =======
+// ======= NAV =======
 function showPage(pageId, btn) {
   document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.top-menu button').forEach(b => b.classList.remove('active'));
@@ -626,75 +447,78 @@ function showPage(pageId, btn) {
   if (btn) btn.classList.add('active');
 }
 
-// ======= IN-MEMORY DATA STORE =======
+// ======= DATA =======
 let estimates = JSON.parse(localStorage.getItem('lxl_estimates') || '[]');
 let galleryPhotos = JSON.parse(localStorage.getItem('lxl_gallery') || '[]');
+let currentFilter = 'all';
 
-function saveAll() {
-  localStorage.setItem('lxl_estimates', JSON.stringify(estimates));
-}
-
-// ======= ESTIMATES =======
+// ======= ESTIMATES — READ ONLY =======
 function renderEstimates() {
-  const list = document.getElementById('estimatesList');
   updateStats();
+  const list = document.getElementById('estimatesList');
+  const filtered = currentFilter === 'all'
+    ? estimates
+    : estimates.filter(e => e.status === currentFilter);
+
   if (estimates.length === 0) {
-    list.innerHTML = '<div style="text-align:center; padding:36px; color:var(--text-dim); font-family:\'Outfit\',sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase;">No estimates yet — add one above</div>';
+    list.innerHTML = `<div class="empty-state"><div class="es-icon">📋</div>No estimates received yet.<br>They'll appear here when someone submits the form.</div>`;
     return;
   }
-  list.innerHTML = estimates.map((e, i) => `
+  if (filtered.length === 0) {
+    list.innerHTML = `<div class="empty-state"><div class="es-icon">🔍</div>No estimates with this status.</div>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map((e, i) => {
+    const realIdx = estimates.indexOf(e);
+    const statusClass = e.status === 'New' ? 'new' : e.status === 'In Progress' ? 'in-progress' : e.status === 'Completed' ? 'completed' : 'cancelled';
+    return `
     <div class="estimate-card-admin">
-      <div class="ec-name">${e.name}</div>
-      <div class="ec-detail">${e.phone}</div>
-      <div class="ec-detail">${e.borough} · ${e.service}</div>
-      ${e.notes ? `<div class="ec-detail" style="margin-top:4px; font-style:italic; color:var(--text-mid);">"${e.notes}"</div>` : ''}
-      <div class="ec-detail" style="margin-top:4px; font-size:10px; opacity:0.5;">${new Date(e.date).toLocaleDateString()}</div>
-      <span class="ec-status ${e.status === 'New' ? 'new' : e.status === 'In Progress' ? 'in-progress' : e.status === 'Completed' ? 'completed' : 'cancelled'}">${e.status}</span>
-      <div class="ec-actions">
-        <button class="ec-btn primary" onclick="setStatus(${i},'In Progress')">In Progress</button>
-        <button class="ec-btn success" onclick="setStatus(${i},'Completed')">Done</button>
-        <button class="ec-btn danger" onclick="deleteEstimate(${i})">Delete</button>
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
+        <div class="ec-name">${e.name || 'Unknown'}</div>
+        <span class="ec-status ${statusClass}">${e.status}</span>
       </div>
-    </div>
-  `).join('');
+      ${e.phone ? `<div class="ec-detail" style="margin-top:4px;">📞 ${e.phone}</div>` : ''}
+      ${e.email ? `<div class="ec-detail">✉️ ${e.email}</div>` : ''}
+      ${e.borough ? `<div class="ec-detail">📍 ${e.borough}${e.service ? ' · ' + e.service : ''}</div>` : e.service ? `<div class="ec-detail">🔨 ${e.service}</div>` : ''}
+      ${e.description || e.notes ? `<div class="ec-detail" style="margin-top:6px; color:var(--text-mid); font-style:italic; line-height:1.4;">"${e.description || e.notes}"</div>` : ''}
+      <div class="ec-detail" style="margin-top:6px; font-size:10px; opacity:0.4;">${new Date(e.date).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric', hour:'2-digit', minute:'2-digit'})}</div>
+      <div class="ec-actions">
+        <button class="ec-btn primary" onclick="setStatus(${realIdx},'In Progress')">In Progress</button>
+        <button class="ec-btn success" onclick="setStatus(${realIdx},'Completed')">Done</button>
+        <button class="ec-btn danger"  onclick="deleteEstimate(${realIdx})">Delete</button>
+      </div>
+    </div>`;
+  }).join('');
 }
 
-function addEstimate() {
-  const name = document.getElementById('newName').value.trim();
-  const phone = document.getElementById('newPhone').value.trim();
-  const borough = document.getElementById('newBorough').value;
-  const service = document.getElementById('newService').value;
-  const notes = document.getElementById('newNotes').value.trim();
-  if (!name || !phone || !service) { showToast('Fill in name, phone & service.', false); return; }
-  estimates.unshift({ name, phone, borough, service, notes, status: 'New', date: Date.now() });
-  saveAll();
+function setFilter(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
   renderEstimates();
-  ['newName','newPhone','newNotes'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('newBorough').value = '';
-  document.getElementById('newService').value = '';
-  showToast('Estimate added!', true);
 }
 
 function setStatus(i, status) {
   estimates[i].status = status;
-  saveAll();
+  localStorage.setItem('lxl_estimates', JSON.stringify(estimates));
   renderEstimates();
-  showToast(`Status: ${status}`, true);
+  showToast(`Marked: ${status}`, true);
 }
 
 function deleteEstimate(i) {
-  if (!confirm('Delete this estimate?')) return;
+  if (!confirm('Delete this estimate request?')) return;
   estimates.splice(i, 1);
-  saveAll();
+  localStorage.setItem('lxl_estimates', JSON.stringify(estimates));
   renderEstimates();
   showToast('Deleted.', false);
 }
 
 function updateStats() {
-  document.getElementById('statTotal').textContent = estimates.length;
-  document.getElementById('statNew').textContent = estimates.filter(e => e.status === 'New').length;
+  document.getElementById('statTotal').textContent    = estimates.length;
+  document.getElementById('statNew').textContent      = estimates.filter(e => e.status === 'New').length;
   document.getElementById('statProgress').textContent = estimates.filter(e => e.status === 'In Progress').length;
-  document.getElementById('statDone').textContent = estimates.filter(e => e.status === 'Completed').length;
+  document.getElementById('statDone').textContent     = estimates.filter(e => e.status === 'Completed').length;
 }
 
 // ======= GALLERY =======
@@ -704,9 +528,7 @@ function handleAdminUpload(event) {
   const isBefore = document.getElementById('isBeforePhoto').checked;
   let loaded = 0;
   const grid = document.getElementById('adminGalleryGrid');
-
   if (galleryPhotos.length === 0) grid.innerHTML = '';
-
   files.forEach(file => {
     const reader = new FileReader();
     reader.onload = function(e) {
@@ -744,21 +566,19 @@ function deleteGalleryPhoto(idx) {
 function renderGallery() {
   const grid = document.getElementById('adminGalleryGrid');
   if (galleryPhotos.length === 0) {
-    grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:36px; color:var(--text-dim); font-family:\'Outfit\',sans-serif; font-size:10px; letter-spacing:2px; text-transform:uppercase;">No photos yet — upload above</div>';
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><div class="es-icon">📷</div>No photos yet — upload above</div>';
     return;
   }
   grid.innerHTML = '';
   galleryPhotos.forEach((p, i) => addGalleryThumb(p, i));
 }
 
-
-
 // ======= TOAST =======
 function showToast(message, success = true) {
   const toast = document.getElementById('toast');
   toast.innerText = message;
   toast.style.backgroundColor = success ? 'var(--neon)' : 'var(--hot)';
-  toast.style.color = '#000';
+  toast.style.color = success ? '#000' : '#fff';
   toast.style.visibility = 'visible';
   toast.style.opacity = '1';
   toast.style.bottom = '40px';
@@ -771,7 +591,6 @@ function showToast(message, success = true) {
 
 // ======= INIT =======
 renderEstimates();
-renderReviews();
 renderGallery();
 </script>
 
