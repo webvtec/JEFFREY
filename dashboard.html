@@ -366,7 +366,7 @@
 <!-- ======= FIREBASE MODULE SCRIPT ======= -->
 <script type="module">
 import { initializeApp }        from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, query, orderBy, where }
+import { getFirestore, collection, getDocs, doc, addDoc, updateDoc, deleteDoc, setDoc, query, orderBy, where, serverTimestamp }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, signOut }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -575,7 +575,8 @@ window.fbUpload = function(files, category) {
 
   Array.from(files).forEach(file => {
     const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-    const path = 'gallery/' + Date.now() + '_' + safe;
+    const ts   = Date.now();
+    const path = 'gallery/' + ts + '_' + safe;
     const storageRef = ref(storage, path);
     const pid = 'ph_' + Math.random().toString(36).slice(2);
 
@@ -609,23 +610,12 @@ window.fbUpload = function(files, category) {
         showToast('Upload failed: ' + err.message, false);
       },
       () => {
-        getDownloadURL(task.snapshot.ref).then(url => {
-          const el = document.getElementById(pid);
-          if (el) {
-            el.style.backgroundImage = 'url(' + url + ')';
-            el.style.backgroundSize = 'cover';
-            el.style.backgroundPosition = 'center';
-            el.innerHTML = '';
-            const l = document.createElement('div');
-            l.className = 'gt-label';
-            l.textContent = category;
-            const btn = document.createElement('button');
-            btn.className = 'gt-del';
-            btn.textContent = '✕';
-            btn.onclick = () => window.fbDelete(path, btn);
-            el.appendChild(l);
-            el.appendChild(btn);
-          }
+        getDownloadURL(task.snapshot.ref).then(async url => {
+          // Save to Firestore so index.html can read sort order
+          await addDoc(collection(db, 'galleryMeta'), {
+            path, url, category, sortOrder: ts,
+            uploadedAt: serverTimestamp()
+          });
           done++;
           if (done === total) { showToast(total + ' photo' + (total > 1 ? 's' : '') + ' saved!', true); window.fbLoadGallery(); }
           else showToast('Uploaded ' + done + ' / ' + total, true);
@@ -635,71 +625,179 @@ window.fbUpload = function(files, category) {
   });
 };
 
-window.fbDelete = function(path, btn) {
+window.fbDelete = async function(path, docId, btn) {
   if (!confirm('Remove this photo?')) return;
-  deleteObject(ref(storage, path)).then(() => {
+  try {
+    await deleteObject(ref(storage, path));
+    if (docId) await deleteDoc(doc(db, 'galleryMeta', docId));
     btn.closest('.gallery-thumb').remove();
     showToast('Photo deleted.', false);
     const grid = document.getElementById('adminGalleryGrid');
     if (!grid.querySelector('.gallery-thumb'))
       grid.innerHTML = "<div class='empty-state' style='grid-column:1/-1'>No photos yet</div>";
-  }).catch(e => {
+  } catch(e) {
     console.error(e);
     showToast('Delete failed.', false);
-  });
+  }
 };
 
-window.fbLoadGallery = function() {
+window.fbLoadGallery = async function() {
   const container = document.getElementById('adminGalleryGrid');
-  container.innerHTML = "<div style='text-align:center;padding:40px;color:var(--text-dim);font-size:24px;animation:spin 1s linear infinite'>↻</div>";
-  listAll(ref(storage, 'gallery/')).then(result => {
-    if (!result.items.length) {
-      container.innerHTML = "<div class='empty-state'>No photos yet — upload above</div>";
+  container.innerHTML = "<div style='grid-column:1/-1;text-align:center;padding:40px;color:var(--text-dim);font-size:24px;animation:spin 1s linear infinite'>↻</div>";
+
+  try {
+    const snap = await getDocs(query(collection(db, 'galleryMeta'), orderBy('sortOrder', 'asc')));
+
+    if (snap.empty) {
+      container.innerHTML = "<div class='empty-state' style='grid-column:1/-1'>No photos yet — upload above</div>";
       return;
     }
-    const promises = result.items.map(item =>
-      Promise.all([getDownloadURL(item), getMetadata(item)]).then(([url, meta]) => ({
-        url, path: item.fullPath,
-        category: (meta.customMetadata && meta.customMetadata.category) || 'General'
-      }))
-    );
-    Promise.all(promises).then(photos => {
-      // Group by category
-      const groups = {};
-      photos.forEach(p => {
-        if (!groups[p.category]) groups[p.category] = [];
-        groups[p.category].push(p);
-      });
 
-      container.innerHTML = '';
-      Object.keys(groups).sort().forEach(cat => {
-        // Category heading
-        const heading = document.createElement('div');
-        heading.style.cssText = 'grid-column:1/-1;font-family:Outfit,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--neon);padding:14px 0 8px;border-top:1px solid var(--border);margin-top:8px;';
-        heading.textContent = cat;
-        container.appendChild(heading);
+    const photos = snap.docs.map(d => ({ docId: d.id, ...d.data() }));
 
-        // Photos for this category
-        groups[cat].forEach(photo => {
-          const div = document.createElement('div');
-          div.className = 'gallery-thumb';
-          div.style.backgroundImage = 'url(' + photo.url + ')';
-          div.style.backgroundSize = 'cover';
-          div.style.backgroundPosition = 'center';
-          const btn = document.createElement('button');
-          btn.className = 'gt-del';
-          btn.textContent = '✕';
-          btn.onclick = () => window.fbDelete(photo.path, btn);
-          div.appendChild(btn);
-          container.appendChild(div);
-        });
+    // Group by category preserving order
+    const groups = {};
+    const catOrder = [];
+    photos.forEach(p => {
+      if (!groups[p.category]) { groups[p.category] = []; catOrder.push(p.category); }
+      groups[p.category].push(p);
+    });
+
+    container.innerHTML = '';
+
+    catOrder.forEach(cat => {
+      // Category heading
+      const heading = document.createElement('div');
+      heading.style.cssText = 'grid-column:1/-1;font-family:Outfit,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--neon);padding:14px 0 8px;border-top:1px solid var(--border);margin-top:8px;';
+      heading.textContent = cat;
+      container.appendChild(heading);
+
+      groups[cat].forEach(photo => {
+        const div = document.createElement('div');
+        div.className = 'gallery-thumb';
+        div.draggable = true;
+        div.dataset.docId  = photo.docId;
+        div.dataset.path   = photo.path;
+        div.dataset.cat    = photo.category;
+        div.dataset.order  = photo.sortOrder;
+        div.style.backgroundImage = 'url(' + photo.url + ')';
+        div.style.backgroundSize = 'cover';
+        div.style.backgroundPosition = 'center';
+        div.style.cursor = 'grab';
+
+        const btn = document.createElement('button');
+        btn.className = 'gt-del';
+        btn.textContent = '✕';
+        btn.onclick = (e) => { e.stopPropagation(); window.fbDelete(photo.path, photo.docId, btn); };
+        div.appendChild(btn);
+
+        // Drag hint
+        const hint = document.createElement('div');
+        hint.style.cssText = 'position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.65);padding:3px 7px;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.5);';
+        hint.textContent = '⠿ drag to reorder';
+        div.appendChild(hint);
+
+        container.appendChild(div);
       });
     });
-  }).catch(e => {
+
+    initDragReorder(container);
+
+  } catch(e) {
     console.error(e);
-    container.innerHTML = "<div style='grid-column:1/-1;text-align:center;padding:40px;color:var(--red)'>⚠️ Failed to load. Check Firebase Storage rules.</div>";
-  });
+    container.innerHTML = "<div style='grid-column:1/-1;text-align:center;padding:40px;color:var(--red)'>⚠️ Failed to load. Check Firebase rules.</div>";
+  }
 };
+
+function initDragReorder(container) {
+  let dragSrc = null;
+
+  container.addEventListener('dragstart', e => {
+    dragSrc = e.target.closest('.gallery-thumb');
+    if (!dragSrc) return;
+    dragSrc.style.opacity = '0.4';
+    e.dataTransfer.effectAllowed = 'move';
+  });
+
+  container.addEventListener('dragover', e => {
+    e.preventDefault();
+    const target = e.target.closest('.gallery-thumb');
+    if (target && target !== dragSrc) {
+      const rect = target.getBoundingClientRect();
+      const after = e.clientX > rect.left + rect.width / 2;
+      container.insertBefore(dragSrc, after ? target.nextSibling : target);
+    }
+  });
+
+  container.addEventListener('dragend', async () => {
+    if (dragSrc) dragSrc.style.opacity = '';
+    dragSrc = null;
+    await saveOrder(container);
+  });
+
+  // Touch drag
+  let touchEl = null, touchClone = null, offX = 0, offY = 0, pressTimer = null;
+
+  container.addEventListener('touchstart', e => {
+    const cell = e.target.closest('.gallery-thumb');
+    if (!cell) return;
+    pressTimer = setTimeout(() => {
+      touchEl = cell;
+      const r = cell.getBoundingClientRect();
+      offX = e.touches[0].clientX - r.left;
+      offY = e.touches[0].clientY - r.top;
+      touchClone = cell.cloneNode(true);
+      touchClone.style.cssText = `position:fixed;top:${r.top}px;left:${r.left}px;width:${r.width}px;opacity:0.75;z-index:9999;pointer-events:none;border-radius:6px;`;
+      document.body.appendChild(touchClone);
+      cell.style.opacity = '0.3';
+      navigator.vibrate && navigator.vibrate(40);
+    }, 400);
+  }, { passive: true });
+
+  container.addEventListener('touchmove', e => {
+    if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; }
+    if (!touchEl) return;
+    e.preventDefault();
+    const t = e.touches[0];
+    touchClone.style.top  = (t.clientY - offY) + 'px';
+    touchClone.style.left = (t.clientX - offX) + 'px';
+    touchClone.style.display = 'none';
+    const el = document.elementFromPoint(t.clientX, t.clientY);
+    touchClone.style.display = '';
+    const target = el && el.closest('.gallery-thumb');
+    if (target && target !== touchEl) {
+      const r = target.getBoundingClientRect();
+      container.insertBefore(touchEl, t.clientX > r.left + r.width / 2 ? target.nextSibling : target);
+    }
+  }, { passive: false });
+
+  const endTouch = async () => {
+    if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; }
+    if (!touchEl) return;
+    touchEl.style.opacity = '';
+    touchClone && touchClone.remove();
+    touchClone = null;
+    await saveOrder(container);
+    touchEl = null;
+  };
+  container.addEventListener('touchend',   endTouch, { passive: true });
+  container.addEventListener('touchcancel', endTouch, { passive: true });
+}
+
+async function saveOrder(container) {
+  const thumbs = Array.from(container.querySelectorAll('.gallery-thumb'));
+  const batch = thumbs.map((el, i) => {
+    const docId = el.dataset.docId;
+    if (!docId) return Promise.resolve();
+    return updateDoc(doc(db, 'galleryMeta', docId), { sortOrder: i });
+  });
+  try {
+    await Promise.all(batch);
+    showToast('Order saved!', true);
+  } catch(e) {
+    showToast('Failed to save order.', false);
+  }
+}
 
 </script>
 

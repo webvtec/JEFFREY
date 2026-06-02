@@ -1012,96 +1012,92 @@ h1 span.accent { color: var(--neon); }
 .services-section { padding: 0 18px 36px; }
 </style>
 
-  <!-- Firebase Storage (compat SDK - no module imports) -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
-  <script>
-    (function() {
-      var app = firebase.initializeApp({
-        apiKey:            "AIzaSyDZsl7wCM4ABai7-YMg_6PzPUOsq2M9CKM",
-        authDomain:        "lxl-home-improvement-llc.firebaseapp.com",
-        projectId:         "lxl-home-improvement-llc",
-        storageBucket:     "lxl-home-improvement-llc.firebasestorage.app",
-        messagingSenderId: "690054839471",
-        appId:             "1:690054839471:web:59a803e363766c75e6e85a"
+  <!-- Firebase Gallery (reads from Firestore galleryMeta) -->
+<script type="module">
+import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, getDocs, query, orderBy }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const _app = initializeApp({
+  apiKey:            "AIzaSyDZsl7wCM4ABai7-YMg_6PzPUOsq2M9CKM",
+  authDomain:        "lxl-home-improvement-llc.firebaseapp.com",
+  projectId:         "lxl-home-improvement-llc",
+  storageBucket:     "lxl-home-improvement-llc.firebasestorage.app",
+  messagingSenderId: "690054839471",
+  appId:             "1:690054839471:web:59a803e363766c75e6e85a"
+}, "gallery-app");
+const _db = getFirestore(_app);
+
+const CATEGORIES = [
+  "Kitchen Refurbishment","Bathroom Refurbishment","Flooring & Tiling",
+  "Painting & Carpentry","Masonry","Window Replacement","General"
+];
+
+async function loadGallery() {
+  const container = document.getElementById("firebaseGalleryContainer");
+  if (!container) return;
+
+  try {
+    const snap = await getDocs(query(collection(_db, "galleryMeta"), orderBy("sortOrder", "asc")));
+
+    if (snap.empty) {
+      container.innerHTML = "<p style='text-align:center;color:#6B7485;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:40px;'>Photos coming soon</p>";
+      return;
+    }
+
+    const photos = snap.docs.map(d => d.data());
+
+    // Group preserving sortOrder but using CATEGORIES for display order
+    const groups = {};
+    CATEGORIES.forEach(c => { groups[c] = []; });
+    photos.forEach(p => {
+      const cat = p.category || "General";
+      if (!groups[cat]) groups[cat] = [];
+      groups[cat].push(p);
+    });
+
+    container.innerHTML = "";
+    CATEGORIES.forEach(cat => {
+      if (!groups[cat] || !groups[cat].length) return;
+
+      const section = document.createElement("div");
+      section.className = "gallery-category";
+
+      const h3 = document.createElement("h3");
+      h3.textContent = cat;
+      section.appendChild(h3);
+
+      const grid = document.createElement("div");
+      grid.className = "ba-grid";
+
+      groups[cat].forEach(photo => {
+        const card = document.createElement("div");
+        card.className = "ba-card";
+        card.style.cursor = "pointer";
+        card.addEventListener("click", () => openPhotoModal(photo.url));
+
+        const img = document.createElement("img");
+        img.className = "ba-card-img";
+        img.src = photo.url;
+        img.alt = cat;
+        img.loading = "lazy";
+
+        card.appendChild(img);
+        grid.appendChild(card);
       });
-      var storage = firebase.storage(app);
 
-      var CATEGORIES = [
-        "Kitchen Refurbishment",
-        "Bathroom Refurbishment",
-        "Flooring & Tiling",
-        "Painting & Carpentry",
-        "Masonry",
-        "Window Replacement",
-        "General"
-      ];
+      section.appendChild(grid);
+      container.appendChild(section);
+    });
 
-      function loadGallery() {
-        var container = document.getElementById("firebaseGalleryContainer");
-        if (!container) return;
+  } catch(e) {
+    console.error(e);
+    container.innerHTML = "<p style='text-align:center;color:#6B7485;padding:40px;font-size:12px;'>Could not load gallery.</p>";
+  }
+}
 
-        var listRef = storage.ref("gallery/");
-        listRef.listAll().then(function(result) {
-          if (!result.items.length) {
-            container.innerHTML = "<p style='text-align:center;color:#6B7485;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:40px;'>Photos coming soon</p>";
-            return;
-          }
-
-          var promises = result.items.map(function(item) {
-            return Promise.all([item.getDownloadURL(), item.getMetadata()]).then(function(vals) {
-              return { url: vals[0], category: (vals[1].customMetadata && vals[1].customMetadata.category) || "General" };
-            });
-          });
-
-          Promise.all(promises).then(function(photos) {
-            var groups = {};
-            CATEGORIES.forEach(function(cat) { groups[cat] = []; });
-            photos.forEach(function(p) {
-              if (!groups[p.category]) groups[p.category] = [];
-              groups[p.category].push(p);
-            });
-
-            container.innerHTML = "";
-            CATEGORIES.forEach(function(cat) {
-              if (!groups[cat] || !groups[cat].length) return;
-              var section = document.createElement("div");
-              section.className = "gallery-category";
-              var h3 = document.createElement("h3");
-              h3.textContent = cat;
-              section.appendChild(h3);
-              var grid = document.createElement("div");
-              grid.className = "ba-grid";
-              groups[cat].forEach(function(photo) {
-                var card = document.createElement("div");
-                card.className = "ba-card";
-                card.style.cursor = "pointer";
-                card.addEventListener("click", (function(u) { return function() { openPhotoModal(u); }; })(photo.url));
-                var img = document.createElement("img");
-                img.className = "ba-card-img";
-                img.src = photo.url;
-                img.alt = cat;
-                img.loading = "lazy";
-                var label = document.createElement("div");
-                label.className = "ba-card-label";
-                label.textContent = photo.category;
-                card.appendChild(img);
-                card.appendChild(label);
-                grid.appendChild(card);
-              });
-              section.appendChild(grid);
-              container.appendChild(section);
-            });
-          });
-        }).catch(function(e) {
-          console.error(e);
-          container.innerHTML = "<p style='text-align:center;color:#6B7485;padding:40px;font-size:12px;'>Could not load gallery.</p>";
-        });
-      }
-
-      document.addEventListener("DOMContentLoaded", loadGallery);
-    })();
-  </script>
+document.addEventListener("DOMContentLoaded", loadGallery);
+</script>
 </head>
 <body>
 
@@ -1485,17 +1481,27 @@ async function submitEstimate() {
   const service = document.getElementById('service').value;
   if (!first || !phone || !service) { showToast('Please fill in name, phone, and service.', false); return; }
 
+  const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE';
+  const TELEGRAM_CHAT_ID   = 'YOUR_CHAT_ID_HERE';
+
+  const text =
+    `🔨 *NEW ESTIMATE REQUEST*\n` +
+    `👤 Name: ${first} ${document.getElementById('lastName').value}\n` +
+    `📞 Phone: ${phone}\n` +
+    `📧 Email: ${document.getElementById('email').value || '—'}\n` +
+    `📍 Borough: ${document.getElementById('borough').value || '—'}\n` +
+    `🏠 Address: ${document.getElementById('exactAddress').value || '—'}\n` +
+    `🛠 Service: ${service}\n` +
+    `📝 Description: ${document.getElementById('description').value || '—'}`;
+
   try {
-    await addDoc(collection(db, 'estimates'), {
-      name:        first + ' ' + (document.getElementById('lastName').value.trim()),
-      phone:       phone,
-      email:       document.getElementById('email').value.trim() || '',
-      borough:     document.getElementById('borough').value || '',
-      address:     document.getElementById('exactAddress').value.trim() || '',
-      service:     service,
-      description: document.getElementById('description').value.trim() || '',
-      submittedAt: serverTimestamp()
+    const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text, parse_mode: 'Markdown' })
     });
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.description);
     ['firstName','lastName','phone','email','description'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('borough').value = '';
     document.getElementById('exactAddress').value = '';
@@ -1503,7 +1509,7 @@ async function submitEstimate() {
     document.getElementById('service').value = '';
     showToast("Estimate request sent! We'll be in touch soon.", true);
   } catch (err) {
-    console.error('Firestore error:', err);
+    console.error('Telegram error:', err);
     showToast('Something went wrong. Please call us directly.', false);
   }
 }
