@@ -976,7 +976,7 @@ h1 span.accent { color: var(--neon); }
   </div>
 
   <div class="header-icons">
-    <a class="header-icon-btn" href="tel:+19295551234" title="Call Us">📞</a>
+    <a class="header-icon-btn" href="tel:+13322608942" title="Call Us">📞</a>
   </div>
 </div>
 
@@ -1010,7 +1010,7 @@ h1 span.accent { color: var(--neon); }
   <div class="sidebar-divider"></div>
   <div class="sidebar-phone-block">
     <div class="spb-label">Call Anytime</div>
-    <a href="tel:+19295551234">(929) 555-1234</a>
+    <a href="tel:+13322608942">(332) 260-8942</a>
     <div class="spb-days">7 Days a Week</div>
   </div>
 </div>
@@ -1143,7 +1143,7 @@ h1 span.accent { color: var(--neon); }
       <button class="submit-btn" onclick="submitEstimate()">Submit Free Estimate Request</button>
     </div>
     <div style="text-align:center; margin-top:16px; font-family:'Outfit',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase;">
-      Or call us: <a href="tel:+19295551234" style="color:var(--neon); text-decoration:none; font-weight:700;">(929) 555-1234</a>
+      Or call us: <a href="tel:+13322608942" style="color:var(--neon); text-decoration:none; font-weight:700;">(332) 260-8942</a>
     </div>
   </div>
 </div>
@@ -1208,8 +1208,8 @@ h1 span.accent { color: var(--neon); }
     <div class="info-grid">
       <div class="info-card">
         <div class="info-card-title"><span class="ic-icon">📞</span> Contact Info</div>
-        <div class="info-item"><span class="ii-icon">📞</span><a href="tel:+19295551234">(929) 555-1234</a></div>
-        <div class="info-item"><span class="ii-icon">📧</span><a href="mailto:info@lxlhome.com">info@lxlhome.com</a></div>
+        <div class="info-item"><span class="ii-icon">📞</span><a href="tel:+13322608942">(332) 260-8942</a></div>
+        <div class="info-item"><span class="ii-icon">📧</span><a href="mailto:lucansfrancis21@gmail.com">lucansfrancis21@gmail.com</a></div>
         <div class="info-item"><span class="ii-icon">📅</span><span>7 Days a Week</span></div>
       </div>
       <div class="info-card">
@@ -1256,7 +1256,7 @@ h1 span.accent { color: var(--neon); }
 </div>
 
 <!-- ========================= FOOTER ========================= -->
-<div class="site-footer">LXL Home Improvement LLC — NYC's Trusted Remodelers · 7 Days a Week</div>
+<div class="site-footer">CREATED BY WEBVTEC</div>
 
 <script>
 function showSection(sectionId) {
@@ -1285,19 +1285,40 @@ function closeSidebar() {
   document.getElementById('hamburgerBtn').classList.remove('open');
 }
 
-function submitEstimate() {
+async function submitEstimate() {
   const first = document.getElementById('firstName').value.trim();
   const phone = document.getElementById('phone').value.trim();
   const service = document.getElementById('service').value;
   if (!first || !phone || !service) { showToast('Please fill in name, phone, and service.', false); return; }
-  const msg = encodeURIComponent(
-    `NEW ESTIMATE REQUEST\nName: ${first} ${document.getElementById('lastName').value}\nPhone: ${phone}\nEmail: ${document.getElementById('email').value}\nBorough: ${document.getElementById('borough').value}\nService: ${service}\nDescription: ${document.getElementById('description').value}`
-  );
-  window.open(`https://wa.me/19295551234?text=${msg}`, '_blank');
-  ['firstName','lastName','phone','email','description'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('borough').value = '';
-  document.getElementById('service').value = '';
-  showToast("Estimate request sent! We'll be in touch soon.", true);
+
+  const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE';
+  const TELEGRAM_CHAT_ID   = 'YOUR_CHAT_ID_HERE';
+
+  const text =
+    `🔨 *NEW ESTIMATE REQUEST*\n` +
+    `👤 Name: ${first} ${document.getElementById('lastName').value}\n` +
+    `📞 Phone: ${phone}\n` +
+    `📧 Email: ${document.getElementById('email').value || '—'}\n` +
+    `📍 Borough: ${document.getElementById('borough').value || '—'}\n` +
+    `🛠 Service: ${service}\n` +
+    `📝 Description: ${document.getElementById('description').value || '—'}`;
+
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text, parse_mode: 'Markdown' })
+    });
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.description);
+    ['firstName','lastName','phone','email','description'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('borough').value = '';
+    document.getElementById('service').value = '';
+    showToast("Estimate request sent! We'll be in touch soon.", true);
+  } catch (err) {
+    console.error('Telegram error:', err);
+    showToast('Something went wrong. Please call us directly.', false);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -1338,5 +1359,7 @@ function showToast(message, success = true) {
   }, 2800);
 }
 </script>
+<!-- Footer Banner -->
+<div style="position:fixed;bottom:0;left:0;right:0;background-color:#1a1a1a;border-top:2px solid var(--neon);text-align:center;padding:5px 20px;font-family:'Outfit',sans-serif;font-size:13px;letter-spacing:2px;color:#aaa;z-index:1000;"><a href="https://webvtec.com" target="_blank" style="color:#aaa;text-decoration:underline;display:block;width:100%;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">CLICK TO REQUEST YOUR OWN WEBSITE. <span style="color:var(--neon);">webvtec.com</span></a></div>
 </body>
 </html>
