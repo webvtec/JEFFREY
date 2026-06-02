@@ -413,6 +413,7 @@ onAuthStateChanged(auth, user => {
     setTimeout(() => {
       overlay.style.display = 'none';
       content.style.display = 'block';
+      window.fbLoadGallery();
     }, 400);
   }, 700);
 
@@ -428,8 +429,7 @@ let galleryLoaded = false;
 window.showTab = function(tab) {
   document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
   document.getElementById('sec-' + tab).classList.add('active');
-  if (tab === 'gallery' && !galleryLoaded) {
-    galleryLoaded = true;
+  if (tab === 'gallery') {
     window.fbLoadGallery();
   }
 };
