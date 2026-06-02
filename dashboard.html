@@ -524,11 +524,19 @@ function updateStats() {
 // ======= GALLERY =======
 function handleAdminUpload(event) {
   const files = Array.from(event.target.files);
+  if (!files.length) return;
   const category = document.getElementById('photoCategory').value;
   const isBefore = document.getElementById('isBeforePhoto').checked;
-  let loaded = 0;
   const grid = document.getElementById('adminGalleryGrid');
-  if (galleryPhotos.length === 0) grid.innerHTML = '';
+
+  // Clear empty state if present
+  const emptyEl = grid.querySelector('.empty-state');
+  if (emptyEl) emptyEl.remove();
+
+  let loaded = 0;
+  const total = files.length;
+  showToast(`Uploading 0 / ${total}...`, true);
+
   files.forEach(file => {
     const reader = new FileReader();
     reader.onload = function(e) {
@@ -536,10 +544,22 @@ function handleAdminUpload(event) {
       galleryPhotos.push(photo);
       addGalleryThumb(photo, galleryPhotos.length - 1);
       loaded++;
-      if (loaded === files.length) showToast(`${loaded} photo(s) added!`, true);
+      showToast(`Uploading ${loaded} / ${total}...`, true);
+      if (loaded === total) {
+        // Save all at once after all are read
+        try {
+          localStorage.setItem('lxl_gallery', JSON.stringify(galleryPhotos));
+          showToast(`${total} photo${total > 1 ? 's' : ''} saved!`, true);
+        } catch(err) {
+          showToast('Storage full — photos visible this session only.', false);
+        }
+      }
     };
     reader.readAsDataURL(file);
   });
+
+  // Reset input so same files can be re-selected
+  event.target.value = '';
 }
 
 function addGalleryThumb(photo, idx) {
@@ -559,6 +579,7 @@ function addGalleryThumb(photo, idx) {
 function deleteGalleryPhoto(idx) {
   if (!confirm('Remove this photo?')) return;
   galleryPhotos.splice(idx, 1);
+  localStorage.setItem('lxl_gallery', JSON.stringify(galleryPhotos));
   renderGallery();
   showToast('Photo removed.', false);
 }
