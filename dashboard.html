@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LXL Home Improvement — Admin Dashboard</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Barlow+Condensed:wght@400;600;700;900&family=Bebas+Neue&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:          #EEF1F5;
+      --surface:     #DDE3EC;
+      --surface2:    #C8D1E0;
+      --neon:        #1A3A6B;
+      --neon-glow:   rgba(26,58,107,0.18);
+      --neon-dim:    rgba(26,58,107,0.08);
+      --hot:         #C07820;
+      --hot-glow:    rgba(192,120,32,0.2);
+      --amber:       #E0A030;
+      --text:        #0F1E38;
+      --text-dim:    #4A6080;
+      --border:      rgba(26,58,107,0.15);
+      --border-neon: rgba(26,58,107,0.25);
+      --accent:      #C07820;
+      --accent2:     #1A3A6B;
+      --gold:        #E0A030;
+      --gold-soft:   #F0D090;
+      --cream:       #FBFCFE;
+      --cream-soft:  #DDE3EC;
+      --paper:       #EEF1F5;
+      --ink:         #0F1E38;
+      --ink-soft:    #1E3050;
+      --ink-line:    #A0B4C8;
+      --text-ink:    #0F1E38;
+      --primary:     #EEF1F5;
+      --white:       #FBFCFE;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background:
+        radial-gradient(ellipse 700px 500px at -10% 20%, rgba(26,58,107,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 600px 400px at 110% 80%, rgba(192,120,32,0.05) 0%, transparent 60%),
+        #EEF1F5;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Crect x='0' y='0' width='60' height='60' fill='none' stroke='%231A3A6B' stroke-width='0.6' stroke-opacity='0.10'/%3E%3C/svg%3E");
+      background-size: 60px 60px;
+      background-repeat: repeat;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body > div, body > #dashboardContent { position: relative; z-index: 1; }
+
+    /* ======= HEADER ======= */
+    .header-bar {
+      background: #1A3A6B;
+      backdrop-filter: blur(20px);
+      padding: 0 20px;
+      height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 4px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-bar::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent 0%, var(--hot) 15%, var(--neon) 40%, var(--amber) 60%, var(--hot) 85%, transparent 100%);
+      background-size: 300% 100%;
+      animation: stripeFlow 4s linear infinite;
+    }
+    @keyframes stripeFlow {
+      0%   { background-position: 200% center; }
+      100% { background-position: -100% center; }
+    }
+    .brand-gold { color: #E0A030; }
+
+    /* ======= TOP NAV ======= */
+    .top-menu {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: stretch;
+      gap: 6px;
+      background: var(--surface);
+      padding: 10px 10px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: nowrap;
+      position: sticky;
+      top: 62px;
+      z-index: 90;
+    }
+    .top-menu button {
+      background: transparent;
+      color: var(--text-dim);
+      border: 1px solid rgba(26,58,107,0.1);
+      padding: 10px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: clamp(9px, 2.5vw, 11px);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      flex: 1;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .top-menu button:hover { color: var(--text); background: rgba(26,58,107,0.05); }
+    .top-menu button.active {
+      background: var(--neon);
+      color: #fff;
+      border-color: var(--neon);
+    }
+
+    /* ======= CONTENT ======= */
+    .page-section { display: none; padding: 20px; }
+    .page-section.active { display: block; }
+
+    /* ======= CARDS ======= */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    @media (min-width: 600px) { .stat-row { grid-template-columns: repeat(4, 1fr); } }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 14px;
+      text-align: center;
+    }
+    .stat-card .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 28px;
+      color: var(--neon);
+    }
+    .stat-card .stat-lbl {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--neon);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::before {
+      content: '';
+      width: 4px; height: 16px;
+      background: var(--hot);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ======= ESTIMATE CARDS ======= */
+    .estimate-card-admin {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 12px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .estimate-card-admin:hover { border-color: var(--hot); }
+    .estimate-card-admin .ec-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .estimate-card-admin .ec-detail {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 3px;
+    }
+    .ec-status {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+    .ec-status.new { background: rgba(26,58,107,0.12); color: var(--neon); }
+    .ec-status.in-progress { background: rgba(192,120,32,0.12); color: var(--hot); }
+    .ec-status.completed { background: rgba(34,204,102,0.12); color: #16A050; }
+    .ec-status.cancelled { background: rgba(180,40,40,0.1); color: #B42828; }
+
+    .ec-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+    .ec-btn {
+      padding: 6px 14px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+    .ec-btn.primary { background: var(--neon); color: #fff; }
+    .ec-btn.primary:hover { background: #122B54; }
+    .ec-btn.danger { background: #B42828; color: #fff; }
+    .ec-btn.danger:hover { background: #8B1B1B; }
+    .ec-btn.success { background: #22CC66; color: #fff; }
+    .ec-btn.success:hover { background: #16A050; }
+    .ec-btn.ghost { background: transparent; color: var(--text-dim); border: 1px solid var(--border); }
+    .ec-btn.ghost:hover { border-color: var(--hot); color: var(--hot); }
+
+    /* ======= FORM ======= */
+    .form-group { margin-bottom: 14px; }
+    .form-label {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 5px;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 10px 13px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      transition: border-color 0.2s ease;
+      outline: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--neon);
+      box-shadow: 0 0 0 3px var(--neon-dim);
+    }
+    .form-textarea { resize: vertical; min-height: 80px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+
+    .submit-btn {
+      padding: 12px 24px;
+      background: var(--neon);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .submit-btn:hover { background: #122B54; }
+
+    /* ======= GALLERY ADMIN ======= */
+    .gallery-admin-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+    @media (min-width: 600px) { .gallery-admin-grid { grid-template-columns: repeat(3, 1fr); } }
+    .gallery-thumb {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      aspect-ratio: 4/3;
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .gallery-thumb:hover { border-color: var(--hot); }
+    .gallery-thumb .gt-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(15,30,56,0.8);
+      padding: 4px 8px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .gallery-thumb .gt-del {
+      position: absolute;
+      top: 4px; right: 4px;
+      background: rgba(180,40,40,0.9);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      width: 22px; height: 22px;
+      font-size: 12px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .gallery-thumb:hover .gt-del { display: flex; }
+
+    .upload-zone-admin {
+      border: 2px dashed var(--border-neon);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: rgba(26,58,107,0.02);
+      margin-bottom: 16px;
+    }
+    .upload-zone-admin:hover { border-color: var(--hot); background: rgba(192,120,32,0.04); }
+    .upload-zone-admin p { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; margin-top: 6px; }
+    #adminPhotoInput { display: none; }
+
+    /* ======= TOAST ======= */
+    #toast {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #22CC66;
+      color: #fff;
+      padding: 11px 22px;
+      border-radius: 8px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      z-index: 9999;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.4s, bottom 0.4s;
+      white-space: nowrap;
+    }
+
+    /* ======= BADGE ======= */
+    .info-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(26,58,107,0.08);
+      border: 1px solid rgba(26,58,107,0.2);
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--neon);
+      margin: 4px;
+    }
+
+    /* ======= MODAL ======= */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal-box {
+      background: var(--surface);
+      border: 1px solid var(--border-neon);
+      border-radius: 12px;
+      padding: 28px 24px;
+      max-width: 400px;
+      width: 90%;
+      position: relative;
+    }
+    .modal-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--hot), var(--neon));
+      border-radius: 12px 12px 0 0;
+    }
+    .modal-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .modal-actions { display: flex; gap: 10px; margin-top: 18px; justify-content: flex-end; }
+  </style>
+</head>
+<body>
+
+<!-- ======= HEADER ======= -->
+<div class="header-bar">
+  🏠 <span class="brand-gold">LXL</span>&nbsp;HOME IMPROVEMENT
+  <span style="font-size:11px; letter-spacing:5px; font-weight:600; margin-left:12px; opacity:0.6;">ADMIN</span>
+</div>
+
+<!-- ======= TOP NAV ======= -->
+<div class="top-menu">
+  <button class="active" id="tab-estimates" onclick="showPage('estimatesPage', this)">📋 Estimates</button>
+  <button id="tab-gallery" onclick="showPage('galleryPage', this)">📸 Gallery</button>
+  <button id="tab-services" onclick="showPage('servicesPage', this)">🔨 Services</button>
+  <button id="tab-reviews" onclick="showPage('reviewsPage', this)">⭐ Reviews</button>
+  <button id="tab-info" onclick="showPage('infoPage', this)">ℹ️ Info</button>
+</div>
+
+<div id="dashboardContent" style="display:block;">
+
+  <!-- ======= ESTIMATES PAGE ======= -->
+  <div class="page-section active" id="estimatesPage">
+
+    <!-- Stats -->
+    <div class="stat-row" style="margin-top:16px;">
+      <div class="stat-card">
+        <div class="stat-num" id="statTotal">0</div>
+        <div class="stat-lbl">Total Requests</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statNew" style="color:var(--neon);">0</div>
+        <div class="stat-lbl">New</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statProgress" style="color:var(--hot);">0</div>
+        <div class="stat-lbl">In Progress</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statDone" style="color:#22CC66;">0</div>
+        <div class="stat-lbl">Completed</div>
+      </div>
+    </div>
+
+    <!-- Add Estimate Manually -->
+    <div class="section-title" style="margin-bottom:14px;">Add Estimate Request</div>
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:18px; margin-bottom:20px; position:relative;">
+      <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--hot),var(--neon)); border-radius:10px 10px 0 0;"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Client Name</label>
+          <input type="text" class="form-input" id="newName" placeholder="Full Name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone</label>
+          <input type="tel" class="form-input" id="newPhone" placeholder="(718) 000-0000">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Borough</label>
+          <select class="form-select" id="newBorough">
+            <option value="">Select</option>
+            <option>Bronx</option><option>Queens</option><option>Brooklyn</option>
+            <option>Manhattan</option><option>Staten Island</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Service</label>
+          <select class="form-select" id="newService">
+            <option value="">Select</option>
+            <option>Carpentry</option><option>Painting</option><option>Flooring</option>
+            <option>Masonry</option><option>Window Replacement</option><option>Tiling</option>
+            <option>Kitchen Refurbishment</option><option>Bathroom Refurbishment</option>
+            <option>Multiple Services</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea class="form-textarea" id="newNotes" placeholder="Project details, address, timeline..."></textarea>
+      </div>
+      <button class="submit-btn" onclick="addEstimate()">+ Add Estimate</button>
+    </div>
+
+    <!-- Estimates List -->
+    <div class="section-title">Estimate Requests</div>
+    <div id="estimatesList">
+      <div style="text-align:center; padding:40px; color:var(--text-dim); font-family:'Barlow Condensed',sans-serif; font-size:12px; letter-spacing:2px;">
+        NO ESTIMATES YET — ADD ONE ABOVE
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= GALLERY PAGE ======= -->
+  <div class="page-section" id="galleryPage">
+    <div class="section-title" style="margin-top:16px;">Before &amp; After Gallery</div>
+
+    <div class="upload-zone-admin" onclick="document.getElementById('adminPhotoInput').click()">
+      <div style="font-size:30px; margin-bottom:4px;">📁</div>
+      <p>Upload Before / After Photos</p>
+      <p style="font-size:10px; opacity:0.6; margin-top:2px;">JPG, PNG supported</p>
+    </div>
+    <input type="file" id="adminPhotoInput" multiple accept="image/*" onchange="handleAdminUpload(event)">
+
+    <!-- Category selector for upload -->
+    <div class="form-group" style="margin-bottom:16px;">
+      <label class="form-label">Photo Category</label>
+      <select class="form-select" id="photoCategory">
+        <option>Kitchen Refurbishment</option>
+        <option>Bathroom Refurbishment</option>
+        <option>Flooring &amp; Tiling</option>
+        <option>Painting &amp; Carpentry</option>
+        <option>Masonry</option>
+        <option>Window Replacement</option>
+        <option>General</option>
+      </select>
+    </div>
+    <div style="margin-bottom:10px;">
+      <label style="display:flex; align-items:center; gap:8px; font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--text-dim); cursor:pointer;">
+        <input type="checkbox" id="isBeforePhoto" style="accent-color:var(--hot); width:16px; height:16px;"> Mark as BEFORE photo (otherwise treated as AFTER)
+      </label>
+    </div>
+
+    <div class="gallery-admin-grid" id="adminGalleryGrid">
+      <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-dim); font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:2px;">
+        NO PHOTOS YET — UPLOAD ABOVE
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= SERVICES PAGE ======= -->
+  <div class="page-section" id="servicesPage">
+    <div class="section-title" style="margin-top:16px;">Services Management</div>
+
+    <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:20px;">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:22px;">🪚</span>
+        <div>
+          <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:1px;">Carpentry</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:11px; color:var(--text-dim);">Active ✓</div>
+        </div>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:22px;">🖌️</span>
+        <div>
+          <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:1px;">Painting</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:11px; color:var(--text-dim);">Active ✓</div>
+        </div>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:22px;">🏗️</span>
+        <div>
+          <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:1px;">Flooring</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:11px; color:var(--text-dim);">Active ✓</div>
+        </div>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:22px;">🧱</span>
+        <div>
+          <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:1px;">Masonry</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:11px; color:var(--text-dim);">Active ✓</div>
+        </div>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:22px;">🪟</span>
+        <div>
+          <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:1px;">Window Replacement</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:11px; color:var(--text-dim);">Active ✓</div>
+        </div>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:22px;">🔲</span>
+        <div>
+          <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:1px;">Tiling</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:11px; color:var(--text-dim);">Active ✓</div>
+        </div>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:22px;">🍳</span>
+        <div>
+          <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:1px;">Kitchen Refurbishment</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:11px; color:var(--text-dim);">Active ✓</div>
+        </div>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:22px;">🚿</span>
+        <div>
+          <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:1px;">Bathroom Refurbishment</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:11px; color:var(--text-dim);">Active ✓</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= REVIEWS PAGE ======= -->
+  <div class="page-section" id="reviewsPage">
+    <div class="section-title" style="margin-top:16px;">Manage Reviews</div>
+
+    <!-- Add Review -->
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:18px; margin-bottom:20px; position:relative;">
+      <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--amber),var(--hot)); border-radius:10px 10px 0 0;"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Client Name</label>
+          <input type="text" class="form-input" id="rvName" placeholder="Maria G.">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Borough</label>
+          <select class="form-select" id="rvBorough">
+            <option>Bronx</option><option>Queens</option><option>Brooklyn</option>
+            <option>Manhattan</option><option>Staten Island</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Stars (1–5)</label>
+        <select class="form-select" id="rvStars">
+          <option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
+          <option value="4">⭐⭐⭐⭐ 4 Stars</option>
+          <option value="3">⭐⭐⭐ 3 Stars</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Review Text</label>
+        <textarea class="form-textarea" id="rvText" placeholder="What the client said..."></textarea>
+      </div>
+      <button class="submit-btn" onclick="addReview()">⭐ Add Review</button>
+    </div>
+
+    <div id="reviewsList">
+      <div style="text-align:center; padding:30px; color:var(--text-dim); font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:2px;">NO REVIEWS YET</div>
+    </div>
+  </div>
+
+  <!-- ======= INFO PAGE ======= -->
+  <div class="page-section" id="infoPage">
+    <div class="section-title" style="margin-top:16px;">Company Info</div>
+
+    <div style="background:var(--surface); border:1px solid var(--border-neon); border-radius:10px; padding:20px; margin-bottom:16px; position:relative;">
+      <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--neon),var(--hot)); border-radius:10px 10px 0 0;"></div>
+
+      <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:13px; letter-spacing:3px; text-transform:uppercase; color:var(--hot); margin-bottom:14px;">Company Details</div>
+
+      <div class="form-group">
+        <label class="form-label">Company Name</label>
+        <input type="text" class="form-input" value="LXL Home Improvement LLC" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone Number</label>
+        <input type="tel" class="form-input" id="infoPhone" placeholder="(929) 555-1234">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" id="infoEmail" placeholder="info@lxlhome.com">
+      </div>
+
+      <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:13px; letter-spacing:3px; text-transform:uppercase; color:var(--hot); margin:18px 0 14px;">License &amp; Hours</div>
+      <div class="form-row">
+        <div class="info-badge">🏛️ Licensed Contractor</div>
+        <div class="info-badge">📅 7 Days a Week</div>
+      </div>
+
+      <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:13px; letter-spacing:3px; text-transform:uppercase; color:var(--hot); margin:18px 0 14px;">Payment Methods</div>
+      <div style="display:flex; flex-wrap:wrap; gap:8px;">
+        <div class="info-badge" style="background:rgba(192,120,32,0.08); border-color:rgba(192,120,32,0.2); color:var(--hot);">💜 Zelle</div>
+        <div class="info-badge" style="background:rgba(192,120,32,0.08); border-color:rgba(192,120,32,0.2); color:var(--hot);">💵 Cash</div>
+        <div class="info-badge" style="background:rgba(192,120,32,0.08); border-color:rgba(192,120,32,0.2); color:var(--hot);">🏦 Direct Deposit</div>
+        <div class="info-badge" style="background:rgba(192,120,32,0.08); border-color:rgba(192,120,32,0.2); color:var(--hot);">📝 Cheque</div>
+      </div>
+
+      <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:13px; letter-spacing:3px; text-transform:uppercase; color:var(--hot); margin:18px 0 14px;">Service Areas</div>
+      <div style="display:flex; flex-wrap:wrap; gap:8px;">
+        <div class="info-badge">📍 Bronx</div>
+        <div class="info-badge">📍 Queens</div>
+        <div class="info-badge">📍 Brooklyn</div>
+        <div class="info-badge">📍 Manhattan</div>
+        <div class="info-badge">📍 Staten Island</div>
+      </div>
+
+      <div style="margin-top:20px;">
+        <button class="submit-btn" onclick="showToast('Info saved!', true)">💾 Save Info</button>
+      </div>
+    </div>
+
+    <div style="text-align:center; padding:16px;">
+      <a href="index.html" style="font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--text-dim); text-decoration:none;">← Back to Website</a>
+    </div>
+  </div>
+
+</div><!-- end dashboardContent -->
+
+<div id="toast">Saved!</div>
+
+<script>
+// ======= PAGE NAVIGATION =======
+function showPage(pageId, btn) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.top-menu button').forEach(b => b.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+// ======= IN-MEMORY DATA STORE =======
+let estimates = JSON.parse(localStorage.getItem('lxl_estimates') || '[]');
+let reviews = JSON.parse(localStorage.getItem('lxl_reviews') || '[]');
+let galleryPhotos = JSON.parse(localStorage.getItem('lxl_gallery') || '[]');
+
+function saveAll() {
+  localStorage.setItem('lxl_estimates', JSON.stringify(estimates));
+  localStorage.setItem('lxl_reviews', JSON.stringify(reviews));
+}
+
+// ======= ESTIMATES =======
+function renderEstimates() {
+  const list = document.getElementById('estimatesList');
+  updateStats();
+  if (estimates.length === 0) {
+    list.innerHTML = '<div style="text-align:center; padding:40px; color:var(--text-dim); font-family:\'Barlow Condensed\',sans-serif; font-size:12px; letter-spacing:2px;">NO ESTIMATES YET — ADD ONE ABOVE</div>';
+    return;
+  }
+  list.innerHTML = estimates.map((e, i) => `
+    <div class="estimate-card-admin">
+      <div class="ec-name">${e.name}</div>
+      <div class="ec-detail">📞 ${e.phone}</div>
+      <div class="ec-detail">📍 ${e.borough} · 🔨 ${e.service}</div>
+      ${e.notes ? `<div class="ec-detail" style="margin-top:4px; font-style:italic; color:var(--text);">"${e.notes}"</div>` : ''}
+      <div class="ec-detail" style="margin-top:4px; font-size:10px; opacity:0.6;">${new Date(e.date).toLocaleDateString()}</div>
+      <span class="ec-status ${e.status === 'New' ? 'new' : e.status === 'In Progress' ? 'in-progress' : e.status === 'Completed' ? 'completed' : 'cancelled'}">${e.status}</span>
+      <div class="ec-actions">
+        <button class="ec-btn primary" onclick="setStatus(${i},'In Progress')">In Progress</button>
+        <button class="ec-btn success" onclick="setStatus(${i},'Completed')">✓ Done</button>
+        <button class="ec-btn danger" onclick="deleteEstimate(${i})">🗑 Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addEstimate() {
+  const name = document.getElementById('newName').value.trim();
+  const phone = document.getElementById('newPhone').value.trim();
+  const borough = document.getElementById('newBorough').value;
+  const service = document.getElementById('newService').value;
+  const notes = document.getElementById('newNotes').value.trim();
+  if (!name || !phone || !service) { showToast('Fill in name, phone & service.', false); return; }
+  estimates.unshift({ name, phone, borough, service, notes, status: 'New', date: Date.now() });
+  saveAll();
+  renderEstimates();
+  ['newName','newPhone','newNotes'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('newBorough').value = '';
+  document.getElementById('newService').value = '';
+  showToast('Estimate added!', true);
+}
+
+function setStatus(i, status) {
+  estimates[i].status = status;
+  saveAll();
+  renderEstimates();
+  showToast(`Status: ${status}`, true);
+}
+
+function deleteEstimate(i) {
+  if (!confirm('Delete this estimate?')) return;
+  estimates.splice(i, 1);
+  saveAll();
+  renderEstimates();
+  showToast('Deleted.', false);
+}
+
+function updateStats() {
+  document.getElementById('statTotal').textContent = estimates.length;
+  document.getElementById('statNew').textContent = estimates.filter(e => e.status === 'New').length;
+  document.getElementById('statProgress').textContent = estimates.filter(e => e.status === 'In Progress').length;
+  document.getElementById('statDone').textContent = estimates.filter(e => e.status === 'Completed').length;
+}
+
+// ======= GALLERY =======
+function handleAdminUpload(event) {
+  const files = Array.from(event.target.files);
+  const category = document.getElementById('photoCategory').value;
+  const isBefore = document.getElementById('isBeforePhoto').checked;
+  let loaded = 0;
+  const grid = document.getElementById('adminGalleryGrid');
+
+  if (galleryPhotos.length === 0) grid.innerHTML = '';
+
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const photo = { src: e.target.result, category, isBefore, date: Date.now() };
+      galleryPhotos.push(photo);
+      addGalleryThumb(photo, galleryPhotos.length - 1);
+      loaded++;
+      if (loaded === files.length) showToast(`${loaded} photo(s) added!`, true);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function addGalleryThumb(photo, idx) {
+  const grid = document.getElementById('adminGalleryGrid');
+  const div = document.createElement('div');
+  div.className = 'gallery-thumb';
+  div.style.backgroundImage = `url(${photo.src})`;
+  div.style.backgroundSize = 'cover';
+  div.style.backgroundPosition = 'center';
+  div.innerHTML = `
+    <div class="gt-label">${photo.isBefore ? 'BEFORE' : 'AFTER'} · ${photo.category}</div>
+    <button class="gt-del" onclick="deleteGalleryPhoto(${idx})" title="Delete">✕</button>
+  `;
+  grid.appendChild(div);
+}
+
+function deleteGalleryPhoto(idx) {
+  if (!confirm('Remove this photo?')) return;
+  galleryPhotos.splice(idx, 1);
+  renderGallery();
+  showToast('Photo removed.', false);
+}
+
+function renderGallery() {
+  const grid = document.getElementById('adminGalleryGrid');
+  if (galleryPhotos.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-dim); font-family:\'Barlow Condensed\',sans-serif; font-size:11px; letter-spacing:2px;">NO PHOTOS YET — UPLOAD ABOVE</div>';
+    return;
+  }
+  grid.innerHTML = '';
+  galleryPhotos.forEach((p, i) => addGalleryThumb(p, i));
+}
+
+// ======= REVIEWS =======
+function addReview() {
+  const name = document.getElementById('rvName').value.trim();
+  const borough = document.getElementById('rvBorough').value;
+  const stars = parseInt(document.getElementById('rvStars').value);
+  const text = document.getElementById('rvText').value.trim();
+  if (!name || !text) { showToast('Name and review text required.', false); return; }
+  reviews.unshift({ name, borough, stars, text, date: Date.now() });
+  saveAll();
+  renderReviews();
+  ['rvName','rvText'].forEach(id => document.getElementById(id).value = '');
+  showToast('Review added!', true);
+}
+
+function renderReviews() {
+  const list = document.getElementById('reviewsList');
+  if (reviews.length === 0) {
+    list.innerHTML = '<div style="text-align:center; padding:30px; color:var(--text-dim); font-family:\'Barlow Condensed\',sans-serif; font-size:11px; letter-spacing:2px;">NO REVIEWS YET</div>';
+    return;
+  }
+  list.innerHTML = reviews.map((r, i) => `
+    <div class="estimate-card-admin">
+      <div style="font-size:14px; margin-bottom:4px;">${'⭐'.repeat(r.stars)}</div>
+      <div class="ec-name">${r.name} <span style="font-size:11px; font-weight:400; color:var(--text-dim);">· ${r.borough}</span></div>
+      <div class="ec-detail" style="margin-top:4px; font-style:italic;">"${r.text}"</div>
+      <div class="ec-actions" style="margin-top:10px;">
+        <button class="ec-btn danger" onclick="deleteReview(${i})">🗑 Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function deleteReview(i) {
+  if (!confirm('Delete this review?')) return;
+  reviews.splice(i, 1);
+  saveAll();
+  renderReviews();
+  showToast('Deleted.', false);
+}
+
+// ======= TOAST =======
+function showToast(message, success = true) {
+  const toast = document.getElementById('toast');
+  toast.innerText = message;
+  toast.style.backgroundColor = success ? '#22CC66' : '#C07820';
+  toast.style.visibility = 'visible';
+  toast.style.opacity = '1';
+  toast.style.bottom = '50px';
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.bottom = '30px';
+    setTimeout(() => { toast.style.visibility = 'hidden'; }, 500);
+  }, 3000);
+}
+
+// ======= INIT =======
+renderEstimates();
+renderReviews();
+renderGallery();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>LXL Home Improvement LLC – House Remodeling Experts NYC</title>
+<meta name="description" content="LXL Home Improvement LLC – Licensed Home Improvement Contractor serving the Bronx, Queens, Brooklyn, Manhattan, and Staten Island. Carpentry, Painting, Flooring, Masonry, Tiling, Kitchen & Bathroom Remodeling.">
+<meta name="keywords" content="LXL Home Improvement, home remodeling NYC, house renovation Bronx, kitchen remodeling Queens, bathroom remodeling Brooklyn, flooring NYC, painting contractor Manhattan, carpentry Staten Island, licensed contractor NYC, tiling, masonry, window replacement">
+<meta name="author" content="LXL Home Improvement LLC">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Barlow+Condensed:wght@400;600;700;900&family=Bebas+Neue&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* =====================================================
+   LXL HOME IMPROVEMENT LLC — WEBSITE
+   Palette: Deep Navy · Warm Gold · Slate Gray · Cream
+   ===================================================== */
+:root {
+  --bg:         #EEF1F5;
+  --surface:    #DDE3EC;
+  --surface2:   #C8D1E0;
+  --neon:       #1A3A6B;
+  --neon-glow:  rgba(26,58,107,0.18);
+  --neon-dim:   rgba(26,58,107,0.08);
+  --hot:        #C07820;
+  --hot-glow:   rgba(192,120,32,0.2);
+  --amber:      #E0A030;
+  --text:       #0F1E38;
+  --text-dim:   #4A6080;
+  --border:     rgba(26,58,107,0.15);
+  --border-neon: rgba(26,58,107,0.25);
+  --accent:     #C07820;
+  --accent2:    #1A3A6B;
+  --gold:       #E0A030;
+  --gold-soft:  #F0D090;
+  --cream:      #FBFCFE;
+  --cream-soft: #DDE3EC;
+  --paper:      #EEF1F5;
+  --ink:        #0F1E38;
+  --ink-soft:   #1E3050;
+  --ink-line:   #A0B4C8;
+  --text-ink:   #0F1E38;
+  --primary:    #EEF1F5;
+  --white:      #FBFCFE;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background:
+    radial-gradient(ellipse 700px 500px at -10% 20%, rgba(26,58,107,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 600px 400px at 110% 80%, rgba(192,120,32,0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 900px 600px at 50% 100%, rgba(224,160,48,0.04) 0%, transparent 60%),
+    #EEF1F5;
+  padding-bottom: 28px;
+  min-height: 100vh;
+}
+
+/* Blueprint grid pattern */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Crect x='0' y='0' width='60' height='60' fill='none' stroke='%231A3A6B' stroke-width='0.6' stroke-opacity='0.10'/%3E%3C/svg%3E");
+  background-size: 60px 60px;
+  background-repeat: repeat;
+  pointer-events: none;
+  z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -150px; right: -150px;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(192,120,32,0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: blobPulse 22s ease-in-out infinite alternate-reverse;
+}
+@keyframes blobPulse {
+  from { opacity: 0.4; transform: scale(0.92); }
+  to   { opacity: 1;   transform: scale(1.08); }
+}
+
+/* ========================= HEADER ========================= */
+.header-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 62px;
+  background: #1A3A6B;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+.header-bar::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #E0A030 15%,
+    #F0C860 40%,
+    #E0A030 60%,
+    #C07820 85%,
+    transparent 100%
+  );
+  background-size: 300% 100%;
+  animation: stripeFlow 4s linear infinite;
+}
+@keyframes stripeFlow {
+  0%   { background-position: 200% center; }
+  100% { background-position: -100% center; }
+}
+
+.header-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 56px;
+}
+.header-title .brand-hot { color: #E0A030; }
+.header-title .home-icon {
+  color: #E0A030;
+  font-size: 18px;
+  display: inline-block;
+  animation: homeFloat 4s ease-in-out infinite alternate;
+}
+@keyframes homeFloat {
+  from { transform: translateY(0px); }
+  to   { transform: translateY(-3px); }
+}
+
+.header-icons {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.header-icon-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 8px;
+  height: 36px;
+  width: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #FFFFFF;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: 17px;
+}
+.header-icon-btn:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: #E0A030;
+}
+
+/* Hamburger */
+.hamburger-btn {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 8px;
+  height: 36px;
+  width: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 1001;
+  transition: all 0.2s ease;
+}
+.hamburger-btn span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.hamburger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger-btn.open span:nth-child(2) { opacity: 0; }
+.hamburger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.hamburger-btn:hover { border-color: #E0A030; background: rgba(255,255,255,0.1); }
+
+/* ========================= SIDEBAR ========================= */
+.sidebar-scrim {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,30,56,0.5);
+  z-index: 998;
+  backdrop-filter: blur(4px);
+}
+.sidebar-scrim.show { display: block; }
+.sidebar-panel {
+  position: fixed;
+  top: 62px; left: 0; bottom: 0;
+  width: 240px;
+  background: var(--surface);
+  border-right: 1px solid var(--border-neon);
+  z-index: 999;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  overflow-y: auto;
+  padding: 16px 0 40px;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-panel.open { transform: translateX(0); }
+.sidebar-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--hot), var(--neon), var(--amber));
+}
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  cursor: pointer;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.sidebar-nav-item:hover { color: var(--text); background: rgba(26,58,107,0.05); }
+.sidebar-nav-item.active { color: var(--neon); background: rgba(26,58,107,0.07); }
+.sidebar-nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 20%; bottom: 20%;
+  width: 3px;
+  background: var(--hot);
+  border-radius: 0 3px 3px 0;
+}
+.sidebar-nav-item .snav-icon { font-size: 18px; flex-shrink: 0; }
+.sidebar-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 8px 16px;
+}
+.sidebar-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--hot);
+  text-transform: uppercase;
+  padding: 8px 20px 4px;
+  opacity: 0.7;
+}
+
+/* ========================= CONTENT ========================= */
+.content-section {
+  display: none;
+  padding-top: 62px;
+  min-height: calc(100vh - 62px);
+  position: relative;
+  z-index: 1;
+}
+.content-section.active { display: block; }
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 40px;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  color: var(--text);
+  text-align: center;
+  margin: 32px 0 6px;
+  line-height: 1;
+}
+h1 span.accent { color: var(--neon); }
+
+.section-kicker {
+  text-align: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--hot);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.section-kicker::before,
+.section-kicker::after {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--hot);
+  opacity: 0.5;
+}
+
+/* ========================= HERO SECTION ========================= */
+.hero-section {
+  text-align: center;
+  padding: 40px 20px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-section::before {
+  content: '🏠';
+  position: absolute;
+  right: -20px;
+  top: 10px;
+  font-size: 120px;
+  opacity: 0.05;
+  pointer-events: none;
+  animation: heroFloat 12s ease-in-out infinite alternate;
+  line-height: 1;
+}
+@keyframes heroFloat {
+  from { transform: rotate(-5deg) scale(0.95); }
+  to   { transform: rotate(5deg) scale(1.05); }
+}
+.hero-kicker {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 5px;
+  color: var(--hot);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.hero-kicker::before, .hero-kicker::after {
+  content: ''; width: 24px; height: 1px;
+  background: var(--hot); opacity: 0.5;
+}
+.hero-section h1 { font-size: 48px; margin: 4px 0 8px; }
+@media (min-width: 768px) { .hero-section h1 { font-size: 68px; } }
+.hero-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(26,58,107,0.08);
+  border: 1px solid rgba(26,58,107,0.2);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--neon);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.hero-badge .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #22CC66;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+.hero-cta-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.cta-btn {
+  display: inline-block;
+  padding: 13px 28px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+.cta-btn--primary {
+  background: var(--hot);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(192,120,32,0.3);
+}
+.cta-btn--primary:hover {
+  background: #A06010;
+  box-shadow: 0 6px 24px rgba(192,120,32,0.4);
+  transform: translateY(-1px);
+}
+.cta-btn--outline {
+  background: transparent;
+  color: var(--neon);
+  border: 1px solid var(--neon) !important;
+}
+.cta-btn--outline:hover {
+  background: rgba(26,58,107,0.07);
+  transform: translateY(-1px);
+}
+
+/* ========================= BEFORE/AFTER GALLERY ========================= */
+.gallery-hero {
+  text-align: center;
+  padding: 36px 20px 24px;
+}
+.gallery-category { margin-top: 28px; padding: 0; }
+.gallery-category h3 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--neon);
+  padding: 0 18px;
+  margin: 0 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.gallery-category h3::before {
+  content: '';
+  width: 4px; height: 16px;
+  background: var(--hot);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* Before/After grid */
+.ba-grid {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding: 0 18px 16px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--hot) transparent;
+}
+.ba-grid::-webkit-scrollbar { height: 2px; }
+.ba-grid::-webkit-scrollbar-thumb { background: var(--hot); border-radius: 2px; }
+.ba-grid::-webkit-scrollbar-track { background: transparent; }
+
+.ba-card {
+  flex-shrink: 0;
+  width: 200px;
+  scroll-snap-align: start;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.ba-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(26,58,107,0.18);
+  border-color: var(--hot);
+}
+.ba-card-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+.ba-card-placeholder {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  background: linear-gradient(135deg, var(--surface), var(--surface2));
+  color: var(--text-dim);
+}
+.ba-card-placeholder span {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 6px;
+}
+.ba-card-label {
+  padding: 8px 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ba-label-before { color: #888; }
+.ba-label-after { color: var(--hot); }
+.ba-label-arrow { color: var(--neon); font-size: 14px; }
+
+/* Upload area */
+.upload-zone {
+  margin: 0 18px 20px;
+  border: 2px dashed var(--border-neon);
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgba(26,58,107,0.02);
+}
+.upload-zone:hover { border-color: var(--hot); background: rgba(192,120,32,0.04); }
+.upload-zone p {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+#photoInput { display: none; }
+
+/* ========================= SERVICES SECTION ========================= */
+.services-section { padding: 0 18px 40px; }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 24px;
+}
+@media (min-width: 600px) { .services-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 900px) { .services-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.service-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 16px;
+  text-align: center;
+  transition: all 0.25s ease;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--hot), var(--neon));
+  transform: scaleX(0);
+  transition: transform 0.25s ease;
+  transform-origin: left;
+}
+.service-card:hover {
+  border-color: var(--hot);
+  box-shadow: 0 8px 24px rgba(26,58,107,0.12);
+  transform: translateY(-3px);
+}
+.service-card:hover::before { transform: scaleX(1); }
+.service-card .svc-icon { font-size: 32px; margin-bottom: 10px; display: block; }
+.service-card .svc-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.service-card .svc-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
+/* ========================= ESTIMATE FORM ========================= */
+.estimate-section { padding: 0 18px 40px; }
+.estimate-card {
+  background: var(--surface);
+  border: 1px solid var(--border-neon);
+  border-radius: 12px;
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 20px;
+}
+.estimate-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--hot), var(--neon), var(--amber));
+}
+.form-group { margin-bottom: 16px; }
+.form-label {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+  outline: none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--neon);
+  box-shadow: 0 0 0 3px var(--neon-dim);
+}
+.form-textarea { resize: vertical; min-height: 100px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--neon);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+.submit-btn:hover {
+  background: #122B54;
+  box-shadow: 0 4px 16px var(--neon-glow);
+  transform: translateY(-1px);
+}
+
+/* ========================= CONTACT & INFO ========================= */
+.info-section { padding: 0 18px 40px; }
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 20px;
+}
+@media (min-width: 600px) { .info-grid { grid-template-columns: 1fr 1fr; } }
+
+.info-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 18px;
+  transition: all 0.2s ease;
+}
+.info-card:hover { border-color: var(--hot); }
+.info-card-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--hot);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.info-card-title .ic-icon { font-size: 16px; }
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+}
+.info-item .ii-icon { font-size: 16px; flex-shrink: 0; color: var(--neon); }
+.info-item a { color: var(--neon); text-decoration: none; }
+.info-item a:hover { text-decoration: underline; }
+
+/* Payment method pills */
+.payment-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.payment-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(26,58,107,0.08);
+  border: 1px solid rgba(26,58,107,0.18);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--neon);
+}
+
+/* Location pills */
+.location-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+.location-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(192,120,32,0.08);
+  border: 1px solid rgba(192,120,32,0.2);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--hot);
+}
+
+/* ========================= REVIEWS SECTION ========================= */
+.reviews-section { padding: 0 18px 40px; }
+.reviews-strip {
+  display: flex;
+  overflow-x: auto;
+  gap: 14px;
+  padding: 20px 0 16px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--hot) transparent;
+}
+.reviews-strip::-webkit-scrollbar { height: 2px; }
+.reviews-strip::-webkit-scrollbar-thumb { background: var(--hot); border-radius: 2px; }
+.review-card {
+  flex-shrink: 0;
+  width: 260px;
+  scroll-snap-align: start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 16px;
+  transition: all 0.25s ease;
+  position: relative;
+}
+.review-card:hover { border-color: var(--hot); transform: translateY(-2px); }
+.review-card::before {
+  content: '"';
+  position: absolute;
+  top: 8px; right: 14px;
+  font-family: 'Syne', serif;
+  font-size: 48px;
+  color: rgba(192,120,32,0.15);
+  line-height: 1;
+}
+.review-stars { font-size: 13px; margin-bottom: 8px; }
+.review-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+.review-author {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--hot);
+}
+.review-location {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+/* ========================= ABOUT SECTION ========================= */
+.about-section { padding: 0 18px 40px; }
+.about-card {
+  background: var(--surface);
+  border: 1px solid var(--border-neon);
+  border-radius: 12px;
+  padding: 28px 24px;
+  margin-top: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.about-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--neon), var(--hot), var(--amber));
+}
+.about-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.license-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(26,58,107,0.08);
+  border: 1px solid rgba(26,58,107,0.2);
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--neon);
+  margin-top: 8px;
+}
+.hours-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(192,120,32,0.08);
+  border: 1px solid rgba(192,120,32,0.2);
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--hot);
+  margin-top: 8px;
+  margin-left: 10px;
+}
+
+/* ========================= SUCCESS TOAST ========================= */
+.toast {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #22CC66;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  z-index: 9999;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.4s, bottom 0.4s;
+  white-space: nowrap;
+}
+
+/* ========================= SECTION DIVIDER ========================= */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-neon), transparent);
+  margin: 0 18px 28px;
+}
+
+/* ========================= FOOTER ========================= */
+.site-footer {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
+  text-align: center;
+  padding: 5px 20px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  z-index: 1000;
+}
+
+/* ========================= PHOTO MODAL ========================= */
+.photo-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 9000;
+  align-items: center;
+  justify-content: center;
+}
+.photo-modal-overlay.show { display: flex; }
+.photo-modal-inner {
+  max-width: 90vw;
+  max-height: 90vh;
+  position: relative;
+}
+.photo-modal-inner img {
+  max-width: 100%;
+  max-height: 85vh;
+  border-radius: 8px;
+  display: block;
+}
+.photo-modal-close {
+  position: absolute;
+  top: -16px; right: -16px;
+  background: var(--hot);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 32px; height: 32px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ========================= MOBILE ========================= */
+@media (max-width: 380px) {
+  .header-title { font-size: 14px; letter-spacing: 2px; }
+  h1 { font-size: 32px; }
+  .hero-section h1 { font-size: 38px; }
+}
+
+/* Helper */
+.relative-z { position: relative; z-index: 1; }
+</style>
+</head>
+<body>
+
+<!-- ========================= HEADER ========================= -->
+<div class="header-bar">
+  <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <div class="header-title">
+    <span class="home-icon">🏠</span>
+    <span><span class="brand-hot">LXL</span> HOME IMPROVEMENT</span>
+  </div>
+
+  <div class="header-icons">
+    <a class="header-icon-btn" href="tel:+19295551234" title="Call Us">📞</a>
+    <a class="header-icon-btn" href="sms:+19295551234" title="Text Us">💬</a>
+  </div>
+</div>
+
+<!-- ========================= SIDEBAR ========================= -->
+<div class="sidebar-scrim" id="sidebarScrim" onclick="closeSidebar()"></div>
+<div class="sidebar-panel" id="sidebarPanel">
+  <div class="sidebar-label">Navigation</div>
+  <button class="sidebar-nav-item active" id="snav-home" onclick="showSection('homeSection'); closeSidebar();">
+    <span class="snav-icon">🏠</span> Home
+  </button>
+  <button class="sidebar-nav-item" id="snav-gallery" onclick="showSection('gallerySection'); closeSidebar();">
+    <span class="snav-icon">📸</span> Before &amp; After
+  </button>
+  <button class="sidebar-nav-item" id="snav-services" onclick="showSection('servicesSection'); closeSidebar();">
+    <span class="snav-icon">🔨</span> Our Services
+  </button>
+  <button class="sidebar-nav-item" id="snav-estimate" onclick="showSection('estimateSection'); closeSidebar();">
+    <span class="snav-icon">📋</span> Free Estimate
+  </button>
+  <div class="sidebar-divider"></div>
+  <div class="sidebar-label">Company</div>
+  <button class="sidebar-nav-item" id="snav-about" onclick="showSection('aboutSection'); closeSidebar();">
+    <span class="snav-icon">ℹ️</span> About Us
+  </button>
+  <button class="sidebar-nav-item" id="snav-reviews" onclick="showSection('reviewsSection'); closeSidebar();">
+    <span class="snav-icon">⭐</span> Reviews
+  </button>
+  <button class="sidebar-nav-item" id="snav-contact" onclick="showSection('contactSection'); closeSidebar();">
+    <span class="snav-icon">📍</span> Contact &amp; Info
+  </button>
+  <div class="sidebar-divider"></div>
+  <div style="padding: 12px 20px;">
+    <div style="font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase; margin-bottom:8px;">Call or Text Anytime</div>
+    <a href="tel:+19295551234" style="display:block; font-family:'Syne',sans-serif; font-weight:800; font-size:18px; color:var(--hot); text-decoration:none; letter-spacing:1px;">📞 (929) 555-1234</a>
+    <div style="font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase; margin-top:6px;">7 Days a Week</div>
+  </div>
+</div>
+
+<!-- ========================= HOME SECTION ========================= -->
+<div class="content-section active relative-z" id="homeSection">
+  <div class="hero-section">
+    <div class="hero-kicker">NYC's Trusted Remodelers</div>
+    <h1><span class="accent">LXL</span><br>HOME<br>IMPROVEMENT</h1>
+    <div class="hero-sub">Licensed Home Improvement Contractor</div>
+    <div class="hero-badge">
+      <span class="dot"></span> Open 7 Days a Week
+    </div>
+    <div class="hero-cta-row">
+      <button class="cta-btn cta-btn--primary" onclick="showSection('estimateSection')">Get Free Estimate</button>
+      <button class="cta-btn cta-btn--outline" onclick="showSection('gallerySection')">View Our Work</button>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- Quick services overview on home -->
+  <div style="padding: 0 18px 32px; position:relative; z-index:1;">
+    <div class="section-kicker">What We Do</div>
+    <h1 style="font-size:28px; margin:8px 0 20px;">OUR <span class="accent">SERVICES</span></h1>
+    <div class="services-grid">
+      <div class="service-card" onclick="showSection('servicesSection')">
+        <span class="svc-icon">🪚</span>
+        <div class="svc-name">Carpentry</div>
+      </div>
+      <div class="service-card" onclick="showSection('servicesSection')">
+        <span class="svc-icon">🖌️</span>
+        <div class="svc-name">Painting</div>
+      </div>
+      <div class="service-card" onclick="showSection('servicesSection')">
+        <span class="svc-icon">🏗️</span>
+        <div class="svc-name">Flooring</div>
+      </div>
+      <div class="service-card" onclick="showSection('servicesSection')">
+        <span class="svc-icon">🧱</span>
+        <div class="svc-name">Masonry</div>
+      </div>
+      <div class="service-card" onclick="showSection('servicesSection')">
+        <span class="svc-icon">🪟</span>
+        <div class="svc-name">Windows</div>
+      </div>
+      <div class="service-card" onclick="showSection('servicesSection')">
+        <span class="svc-icon">🔲</span>
+        <div class="svc-name">Tiling</div>
+      </div>
+      <div class="service-card" onclick="showSection('servicesSection')">
+        <span class="svc-icon">🍳</span>
+        <div class="svc-name">Kitchen</div>
+      </div>
+      <div class="service-card" onclick="showSection('servicesSection')">
+        <span class="svc-icon">🚿</span>
+        <div class="svc-name">Bathroom</div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:20px;">
+      <button class="cta-btn cta-btn--outline" onclick="showSection('estimateSection')">Request Free Estimate →</button>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- Work locations on home -->
+  <div style="padding: 0 18px 40px; position:relative; z-index:1;">
+    <div class="section-kicker">Where We Work</div>
+    <h1 style="font-size:28px; margin:8px 0 20px;">NYC <span class="accent">BOROUGHS</span></h1>
+    <div class="location-grid" style="max-width:400px; margin:0 auto;">
+      <div class="location-pill">📍 Bronx</div>
+      <div class="location-pill">📍 Queens</div>
+      <div class="location-pill">📍 Brooklyn</div>
+      <div class="location-pill">📍 Manhattan</div>
+      <div class="location-pill" style="grid-column:1/-1; justify-content:center;">📍 Staten Island</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= BEFORE/AFTER GALLERY ========================= -->
+<div class="content-section relative-z" id="gallerySection">
+  <div class="gallery-hero">
+    <div class="hero-kicker">Real Results</div>
+    <h1>BEFORE &amp;<br><span class="accent">AFTER</span></h1>
+    <p style="font-family:'DM Sans',sans-serif; font-size:13px; color:var(--text-dim); letter-spacing:1px;">See the LXL difference — transformations across all five boroughs.</p>
+  </div>
+
+  <!-- Kitchen -->
+  <div class="gallery-category">
+    <h3>Kitchen Refurbishment</h3>
+    <div class="ba-grid">
+      <div class="ba-card">
+        <div class="ba-card-placeholder">🍳<span>Before</span></div>
+        <div class="ba-card-label"><span class="ba-label-before">BEFORE</span><span class="ba-label-arrow">→</span></div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-card-placeholder" style="background: linear-gradient(135deg,rgba(26,58,107,0.08),rgba(192,120,32,0.08));">✨<span>After</span></div>
+        <div class="ba-card-label"><span class="ba-label-after">AFTER</span></div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-card-placeholder">🍳<span>Before</span></div>
+        <div class="ba-card-label"><span class="ba-label-before">BEFORE</span><span class="ba-label-arrow">→</span></div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-card-placeholder" style="background: linear-gradient(135deg,rgba(26,58,107,0.08),rgba(192,120,32,0.08));">✨<span>After</span></div>
+        <div class="ba-card-label"><span class="ba-label-after">AFTER</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bathroom -->
+  <div class="gallery-category">
+    <h3>Bathroom Refurbishment</h3>
+    <div class="ba-grid">
+      <div class="ba-card">
+        <div class="ba-card-placeholder">🚿<span>Before</span></div>
+        <div class="ba-card-label"><span class="ba-label-before">BEFORE</span><span class="ba-label-arrow">→</span></div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-card-placeholder" style="background: linear-gradient(135deg,rgba(26,58,107,0.08),rgba(192,120,32,0.08));">✨<span>After</span></div>
+        <div class="ba-card-label"><span class="ba-label-after">AFTER</span></div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-card-placeholder">🚿<span>Before</span></div>
+        <div class="ba-card-label"><span class="ba-label-before">BEFORE</span><span class="ba-label-arrow">→</span></div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-card-placeholder" style="background: linear-gradient(135deg,rgba(26,58,107,0.08),rgba(192,120,32,0.08));">✨<span>After</span></div>
+        <div class="ba-card-label"><span class="ba-label-after">AFTER</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flooring & Tiling -->
+  <div class="gallery-category">
+    <h3>Flooring &amp; Tiling</h3>
+    <div class="ba-grid">
+      <div class="ba-card">
+        <div class="ba-card-placeholder">🏗️<span>Before</span></div>
+        <div class="ba-card-label"><span class="ba-label-before">BEFORE</span><span class="ba-label-arrow">→</span></div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-card-placeholder" style="background: linear-gradient(135deg,rgba(26,58,107,0.08),rgba(192,120,32,0.08));">✨<span>After</span></div>
+        <div class="ba-card-label"><span class="ba-label-after">AFTER</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Painting & Carpentry -->
+  <div class="gallery-category">
+    <h3>Painting &amp; Carpentry</h3>
+    <div class="ba-grid">
+      <div class="ba-card">
+        <div class="ba-card-placeholder">🖌️<span>Before</span></div>
+        <div class="ba-card-label"><span class="ba-label-before">BEFORE</span><span class="ba-label-arrow">→</span></div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-card-placeholder" style="background: linear-gradient(135deg,rgba(26,58,107,0.08),rgba(192,120,32,0.08));">✨<span>After</span></div>
+        <div class="ba-card-label"><span class="ba-label-after">AFTER</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upload your own photos -->
+  <div style="padding: 0 18px 20px; position:relative; z-index:1;">
+    <div class="section-kicker" style="margin-top:8px;">Upload Project Photos</div>
+    <div class="upload-zone" onclick="document.getElementById('photoInput').click()">
+      <div style="font-size:32px; margin-bottom:6px;">📁</div>
+      <p>Tap to add before &amp; after photos</p>
+      <p style="font-size:10px; opacity:0.6; margin-top:4px;">JPG, PNG supported</p>
+    </div>
+    <input type="file" id="photoInput" multiple accept="image/*" onchange="handlePhotoUpload(event)">
+    <div id="uploadedPhotosGrid" class="ba-grid" style="margin-top:0; padding:0;"></div>
+  </div>
+
+  <div style="padding: 0 18px 40px; text-align:center;">
+    <button class="cta-btn cta-btn--primary" onclick="showSection('estimateSection')">Get Your Free Estimate</button>
+  </div>
+</div>
+
+<!-- ========================= SERVICES SECTION ========================= -->
+<div class="content-section relative-z" id="servicesSection">
+  <div style="padding: 36px 20px 8px; text-align:center;">
+    <div class="hero-kicker">Expert Craftsmanship</div>
+    <h1>OUR <span class="accent">SERVICES</span></h1>
+    <p style="font-family:'DM Sans',sans-serif; font-size:13px; color:var(--text-dim); letter-spacing:1px; margin-top:6px;">Full-service home remodeling across all NYC boroughs.</p>
+  </div>
+
+  <div class="services-section">
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="svc-icon">🪚</span>
+        <div class="svc-name">Carpentry</div>
+        <div class="svc-desc">Custom cabinetry, trim work, framing, doors &amp; structural woodwork.</div>
+      </div>
+      <div class="service-card">
+        <span class="svc-icon">🖌️</span>
+        <div class="svc-name">Painting</div>
+        <div class="svc-desc">Interior &amp; exterior painting with premium finishes and clean lines.</div>
+      </div>
+      <div class="service-card">
+        <span class="svc-icon">🏗️</span>
+        <div class="svc-name">Flooring</div>
+        <div class="svc-desc">Hardwood, laminate, vinyl, and engineered flooring installation.</div>
+      </div>
+      <div class="service-card">
+        <span class="svc-icon">🧱</span>
+        <div class="svc-name">Masonry</div>
+        <div class="svc-desc">Brick, stone, concrete, and block work for walls, steps &amp; facades.</div>
+      </div>
+      <div class="service-card">
+        <span class="svc-icon">🪟</span>
+        <div class="svc-name">Window Replacement</div>
+        <div class="svc-desc">Energy-efficient window installation and frame repairs.</div>
+      </div>
+      <div class="service-card">
+        <span class="svc-icon">🔲</span>
+        <div class="svc-name">Tiling</div>
+        <div class="svc-desc">Floor and wall tiling for kitchens, bathrooms, and living spaces.</div>
+      </div>
+      <div class="service-card">
+        <span class="svc-icon">🍳</span>
+        <div class="svc-name">Kitchen Refurbishment</div>
+        <div class="svc-desc">Full kitchen remodels — cabinets, countertops, backsplash &amp; more.</div>
+      </div>
+      <div class="service-card">
+        <span class="svc-icon">🚿</span>
+        <div class="svc-name">Bathroom Refurbishment</div>
+        <div class="svc-desc">Bathroom renovations — vanities, showers, tubs, and tiling.</div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:28px;">
+      <div style="font-family:'DM Sans',sans-serif; font-size:13px; color:var(--text-dim); margin-bottom:14px;">Ready to transform your space?</div>
+      <button class="cta-btn cta-btn--primary" onclick="showSection('estimateSection')">Get Free Estimate</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= FREE ESTIMATE SECTION ========================= -->
+<div class="content-section relative-z" id="estimateSection">
+  <div style="padding: 36px 20px 8px; text-align:center;">
+    <div class="hero-kicker">No Obligation</div>
+    <h1>FREE <span class="accent">ESTIMATE</span></h1>
+    <p style="font-family:'DM Sans',sans-serif; font-size:13px; color:var(--text-dim); letter-spacing:1px; margin-top:6px;">Tell us about your project and we'll get back to you within 24 hours.</p>
+  </div>
+
+  <div class="estimate-section">
+    <div class="estimate-card">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" id="firstName" placeholder="John">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-input" id="lastName" placeholder="Smith">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone Number</label>
+        <input type="tel" class="form-input" id="phone" placeholder="(718) 000-0000">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" id="email" placeholder="john@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Borough / Location</label>
+        <select class="form-select" id="borough">
+          <option value="">Select Borough</option>
+          <option>Bronx</option>
+          <option>Queens</option>
+          <option>Brooklyn</option>
+          <option>Manhattan</option>
+          <option>Staten Island</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service Needed</label>
+        <select class="form-select" id="service">
+          <option value="">Select Service</option>
+          <option>Carpentry</option>
+          <option>Painting</option>
+          <option>Flooring</option>
+          <option>Masonry</option>
+          <option>Window Replacement</option>
+          <option>Tiling</option>
+          <option>Kitchen Refurbishment</option>
+          <option>Bathroom Refurbishment</option>
+          <option>Multiple Services</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Project Description</label>
+        <textarea class="form-textarea" id="description" placeholder="Describe your project — what rooms, what needs to be done, your timeline, etc."></textarea>
+      </div>
+      <button class="submit-btn" onclick="submitEstimate()">📋 Submit Free Estimate Request</button>
+    </div>
+
+    <div style="text-align:center; margin-top:20px; font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase;">
+      Or call us directly: <a href="tel:+19295551234" style="color:var(--hot); text-decoration:none; font-weight:700;">(929) 555-1234</a>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= ABOUT SECTION ========================= -->
+<div class="content-section relative-z" id="aboutSection">
+  <div style="padding: 36px 20px 8px; text-align:center;">
+    <div class="hero-kicker">Who We Are</div>
+    <h1>ABOUT <span class="accent">US</span></h1>
+  </div>
+
+  <div class="about-section">
+    <div class="about-card">
+      <p class="about-text">
+        LXL Home Improvement LLC is a fully licensed home improvement contractor based in New York City. We serve homeowners across all five boroughs — the Bronx, Queens, Brooklyn, Manhattan, and Staten Island.
+      </p>
+      <p class="about-text">
+        Our team of skilled tradespeople specializes in full residential remodels — from carpentry and flooring to complete kitchen and bathroom transformations. We take pride in clean workmanship, honest pricing, and treating every home like our own.
+      </p>
+      <p class="about-text">
+        We are available 7 days a week because we know home emergencies and project timelines don't wait for the work week. Whether it's a small repair or a full gut renovation, LXL delivers quality you can see.
+      </p>
+      <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:12px;">
+        <div class="license-badge">🏛️ Licensed Home Improvement Contractor</div>
+        <div class="hours-badge">📅 Open 7 Days a Week</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;">
+      <div class="section-kicker">We Serve</div>
+      <div class="location-grid" style="max-width:400px; margin:16px auto 0;">
+        <div class="location-pill">📍 Bronx</div>
+        <div class="location-pill">📍 Queens</div>
+        <div class="location-pill">📍 Brooklyn</div>
+        <div class="location-pill">📍 Manhattan</div>
+        <div class="location-pill" style="grid-column:1/-1; justify-content:center;">📍 Staten Island</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= REVIEWS SECTION ========================= -->
+<div class="content-section relative-z" id="reviewsSection">
+  <div style="padding: 36px 20px 8px; text-align:center;">
+    <div class="hero-kicker">What Clients Say</div>
+    <h1>CLIENT <span class="accent">REVIEWS</span></h1>
+  </div>
+
+  <div class="reviews-section">
+    <div class="reviews-strip">
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">LXL completely transformed our kitchen. The work was clean, fast, and exactly what we asked for. Highly recommend!</p>
+        <div class="review-author">Maria G.</div>
+        <div class="review-location">Queens, NY</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">They redid our bathroom from top to bottom — new tiles, vanity, shower. Looks brand new. Professional team, great price.</p>
+        <div class="review-author">James T.</div>
+        <div class="review-location">Bronx, NY</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">Hired LXL for flooring throughout my apartment. Done in two days, no mess left behind. Very happy with the result.</p>
+        <div class="review-author">Sofia R.</div>
+        <div class="review-location">Brooklyn, NY</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">Had them replace all windows in my house. Energy bill went down and they were done ahead of schedule. Great work!</p>
+        <div class="review-author">David M.</div>
+        <div class="review-location">Manhattan, NY</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">The masonry work on my front steps was outstanding. Solid, clean, and at a fair price. Will use them again for painting.</p>
+        <div class="review-author">Carmen L.</div>
+        <div class="review-location">Staten Island, NY</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">Available on a Saturday — showed up on time, finished the tiling job perfectly. LXL is my go-to contractor now.</p>
+        <div class="review-author">Anthony B.</div>
+        <div class="review-location">Queens, NY</div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:24px;">
+      <button class="cta-btn cta-btn--primary" onclick="showSection('estimateSection')">Get Your Free Estimate</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= CONTACT & INFO SECTION ========================= -->
+<div class="content-section relative-z" id="contactSection">
+  <div style="padding: 36px 20px 8px; text-align:center;">
+    <div class="hero-kicker">Reach Us</div>
+    <h1>CONTACT <span class="accent">&amp; INFO</span></h1>
+  </div>
+
+  <div class="info-section">
+    <div class="info-grid">
+
+      <!-- Contact Info -->
+      <div class="info-card">
+        <div class="info-card-title"><span class="ic-icon">📞</span> Contact Info</div>
+        <div class="info-item"><span class="ii-icon">📞</span><a href="tel:+19295551234">(929) 555-1234</a></div>
+        <div class="info-item"><span class="ii-icon">💬</span><a href="sms:+19295551234">Text Us Anytime</a></div>
+        <div class="info-item"><span class="ii-icon">📧</span><a href="mailto:info@lxlhome.com">info@lxlhome.com</a></div>
+        <div class="info-item"><span class="ii-icon">📅</span><span>7 Days a Week</span></div>
+      </div>
+
+      <!-- License & Hours -->
+      <div class="info-card">
+        <div class="info-card-title"><span class="ic-icon">🏛️</span> License &amp; Hours</div>
+        <div class="info-item"><span class="ii-icon">✅</span><span>Licensed Home Improvement Contractor</span></div>
+        <div class="info-item"><span class="ii-icon">🕐</span><span>Mon – Sun: 7:00 AM – 7:00 PM</span></div>
+        <div class="info-item"><span class="ii-icon">🆓</span><span>Free Estimates Available</span></div>
+      </div>
+
+      <!-- Payment Methods -->
+      <div class="info-card">
+        <div class="info-card-title"><span class="ic-icon">💳</span> Payment Methods</div>
+        <div class="payment-row">
+          <div class="payment-pill">💜 Zelle</div>
+          <div class="payment-pill">💵 Cash</div>
+          <div class="payment-pill">🏦 Direct Deposit</div>
+          <div class="payment-pill">📝 Cheque</div>
+        </div>
+      </div>
+
+      <!-- Work Locations -->
+      <div class="info-card">
+        <div class="info-card-title"><span class="ic-icon">📍</span> Work Locations</div>
+        <div class="location-grid">
+          <div class="location-pill">📍 Bronx</div>
+          <div class="location-pill">📍 Queens</div>
+          <div class="location-pill">📍 Brooklyn</div>
+          <div class="location-pill">📍 Manhattan</div>
+          <div class="location-pill" style="grid-column:1/-1;">📍 Staten Island</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center; margin-top:28px;">
+      <button class="cta-btn cta-btn--primary" onclick="showSection('estimateSection')">📋 Request Free Estimate</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= TOAST ========================= -->
+<div class="toast" id="toast">Message sent!</div>
+
+<!-- ========================= PHOTO MODAL ========================= -->
+<div class="photo-modal-overlay" id="photoModal" onclick="closePhotoModal()">
+  <div class="photo-modal-inner">
+    <button class="photo-modal-close" onclick="closePhotoModal()">✕</button>
+    <img id="photoModalImg" src="" alt="Project photo">
+  </div>
+</div>
+
+<!-- ========================= FOOTER ========================= -->
+<div class="site-footer">LXL HOME IMPROVEMENT LLC — NYC'S TRUSTED REMODELERS · 7 DAYS A WEEK</div>
+
+<script>
+// ========================= SECTION NAVIGATION =========================
+function showSection(sectionId) {
+  document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(sectionId);
+  if (target) { target.classList.add('active'); window.scrollTo(0,0); }
+  // Update sidebar active
+  document.querySelectorAll('.sidebar-nav-item').forEach(el => el.classList.remove('active'));
+  const map = {
+    'homeSection': 'snav-home',
+    'gallerySection': 'snav-gallery',
+    'servicesSection': 'snav-services',
+    'estimateSection': 'snav-estimate',
+    'aboutSection': 'snav-about',
+    'reviewsSection': 'snav-reviews',
+    'contactSection': 'snav-contact'
+  };
+  const navId = map[sectionId];
+  if (navId) {
+    const navEl = document.getElementById(navId);
+    if (navEl) navEl.classList.add('active');
+  }
+}
+
+// ========================= SIDEBAR =========================
+function toggleSidebar() {
+  const panel = document.getElementById('sidebarPanel');
+  const scrim = document.getElementById('sidebarScrim');
+  const btn = document.getElementById('hamburgerBtn');
+  const isOpen = panel.classList.contains('open');
+  if (isOpen) { closeSidebar(); } else {
+    panel.classList.add('open');
+    scrim.classList.add('show');
+    btn.classList.add('open');
+  }
+}
+function closeSidebar() {
+  document.getElementById('sidebarPanel').classList.remove('open');
+  document.getElementById('sidebarScrim').classList.remove('show');
+  document.getElementById('hamburgerBtn').classList.remove('open');
+}
+
+// ========================= ESTIMATE FORM =========================
+function submitEstimate() {
+  const first = document.getElementById('firstName').value.trim();
+  const last = document.getElementById('lastName').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const borough = document.getElementById('borough').value;
+  const service = document.getElementById('service').value;
+  const desc = document.getElementById('description').value.trim();
+
+  if (!first || !phone || !service) {
+    showToast('Please fill in name, phone, and service.', false);
+    return;
+  }
+
+  // Build WhatsApp / SMS message
+  const msg = encodeURIComponent(
+    `NEW ESTIMATE REQUEST\n` +
+    `Name: ${first} ${last}\n` +
+    `Phone: ${phone}\n` +
+    `Email: ${document.getElementById('email').value}\n` +
+    `Borough: ${borough}\n` +
+    `Service: ${service}\n` +
+    `Description: ${desc}`
+  );
+
+  // Open WhatsApp (replace number with real number)
+  window.open(`https://wa.me/19295551234?text=${msg}`, '_blank');
+
+  // Clear form
+  ['firstName','lastName','phone','email','description'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('borough').value = '';
+  document.getElementById('service').value = '';
+  showToast('Estimate request sent! We\'ll be in touch soon.', true);
+}
+
+// ========================= PHONE FORMAT =========================
+document.addEventListener('DOMContentLoaded', function() {
+  const phoneInput = document.getElementById('phone');
+  if (phoneInput) {
+    phoneInput.addEventListener('input', function(e) {
+      let input = e.target.value.replace(/\D/g, '');
+      if (input.length > 10) input = input.substring(0, 10);
+      let formatted = input;
+      if (input.length > 6) formatted = `(${input.substring(0,3)}) ${input.substring(3,6)}-${input.substring(6)}`;
+      else if (input.length > 3) formatted = `(${input.substring(0,3)}) ${input.substring(3)}`;
+      else if (input.length > 0) formatted = `(${input}`;
+      e.target.value = formatted;
+    });
+  }
+});
+
+// ========================= PHOTO UPLOAD =========================
+function handlePhotoUpload(event) {
+  const files = Array.from(event.target.files);
+  const grid = document.getElementById('uploadedPhotosGrid');
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const card = document.createElement('div');
+      card.className = 'ba-card';
+      card.style.cursor = 'pointer';
+      card.innerHTML = `
+        <img class="ba-card-img" src="${e.target.result}" alt="Project photo" onclick="openPhotoModal('${e.target.result}')">
+        <div class="ba-card-label"><span class="ba-label-after">PROJECT PHOTO</span></div>
+      `;
+      grid.appendChild(card);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function openPhotoModal(src) {
+  document.getElementById('photoModalImg').src = src;
+  document.getElementById('photoModal').classList.add('show');
+}
+function closePhotoModal() {
+  document.getElementById('photoModal').classList.remove('show');
+}
+
+// ========================= TOAST =========================
+function showToast(message, success = true) {
+  const toast = document.getElementById('toast');
+  toast.innerText = message;
+  toast.style.backgroundColor = success ? '#22CC66' : '#C07820';
+  toast.style.visibility = 'visible';
+  toast.style.opacity = '1';
+  toast.style.bottom = '50px';
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.bottom = '30px';
+    setTimeout(() => { toast.style.visibility = 'hidden'; }, 500);
+  }, 3000);
+}
+</script>
+</body>
+</html>
