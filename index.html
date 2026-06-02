@@ -32,6 +32,152 @@
   --green:       #22C55E;
 }
 
+
+
+/* ── ADMIN BUTTON ── */
+.sidebar-admin-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 14px 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,201,167,0.25);
+  background: rgba(0,201,167,0.06);
+  color: var(--neon);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: calc(100% - 28px);
+  transition: all 0.2s ease;
+}
+.sidebar-admin-btn:hover { background: rgba(0,201,167,0.14); border-color: var(--neon); }
+.sidebar-admin-btn .admin-avatar {
+  width: 22px; height: 22px; border-radius: 50%;
+  object-fit: cover; display: none;
+}
+.sidebar-admin-btn.signed-in { border-color: var(--green); background: rgba(34,197,94,0.08); color: var(--green); }
+
+/* ── ADMIN MODAL ── */
+.admin-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+  z-index: 2000; align-items: flex-start; justify-content: center;
+  padding: 60px 16px 40px; overflow-y: auto;
+}
+.admin-overlay.show { display: flex; }
+.admin-modal {
+  background: var(--surface); border: 1px solid var(--border-lit);
+  border-radius: 16px; width: 100%; max-width: 560px;
+  padding: 28px 22px; position: relative;
+}
+.admin-modal-title {
+  font-family: 'Outfit', sans-serif; font-weight: 800;
+  font-size: 18px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--neon); margin-bottom: 6px;
+}
+.admin-modal-sub { font-size: 11px; color: var(--text-dim); letter-spacing: 1px; margin-bottom: 22px; }
+.admin-close-btn {
+  position: absolute; top: 16px; right: 16px;
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text-dim); border-radius: 6px;
+  width: 30px; height: 30px; cursor: pointer; font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.admin-close-btn:hover { border-color: var(--hot); color: var(--hot); }
+
+/* sign-in screen */
+.admin-signin-screen { text-align: center; padding: 20px 0 10px; }
+.admin-signin-screen p { color: var(--text-mid); font-size: 13px; margin-bottom: 22px; line-height: 1.6; }
+.google-signin-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #fff; color: #333; border: none; border-radius: 8px;
+  padding: 12px 22px; font-family: 'Outfit', sans-serif;
+  font-weight: 700; font-size: 13px; cursor: pointer;
+  transition: box-shadow 0.2s; letter-spacing: 0.5px;
+}
+.google-signin-btn:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+.google-signin-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* review cards in admin */
+.admin-review-card {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px; margin-bottom: 12px;
+}
+.admin-review-card .arc-header {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;
+}
+.admin-review-card .arc-name { font-weight: 700; font-size: 13px; color: var(--text); }
+.admin-review-card .arc-stars { color: var(--amber); font-size: 13px; }
+.admin-review-card .arc-meta { font-size: 11px; color: var(--text-dim); margin-bottom: 6px; }
+.admin-review-card .arc-text { font-size: 12px; color: var(--text-mid); line-height: 1.55; }
+.admin-review-card .arc-actions { display: flex; gap: 8px; margin-top: 10px; }
+.arc-btn {
+  font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  border-radius: 6px; padding: 6px 14px; cursor: pointer;
+  border: 1px solid; transition: all 0.18s;
+}
+.arc-btn--approve { border-color: var(--green); color: var(--green); background: rgba(34,197,94,0.07); }
+.arc-btn--approve:hover { background: rgba(34,197,94,0.18); }
+.arc-btn--delete  { border-color: var(--hot);   color: var(--hot);   background: rgba(255,107,53,0.07); }
+.arc-btn--delete:hover  { background: rgba(255,107,53,0.18); }
+.arc-status-badge {
+  font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 20px;
+}
+.arc-status-badge.pending  { background: rgba(245,166,35,0.15); color: var(--amber); }
+.arc-status-badge.approved { background: rgba(34,197,94,0.15);  color: var(--green); }
+.admin-empty { text-align:center; color: var(--text-dim); font-size: 12px; padding: 30px 0; letter-spacing: 1px; }
+.admin-section-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-dim); margin: 18px 0 10px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+.admin-signout-btn {
+  width: 100%; margin-top: 18px; padding: 10px;
+  background: transparent; border: 1px solid var(--border);
+  border-radius: 8px; color: var(--text-dim); font-family: 'Outfit', sans-serif;
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  cursor: pointer; transition: all 0.2s;
+}
+.admin-signout-btn:hover { border-color: var(--hot); color: var(--hot); }
+
+/* ── PUBLIC REVIEWS ── */
+.review-submit-card {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 14px; padding: 22px 18px; margin: 0 auto;
+  max-width: 480px;
+}
+.review-submit-card .form-label { font-size: 10px; }
+.star-picker { display: flex; gap: 6px; margin: 4px 0 14px; }
+.star-picker span {
+  font-size: 26px; cursor: pointer; color: var(--border);
+  transition: color 0.15s; line-height: 1;
+}
+.star-picker span.lit { color: var(--amber); }
+.public-reviews-list { margin-top: 26px; }
+.pub-review-card {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px; margin-bottom: 12px;
+  animation: fadeSlideIn 0.4s ease;
+}
+.pub-review-card .prc-stars { color: var(--amber); font-size: 13px; margin-bottom: 4px; }
+.pub-review-card .prc-text  { font-size: 13px; color: var(--text-mid); line-height: 1.55; margin-bottom: 8px; }
+.pub-review-card .prc-meta  { font-size: 11px; color: var(--text-dim); }
+.reviews-loading { text-align:center; color: var(--text-dim); font-size: 12px; padding: 20px 0; letter-spacing: 1px; }
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+#exactAddressGroup {
+  animation: fadeSlideIn 0.3s ease;
+}
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
@@ -996,6 +1142,10 @@ h1 span.accent { color: var(--neon); }
   <button class="sidebar-nav-item" id="snav-estimate" onclick="showSection('estimateSection'); closeSidebar();">
     <span class="snav-icon">◈</span> Free Estimate
   </button>
+  <button class="sidebar-admin-btn" id="sidebarAdminBtn" onclick="openAdminPanel()">
+    <img class="admin-avatar" id="adminAvatar" src="" alt="">
+    <span id="adminBtnLabel">⚙ Admin</span>
+  </button>
   <div class="sidebar-divider"></div>
   <div class="sidebar-label">Company</div>
   <button class="sidebar-nav-item" id="snav-about" onclick="showSection('aboutSection'); closeSidebar();">
@@ -1125,10 +1275,14 @@ h1 span.accent { color: var(--neon); }
       <div class="form-group"><label class="form-label">Email Address</label><input type="email" class="form-input" id="email" placeholder="john@email.com"></div>
       <div class="form-group">
         <label class="form-label">Borough / Location</label>
-        <select class="form-select" id="borough">
+        <select class="form-select" id="borough" onchange="handleBoroughChange(this.value)">
           <option value="">Select Borough</option>
           <option>Bronx</option><option>Queens</option><option>Brooklyn</option><option>Manhattan</option><option>Staten Island</option><option>Other</option>
         </select>
+      </div>
+      <div class="form-group" id="exactAddressGroup" style="display:none;">
+        <label class="form-label">Exact Address <span style="color:var(--neon);">*</span></label>
+        <input type="text" class="form-input" id="exactAddress" placeholder="e.g. 123 Main St, Apt 2B, Bronx, NY 10451">
       </div>
       <div class="form-group">
         <label class="form-label">Service Needed</label>
@@ -1184,17 +1338,49 @@ h1 span.accent { color: var(--neon); }
     <h1>CLIENT <span class="accent">REVIEWS</span></h1>
   </div>
   <div class="reviews-section">
-    <div class="reviews-strip">
-      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">LXL completely transformed our kitchen. The work was clean, fast, and exactly what we asked for. Highly recommend!</p><div class="review-author">Maria G.</div><div class="review-location">Queens, NY</div></div>
-      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">They redid our bathroom from top to bottom — new tiles, vanity, shower. Looks brand new. Professional team, great price.</p><div class="review-author">James T.</div><div class="review-location">Bronx, NY</div></div>
-      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Hired LXL for flooring throughout my apartment. Done in two days, no mess left behind. Very happy with the result.</p><div class="review-author">Sofia R.</div><div class="review-location">Brooklyn, NY</div></div>
-      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Had them replace all windows in my house. Energy bill went down and they were done ahead of schedule. Great work!</p><div class="review-author">David M.</div><div class="review-location">Manhattan, NY</div></div>
-      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">The masonry work on my front steps was outstanding. Solid, clean, and at a fair price. Will use them again for painting.</p><div class="review-author">Carmen L.</div><div class="review-location">Staten Island, NY</div></div>
-      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Available on a Saturday — showed up on time, finished the tiling job perfectly. LXL is my go-to contractor now.</p><div class="review-author">Anthony B.</div><div class="review-location">Queens, NY</div></div>
+
+    <!-- Submit a review -->
+    <div class="review-submit-card">
+      <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--neon);margin-bottom:16px;">Leave a Review</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" id="rv_first" placeholder="Maria">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-input" id="rv_last" placeholder="G.">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Borough</label>
+        <select class="form-select" id="rv_borough">
+          <option value="">Select Borough</option>
+          <option>Bronx</option><option>Queens</option><option>Brooklyn</option><option>Manhattan</option><option>Staten Island</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Rating</label>
+        <div class="star-picker" id="starPicker">
+          <span data-v="1">★</span>
+          <span data-v="2">★</span>
+          <span data-v="3">★</span>
+          <span data-v="4">★</span>
+          <span data-v="5">★</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Your Review</label>
+        <textarea class="form-textarea" id="rv_text" placeholder="Tell us about your experience with LXL Home Improvement..." style="min-height:90px;"></textarea>
+      </div>
+      <button class="submit-btn" onclick="submitReview()">Submit Review</button>
     </div>
-    <div style="text-align:center; margin-top:20px;">
-      <button class="cta-btn cta-btn--primary" onclick="showSection('estimateSection')">Get Your Free Estimate</button>
+
+    <!-- Approved public reviews -->
+    <div class="public-reviews-list" id="publicReviewsList">
+      <div class="reviews-loading" id="reviewsLoading">Loading reviews...</div>
     </div>
+
   </div>
 </div>
 
@@ -1285,6 +1471,20 @@ function closeSidebar() {
   document.getElementById('hamburgerBtn').classList.remove('open');
 }
 
+function handleBoroughChange(val) {
+  const group = document.getElementById('exactAddressGroup');
+  if (val) {
+    group.style.display = 'block';
+    document.getElementById('exactAddress').placeholder =
+      val === 'Other'
+        ? 'e.g. 45 Example Ave, Jersey City, NJ 07302'
+        : `e.g. 123 Main St, Apt 2B, ${val}, NY`;
+  } else {
+    group.style.display = 'none';
+    document.getElementById('exactAddress').value = '';
+  }
+}
+
 async function submitEstimate() {
   const first = document.getElementById('firstName').value.trim();
   const phone = document.getElementById('phone').value.trim();
@@ -1300,6 +1500,7 @@ async function submitEstimate() {
     `📞 Phone: ${phone}\n` +
     `📧 Email: ${document.getElementById('email').value || '—'}\n` +
     `📍 Borough: ${document.getElementById('borough').value || '—'}\n` +
+    `🏠 Address: ${document.getElementById('exactAddress').value || '—'}\n` +
     `🛠 Service: ${service}\n` +
     `📝 Description: ${document.getElementById('description').value || '—'}`;
 
@@ -1313,6 +1514,8 @@ async function submitEstimate() {
     if (!data.ok) throw new Error(data.description);
     ['firstName','lastName','phone','email','description'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('borough').value = '';
+    document.getElementById('exactAddress').value = '';
+    document.getElementById('exactAddressGroup').style.display = 'none';
     document.getElementById('service').value = '';
     showToast("Estimate request sent! We'll be in touch soon.", true);
   } catch (err) {
@@ -1359,6 +1562,250 @@ function showToast(message, success = true) {
   }, 2800);
 }
 </script>
+
+<!-- ========================= ADMIN MODAL ========================= -->
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-modal">
+    <button class="admin-close-btn" onclick="closeAdminPanel()">✕</button>
+
+    <!-- Sign-in screen -->
+    <div id="adminSigninScreen" class="admin-signin-screen">
+      <div class="admin-modal-title">Admin Access</div>
+      <div class="admin-modal-sub">Sign in with the authorized Google account</div>
+      <p>Sign in to manage and approve customer reviews submitted to the LXL website.</p>
+      <button class="google-signin-btn" onclick="adminGoogleSignIn()">
+        <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 33.6 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 19.7-8 19.7-20 0-1.3-.1-2.7-.3-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16 19 13 24 13c3 0 5.8 1.1 7.9 3l5.7-5.7C34 6.5 29.3 4 24 4 16.3 4 9.7 8.5 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.5-5l-6.2-5.2C29.5 35.5 26.9 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.3 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.9 2.5-2.6 4.6-4.8 6l6.2 5.2C40.7 35.7 44 30.3 44 24c0-1.3-.1-2.7-.4-4z"/></svg>
+        Sign in with Google
+      </button>
+    </div>
+
+    <!-- Admin dashboard -->
+    <div id="adminDashboard" style="display:none;">
+      <div class="admin-modal-title">Review Manager</div>
+      <div class="admin-modal-sub" id="adminUserLabel">Signed in as —</div>
+
+      <div class="admin-section-label">⏳ Pending Approval</div>
+      <div id="adminPendingList"><div class="admin-empty">No pending reviews.</div></div>
+
+      <div class="admin-section-label">✅ Approved Reviews</div>
+      <div id="adminApprovedList"><div class="admin-empty">No approved reviews yet.</div></div>
+
+      <button class="admin-signout-btn" onclick="adminSignOut()">Sign Out</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, orderBy, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDZsl7wCM4ABai7-YMg_6PzPUOsq2M9CKM",
+  authDomain: "lxl-home-improvement-llc.firebaseapp.com",
+  projectId: "lxl-home-improvement-llc",
+  storageBucket: "lxl-home-improvement-llc.firebasestorage.app",
+  messagingSenderId: "690054839471",
+  appId: "1:690054839471:web:59a803e363766c75e6e85a"
+};
+
+const app  = initializeApp(firebaseConfig);
+const db   = getFirestore(app);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+// ── AUTH STATE ──────────────────────────────────────────────────────────────
+onAuthStateChanged(auth, user => {
+  const btn   = document.getElementById('sidebarAdminBtn');
+  const label = document.getElementById('adminBtnLabel');
+  const avatar = document.getElementById('adminAvatar');
+  if (user) {
+    btn.classList.add('signed-in');
+    label.textContent = 'Admin ✓';
+    if (user.photoURL) { avatar.src = user.photoURL; avatar.style.display = 'block'; }
+    document.getElementById('adminUserLabel').textContent = 'Signed in as ' + user.email;
+    document.getElementById('adminSigninScreen').style.display = 'none';
+    document.getElementById('adminDashboard').style.display = 'block';
+    loadAdminReviews();
+  } else {
+    btn.classList.remove('signed-in');
+    label.textContent = '⚙ Admin';
+    avatar.style.display = 'none';
+    document.getElementById('adminSigninScreen').style.display = 'block';
+    document.getElementById('adminDashboard').style.display = 'none';
+  }
+});
+
+// ── ADMIN SIGN IN / OUT ─────────────────────────────────────────────────────
+window.adminGoogleSignIn = async function() {
+  try {
+    await signInWithPopup(auth, provider);
+  } catch(e) {
+    showToast('Sign-in failed: ' + e.message, false);
+  }
+};
+window.adminSignOut = async function() {
+  await signOut(auth);
+  showToast('Signed out.', true);
+};
+
+// ── STAR PICKER ─────────────────────────────────────────────────────────────
+let selectedStars = 0;
+document.querySelectorAll('#starPicker span').forEach(star => {
+  star.addEventListener('click', () => {
+    selectedStars = parseInt(star.dataset.v);
+    document.querySelectorAll('#starPicker span').forEach(s => {
+      s.classList.toggle('lit', parseInt(s.dataset.v) <= selectedStars);
+    });
+  });
+  star.addEventListener('mouseover', () => {
+    document.querySelectorAll('#starPicker span').forEach(s => {
+      s.classList.toggle('lit', parseInt(s.dataset.v) <= parseInt(star.dataset.v));
+    });
+  });
+  star.addEventListener('mouseout', () => {
+    document.querySelectorAll('#starPicker span').forEach(s => {
+      s.classList.toggle('lit', parseInt(s.dataset.v) <= selectedStars);
+    });
+  });
+});
+
+// ── SUBMIT REVIEW (public) ──────────────────────────────────────────────────
+window.submitReview = async function() {
+  const first   = document.getElementById('rv_first').value.trim();
+  const last    = document.getElementById('rv_last').value.trim();
+  const borough = document.getElementById('rv_borough').value;
+  const text    = document.getElementById('rv_text').value.trim();
+  if (!first || !text || !selectedStars) {
+    showToast('Please fill in your name, rating, and review.', false); return;
+  }
+  try {
+    await addDoc(collection(db, 'reviews'), {
+      name: first + (last ? ' ' + last : ''),
+      borough: borough || '',
+      text,
+      stars: selectedStars,
+      status: 'pending',
+      createdAt: serverTimestamp()
+    });
+    document.getElementById('rv_first').value = '';
+    document.getElementById('rv_last').value  = '';
+    document.getElementById('rv_borough').value = '';
+    document.getElementById('rv_text').value  = '';
+    selectedStars = 0;
+    document.querySelectorAll('#starPicker span').forEach(s => s.classList.remove('lit'));
+    showToast('Thank you! Your review is pending approval.', true);
+  } catch(e) {
+    showToast('Error submitting review. Try again.', false);
+    console.error(e);
+  }
+};
+
+// ── LOAD PUBLIC APPROVED REVIEWS ────────────────────────────────────────────
+async function loadPublicReviews() {
+  const list = document.getElementById('publicReviewsList');
+  const loading = document.getElementById('reviewsLoading');
+  try {
+    const q = query(collection(db, 'reviews'), where('status','==','approved'), orderBy('createdAt','desc'));
+    const snap = await getDocs(q);
+    loading && loading.remove();
+    if (snap.empty) {
+      list.innerHTML = '<div class="reviews-loading">No reviews yet. Be the first!</div>'; return;
+    }
+    list.innerHTML = '';
+    snap.forEach(docSnap => {
+      const r = docSnap.data();
+      const stars = '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars);
+      list.innerHTML += `
+        <div class="pub-review-card">
+          <div class="prc-stars">${stars}</div>
+          <p class="prc-text">${r.text}</p>
+          <div class="prc-meta">${r.name}${r.borough ? ' · ' + r.borough + ', NY' : ''}</div>
+        </div>`;
+    });
+  } catch(e) {
+    loading && (loading.textContent = 'Could not load reviews.');
+    console.error(e);
+  }
+}
+loadPublicReviews();
+
+// ── LOAD ADMIN REVIEWS ───────────────────────────────────────────────────────
+window.loadAdminReviews = async function() {
+  const pendingEl  = document.getElementById('adminPendingList');
+  const approvedEl = document.getElementById('adminApprovedList');
+  pendingEl.innerHTML  = '<div class="reviews-loading">Loading...</div>';
+  approvedEl.innerHTML = '<div class="reviews-loading">Loading...</div>';
+  try {
+    const snap = await getDocs(query(collection(db, 'reviews'), orderBy('createdAt','desc')));
+    const pending = [], approved = [];
+    snap.forEach(d => {
+      const r = { id: d.id, ...d.data() };
+      r.status === 'approved' ? approved.push(r) : pending.push(r);
+    });
+
+    pendingEl.innerHTML = pending.length ? '' : '<div class="admin-empty">No pending reviews.</div>';
+    pending.forEach(r => { pendingEl.innerHTML += adminCard(r); });
+
+    approvedEl.innerHTML = approved.length ? '' : '<div class="admin-empty">No approved reviews yet.</div>';
+    approved.forEach(r => { approvedEl.innerHTML += adminCard(r); });
+
+  } catch(e) {
+    pendingEl.innerHTML = '<div class="admin-empty">Error loading reviews.</div>';
+    console.error(e);
+  }
+};
+
+function adminCard(r) {
+  const stars = '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars);
+  const badge = r.status === 'approved'
+    ? '<span class="arc-status-badge approved">Approved</span>'
+    : '<span class="arc-status-badge pending">Pending</span>';
+  const approveBtn = r.status !== 'approved'
+    ? `<button class="arc-btn arc-btn--approve" onclick="approveReview('${r.id}')">Approve</button>` : '';
+  return `
+    <div class="admin-review-card" id="arc-${r.id}">
+      <div class="arc-header">
+        <span class="arc-name">${r.name}${r.borough ? ' · ' + r.borough : ''}</span>
+        ${badge}
+      </div>
+      <div class="arc-stars">${stars}</div>
+      <div class="arc-text">${r.text}</div>
+      <div class="arc-actions">
+        ${approveBtn}
+        <button class="arc-btn arc-btn--delete" onclick="deleteReview('${r.id}')">Delete</button>
+      </div>
+    </div>`;
+}
+
+window.approveReview = async function(id) {
+  try {
+    await updateDoc(doc(db, 'reviews', id), { status: 'approved' });
+    showToast('Review approved!', true);
+    loadAdminReviews();
+    loadPublicReviews();
+  } catch(e) { showToast('Error approving.', false); }
+};
+
+window.deleteReview = async function(id) {
+  try {
+    await deleteDoc(doc(db, 'reviews', id));
+    showToast('Review deleted.', true);
+    loadAdminReviews();
+    loadPublicReviews();
+  } catch(e) { showToast('Error deleting.', false); }
+};
+
+// ── ADMIN PANEL OPEN/CLOSE ───────────────────────────────────────────────────
+window.openAdminPanel  = function() { document.getElementById('adminOverlay').classList.add('show'); closeSidebar(); };
+window.closeAdminPanel = function() { document.getElementById('adminOverlay').classList.remove('show'); };
+
+</script>
+
 <!-- Footer Banner -->
 <div style="position:fixed;bottom:0;left:0;right:0;background-color:#1a1a1a;border-top:2px solid var(--neon);text-align:center;padding:5px 20px;font-family:'Outfit',sans-serif;font-size:13px;letter-spacing:2px;color:#aaa;z-index:1000;"><a href="https://webvtec.com" target="_blank" style="color:#aaa;text-decoration:underline;display:block;width:100%;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">CLICK TO REQUEST YOUR OWN WEBSITE. <span style="color:var(--neon);">webvtec.com</span></a></div>
 </body>
