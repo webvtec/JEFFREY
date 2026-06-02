@@ -347,369 +347,148 @@
     ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 2px; }
   </style>
 
-  <!-- Firebase Storage -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-    import { getStorage, ref, uploadBytesResumable, getDownloadURL, listAll, deleteObject, getMetadata }
-      from "https://www.gstatic.com/firebasejs/11.0.0/firebase-storage.js";
+  <!-- Firebase Storage (compat SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script>
+    (function() {
+      var app = firebase.initializeApp({
+        apiKey:            "AIzaSyDZsl7wCM4ABai7-YMg_6PzPUOsq2M9CKM",
+        authDomain:        "lxl-home-improvement-llc.firebaseapp.com",
+        projectId:         "lxl-home-improvement-llc",
+        storageBucket:     "lxl-home-improvement-llc.firebasestorage.app",
+        messagingSenderId: "690054839471",
+        appId:             "1:690054839471:web:59a803e363766c75e6e85a"
+      });
+      var storage = firebase.storage(app);
 
-    const app = initializeApp({
-      apiKey:            "AIzaSyDZsl7wCM4ABai7-YMg_6PzPUOsq2M9CKM",
-      authDomain:        "lxl-home-improvement-llc.firebaseapp.com",
-      projectId:         "lxl-home-improvement-llc",
-      storageBucket:     "lxl-home-improvement-llc.firebasestorage.app",
-      messagingSenderId: "690054839471",
-      appId:             "1:690054839471:web:59a803e363766c75e6e85a"
-    });
-    const storage = getStorage(app);
+      /* UPLOAD */
+      window.fbUpload = function(files, category, isBefore) {
+        var grid = document.getElementById("adminGalleryGrid");
+        var empty = grid.querySelector(".empty-state");
+        if (empty) empty.remove();
+        var total = files.length;
+        var done = 0;
 
-    window.fbUpload = async function(files, category, isBefore) {
-      const grid = document.getElementById("adminGalleryGrid");
-      const empty = grid.querySelector(".empty-state"); if (empty) empty.remove();
-      const total = files.length; let done = 0;
-      for (const file of files) {
-        const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-        const path = "gallery/" + Date.now() + "_" + safe;
-        const sRef = ref(storage, path);
-        const meta = { customMetadata: { category, isBefore: String(isBefore) } };
-        const pid = "ph_" + Math.random().toString(36).slice(2);
-        const ph = document.createElement("div");
-        ph.className = "gallery-thumb"; ph.id = pid;
-        ph.innerHTML = "<div style='position:absolute;inset:0;background:var(--surface2);display:flex;align-items:flex-end'>" +
-          "<div id='bar_" + pid + "' style='height:3px;width:0%;background:var(--neon);transition:width .15s'></div></div>" +
-          "<div class='gt-label'>" + (isBefore ? "BEFORE" : "AFTER") + " · " + category + "</div>";
-        grid.appendChild(ph);
-        const task = uploadBytesResumable(sRef, file, meta);
-        await new Promise(resolve => {
+        Array.from(files).forEach(function(file) {
+          var safe = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+          var path = "gallery/" + Date.now() + "_" + safe;
+          var sRef = storage.ref(path);
+          var pid = "ph_" + Math.random().toString(36).slice(2);
+
+          var ph = document.createElement("div");
+          ph.className = "gallery-thumb";
+          ph.id = pid;
+          var wrap = document.createElement("div");
+          wrap.style.cssText = "position:absolute;inset:0;background:var(--surface2);display:flex;align-items:flex-end";
+          var bar = document.createElement("div");
+          bar.id = "bar_" + pid;
+          bar.style.cssText = "height:3px;width:0%;background:var(--neon);transition:width .15s";
+          wrap.appendChild(bar);
+          var lbl = document.createElement("div");
+          lbl.className = "gt-label";
+          lbl.textContent = (isBefore ? "BEFORE" : "AFTER") + " · " + category;
+          ph.appendChild(wrap);
+          ph.appendChild(lbl);
+          grid.appendChild(ph);
+
+          var task = sRef.put(file, { customMetadata: { category: category, isBefore: String(isBefore) } });
+
           task.on("state_changed",
-            snap => { const b = document.getElementById("bar_" + pid); if (b) b.style.width = Math.round(snap.bytesTransferred / snap.totalBytes * 100) + "%"; },
-            err  => { console.error(err); const el = document.getElementById(pid); if (el) el.remove(); resolve(); },
-            async () => {
-              const url = await getDownloadURL(task.snapshot.ref);
-              const el = document.getElementById(pid);
-              if (el) {
-                el.style.backgroundImage = "url(" + url + ")";
-                el.style.backgroundSize = "cover";
-                el.style.backgroundPosition = "center";
-                el.innerHTML = "<div class='gt-label'>" + (isBefore ? "BEFORE" : "AFTER") + " · " + category + "</div>" +
-                  "<button class='gt-del' onclick='window.fbDelete(\"" + path + "\",this)'>✕</button>";
-              }
-              done++; window.showToast("Uploaded " + done + " / " + total, true); resolve();
+            function(snap) {
+              var b = document.getElementById("bar_" + pid);
+              if (b) b.style.width = Math.round(snap.bytesTransferred / snap.totalBytes * 100) + "%";
+            },
+            function(err) {
+              console.error(err);
+              var el = document.getElementById(pid);
+              if (el) el.remove();
+            },
+            function() {
+              task.snapshot.ref.getDownloadURL().then(function(url) {
+                var el = document.getElementById(pid);
+                if (el) {
+                  el.style.backgroundImage = "url(" + url + ")";
+                  el.style.backgroundSize = "cover";
+                  el.style.backgroundPosition = "center";
+                  el.innerHTML = "";
+                  var l = document.createElement("div");
+                  l.className = "gt-label";
+                  l.textContent = (isBefore ? "BEFORE" : "AFTER") + " · " + category;
+                  var btn = document.createElement("button");
+                  btn.className = "gt-del";
+                  btn.textContent = "✕";
+                  btn.setAttribute("data-path", path);
+                  btn.onclick = function() { window.fbDelete(path, btn); };
+                  el.appendChild(l);
+                  el.appendChild(btn);
+                }
+                done++;
+                window.showToast("Uploaded " + done + " / " + total, true);
+                if (done === total) window.showToast(total + " photo" + (total > 1 ? "s" : "") + " saved!", true);
+              });
             }
           );
         });
-      }
-      window.showToast(total + " photo" + (total > 1 ? "s" : "") + " saved!", true);
-    };
+      };
 
-    window.fbDelete = async function(path, btn) {
-      if (!confirm("Remove this photo?")) return;
-      try {
-        await deleteObject(ref(storage, path));
-        btn.closest(".gallery-thumb").remove();
-        window.showToast("Photo deleted.", false);
-        if (!document.getElementById("adminGalleryGrid").querySelector(".gallery-thumb"))
-          document.getElementById("adminGalleryGrid").innerHTML = "<div class='empty-state' style='grid-column:1/-1'>No photos yet</div>";
-      } catch(e) { console.error(e); window.showToast("Delete failed.", false); }
-    };
+      /* DELETE */
+      window.fbDelete = function(path, btn) {
+        if (!confirm("Remove this photo?")) return;
+        storage.ref(path).delete().then(function() {
+          btn.closest(".gallery-thumb").remove();
+          window.showToast("Photo deleted.", false);
+          var grid = document.getElementById("adminGalleryGrid");
+          if (!grid.querySelector(".gallery-thumb"))
+            grid.innerHTML = "<div class='empty-state' style='grid-column:1/-1'>No photos yet</div>";
+        }).catch(function(e) {
+          console.error(e);
+          window.showToast("Delete failed.", false);
+        });
+      };
 
-    window.fbLoadGallery = async function() {
-      const grid = document.getElementById("adminGalleryGrid");
-      grid.innerHTML = "<div style='grid-column:1/-1;text-align:center;padding:40px;color:var(--text-dim);font-size:24px;animation:spin 1s linear infinite'>↻</div>";
-      try {
-        const result = await listAll(ref(storage, "gallery/"));
-        grid.innerHTML = "";
-        if (!result.items.length) {
-          grid.innerHTML = "<div class='empty-state' style='grid-column:1/-1'>No photos yet — upload above</div>";
-          return;
-        }
-        await Promise.all(result.items.map(async item => {
-          const [url, m] = await Promise.all([getDownloadURL(item), getMetadata(item)]);
-          const cat    = (m.customMetadata && m.customMetadata.category)  || "General";
-          const before = (m.customMetadata && m.customMetadata.isBefore === "true");
-          const div = document.createElement("div");
-          div.className = "gallery-thumb";
-          div.style.cssText = "background-image:url(" + url + ");background-size:cover;background-position:center";
-          div.innerHTML = "<div class='gt-label'>" + (before ? "BEFORE" : "AFTER") + " · " + cat + "</div>" +
-            "<button class='gt-del' onclick='window.fbDelete(\"" + item.fullPath + "\",this)'>✕</button>";
-          grid.appendChild(div);
-        }));
-      } catch(e) {
-        console.error(e);
-        grid.innerHTML = "<div style='grid-column:1/-1;text-align:center;padding:40px;color:var(--red);'>⚠️ Failed to load. Check Firebase Storage rules.</div>";
-      }
-    };
+      /* LOAD */
+      window.fbLoadGallery = function() {
+        var grid = document.getElementById("adminGalleryGrid");
+        grid.innerHTML = "<div style='grid-column:1/-1;text-align:center;padding:40px;color:var(--text-dim);font-size:24px;animation:spin 1s linear infinite'>↻</div>";
+        storage.ref("gallery/").listAll().then(function(result) {
+          grid.innerHTML = "";
+          if (!result.items.length) {
+            grid.innerHTML = "<div class='empty-state' style='grid-column:1/-1'>No photos yet — upload above</div>";
+            return;
+          }
+          var promises = result.items.map(function(item) {
+            return Promise.all([item.getDownloadURL(), item.getMetadata()]).then(function(vals) {
+              return { url: vals[0], path: item.fullPath, category: (vals[1].customMetadata && vals[1].customMetadata.category) || "General", isBefore: vals[1].customMetadata && vals[1].customMetadata.isBefore === "true" };
+            });
+          });
+          Promise.all(promises).then(function(photos) {
+            photos.forEach(function(photo) {
+              var div = document.createElement("div");
+              div.className = "gallery-thumb";
+              div.style.backgroundImage = "url(" + photo.url + ")";
+              div.style.backgroundSize = "cover";
+              div.style.backgroundPosition = "center";
+              var lbl = document.createElement("div");
+              lbl.className = "gt-label";
+              lbl.textContent = (photo.isBefore ? "BEFORE" : "AFTER") + " · " + photo.category;
+              var btn = document.createElement("button");
+              btn.className = "gt-del";
+              btn.textContent = "✕";
+              btn.onclick = (function(p, b) { return function() { window.fbDelete(p, b); }; })(photo.path, btn);
+              div.appendChild(lbl);
+              div.appendChild(btn);
+              grid.appendChild(div);
+            });
+          });
+        }).catch(function(e) {
+          console.error(e);
+          grid.innerHTML = "<div style='grid-column:1/-1;text-align:center;padding:40px;color:var(--red)'>⚠️ Failed to load. Check Firebase Storage rules.</div>";
+        });
+      };
 
-    document.addEventListener("DOMContentLoaded", () => window.fbLoadGallery());
+      document.addEventListener("DOMContentLoaded", function() { window.fbLoadGallery(); });
+    })();
   </script>
-</head>
-<body>
 
-<!-- HEADER -->
-<div class="header-bar">
-  <span class="brand-teal">LXL</span>&nbsp;HOME IMPROVEMENT
-  <span class="brand-admin">ADMIN</span>
-</div>
 
-<!-- NAV -->
-<div class="top-menu">
-  <button class="active" id="tab-estimates" onclick="showPage('estimatesPage', this)">Estimates</button>
-  <button id="tab-gallery" onclick="showPage('galleryPage', this)">Gallery</button>
-</div>
-
-<div id="dashboardContent">
-
-  <!-- ======= ESTIMATES PAGE ======= -->
-  <div class="page-section active" id="estimatesPage">
-
-    <!-- Stats -->
-    <div class="stat-row" style="margin-top:14px;">
-      <div class="stat-card">
-        <div class="stat-num" id="statTotal">0</div>
-        <div class="stat-lbl">Total</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num" id="statNew" style="color:var(--neon);">0</div>
-        <div class="stat-lbl">New</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num" id="statProgress" style="color:var(--hot);">0</div>
-        <div class="stat-lbl">In Progress</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num" id="statDone" style="color:var(--green);">0</div>
-        <div class="stat-lbl">Completed</div>
-      </div>
-    </div>
-
-    <!-- Filter -->
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
-      <button class="filter-btn" onclick="setFilter('New', this)">New</button>
-      <button class="filter-btn" onclick="setFilter('In Progress', this)">In Progress</button>
-      <button class="filter-btn" onclick="setFilter('Completed', this)">Completed</button>
-    </div>
-
-    <!-- List -->
-    <div class="section-title">Incoming Requests</div>
-    <div id="estimatesList"></div>
-  </div>
-
-  <!-- ======= GALLERY PAGE ======= -->
-  <div class="page-section" id="galleryPage">
-    <div class="section-title" style="margin-top:14px;">Before &amp; After Gallery</div>
-
-    <div class="upload-zone-admin" onclick="document.getElementById('adminPhotoInput').click()">
-      <div style="font-size:24px; margin-bottom:4px; color:var(--neon);">↑</div>
-      <p>Upload Before / After Photos</p>
-      <p style="font-size:9px; opacity:0.5; margin-top:2px;">JPG, PNG supported</p>
-    </div>
-    <input type="file" id="adminPhotoInput" multiple accept="image/*" onchange="handleAdminUpload(event)">
-
-    <div class="form-group" style="margin-bottom:12px;">
-      <label class="form-label">Photo Category</label>
-      <select class="form-select" id="photoCategory">
-        <option>Kitchen Refurbishment</option>
-        <option>Bathroom Refurbishment</option>
-        <option>Flooring &amp; Tiling</option>
-        <option>Painting &amp; Carpentry</option>
-        <option>Masonry</option>
-        <option>Window Replacement</option>
-        <option>General</option>
-      </select>
-    </div>
-    <div style="margin-bottom:12px;">
-      <label style="display:flex; align-items:center; gap:8px; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-dim); cursor:pointer;">
-        <input type="checkbox" id="isBeforePhoto" style="accent-color:var(--neon); width:14px; height:14px;"> Mark as BEFORE photo
-      </label>
-    </div>
-
-    <div class="gallery-admin-grid" id="adminGalleryGrid">
-      <div class="empty-state" style="grid-column:1/-1;">
-        <div class="es-icon">📷</div>
-        No photos yet — upload above
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<div id="toast">Saved!</div>
-
-<script>
-// ======= NAV =======
-function showPage(pageId, btn) {
-  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.top-menu button').forEach(b => b.classList.remove('active'));
-  document.getElementById(pageId).classList.add('active');
-  if (btn) btn.classList.add('active');
-}
-
-// ======= DATA =======
-let estimates = JSON.parse(localStorage.getItem('lxl_estimates') || '[]');
-let currentFilter = 'all';
-
-// ======= ESTIMATES — READ ONLY =======
-function renderEstimates() {
-  updateStats();
-  const list = document.getElementById('estimatesList');
-  const filtered = currentFilter === 'all'
-    ? estimates
-    : estimates.filter(e => e.status === currentFilter);
-
-  if (estimates.length === 0) {
-    list.innerHTML = `<div class="empty-state"><div class="es-icon">📋</div>No estimates received yet.<br>They'll appear here when someone submits the form.</div>`;
-    return;
-  }
-  if (filtered.length === 0) {
-    list.innerHTML = `<div class="empty-state"><div class="es-icon">🔍</div>No estimates with this status.</div>`;
-    return;
-  }
-
-  list.innerHTML = filtered.map((e, i) => {
-    const realIdx = estimates.indexOf(e);
-    const statusClass = e.status === 'New' ? 'new' : e.status === 'In Progress' ? 'in-progress' : e.status === 'Completed' ? 'completed' : 'cancelled';
-    return `
-    <div class="estimate-card-admin">
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
-        <div class="ec-name">${e.name || 'Unknown'}</div>
-        <span class="ec-status ${statusClass}">${e.status}</span>
-      </div>
-      ${e.phone ? `<div class="ec-detail" style="margin-top:4px;">📞 ${e.phone}</div>` : ''}
-      ${e.email ? `<div class="ec-detail">✉️ ${e.email}</div>` : ''}
-      ${e.borough ? `<div class="ec-detail">📍 ${e.borough}${e.service ? ' · ' + e.service : ''}</div>` : e.service ? `<div class="ec-detail">🔨 ${e.service}</div>` : ''}
-      ${e.description || e.notes ? `<div class="ec-detail" style="margin-top:6px; color:var(--text-mid); font-style:italic; line-height:1.4;">"${e.description || e.notes}"</div>` : ''}
-      <div class="ec-detail" style="margin-top:6px; font-size:10px; opacity:0.4;">${new Date(e.date).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric', hour:'2-digit', minute:'2-digit'})}</div>
-      <div class="ec-actions">
-        <button class="ec-btn primary" onclick="setStatus(${realIdx},'In Progress')">In Progress</button>
-        <button class="ec-btn success" onclick="setStatus(${realIdx},'Completed')">Done</button>
-        <button class="ec-btn danger"  onclick="deleteEstimate(${realIdx})">Delete</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function setFilter(filter, btn) {
-  currentFilter = filter;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderEstimates();
-}
-
-function setStatus(i, status) {
-  estimates[i].status = status;
-  localStorage.setItem('lxl_estimates', JSON.stringify(estimates));
-  renderEstimates();
-  showToast(`Marked: ${status}`, true);
-}
-
-function deleteEstimate(i) {
-  if (!confirm('Delete this estimate request?')) return;
-  estimates.splice(i, 1);
-  localStorage.setItem('lxl_estimates', JSON.stringify(estimates));
-  renderEstimates();
-  showToast('Deleted.', false);
-}
-
-function updateStats() {
-  document.getElementById('statTotal').textContent    = estimates.length;
-  document.getElementById('statNew').textContent      = estimates.filter(e => e.status === 'New').length;
-  document.getElementById('statProgress').textContent = estimates.filter(e => e.status === 'In Progress').length;
-  document.getElementById('statDone').textContent     = estimates.filter(e => e.status === 'Completed').length;
-}
-
-// ======= GALLERY =======
-function handleAdminUpload(event) {
-  const files = Array.from(event.target.files);
-  if (!files.length) return;
-  const category = document.getElementById('photoCategory').value;
-  const isBefore = document.getElementById('isBeforePhoto').checked;
-  const grid = document.getElementById('adminGalleryGrid');
-
-  // Clear empty state if present
-  const emptyEl = grid.querySelector('.empty-state');
-  if (emptyEl) emptyEl.remove();
-
-  let loaded = 0;
-  const total = files.length;
-  showToast(`Uploading 0 / ${total}...`, true);
-
-  files.forEach(file => {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const photo = { src: e.target.result, category, isBefore, date: Date.now() };
-      galleryPhotos.push(photo);
-      addGalleryThumb(photo, galleryPhotos.length - 1);
-      loaded++;
-      showToast(`Uploading ${loaded} / ${total}...`, true);
-      if (loaded === total) {
-        // Save all at once after all are read
-        try {
-          localStorage.setItem('lxl_gallery', JSON.stringify(galleryPhotos));
-          showToast(`${total} photo${total > 1 ? 's' : ''} saved!`, true);
-        } catch(err) {
-          showToast('Storage full — photos visible this session only.', false);
-        }
-      }
-    };
-    reader.readAsDataURL(file);
-  });
-
-  // Reset input so same files can be re-selected
-  event.target.value = '';
-}
-
-function addGalleryThumb(photo, idx) {
-  const grid = document.getElementById('adminGalleryGrid');
-  const div = document.createElement('div');
-  div.className = 'gallery-thumb';
-  div.style.backgroundImage = `url(${photo.src})`;
-  div.style.backgroundSize = 'cover';
-  div.style.backgroundPosition = 'center';
-  div.innerHTML = `
-    <div class="gt-label">${photo.isBefore ? 'BEFORE' : 'AFTER'} · ${photo.category}</div>
-    <button class="gt-del" onclick="deleteGalleryPhoto(${idx})" title="Delete">✕</button>
-  `;
-  grid.appendChild(div);
-}
-
-function deleteGalleryPhoto(idx) {
-  if (!confirm('Remove this photo?')) return;
-  galleryPhotos.splice(idx, 1);
-  localStorage.setItem('lxl_gallery', JSON.stringify(galleryPhotos));
-  renderGallery();
-  showToast('Photo removed.', false);
-}
-
-function renderGallery() {
-  const grid = document.getElementById('adminGalleryGrid');
-  if (galleryPhotos.length === 0) {
-    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><div class="es-icon">📷</div>No photos yet — upload above</div>';
-    return;
-  }
-  grid.innerHTML = '';
-  galleryPhotos.forEach((p, i) => addGalleryThumb(p, i));
-}
-
-// ======= TOAST =======
-function showToast(message, success = true) {
-  const toast = document.getElementById('toast');
-  toast.innerText = message;
-  toast.style.backgroundColor = success ? 'var(--neon)' : 'var(--hot)';
-  toast.style.color = success ? '#000' : '#fff';
-  toast.style.visibility = 'visible';
-  toast.style.opacity = '1';
-  toast.style.bottom = '40px';
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.bottom = '20px';
-    setTimeout(() => { toast.style.visibility = 'hidden'; }, 400);
-  }, 2800);
-}
-
-// ======= INIT =======
-renderEstimates();
-</script>
-
-</body>
-</html>
