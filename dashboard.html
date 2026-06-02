@@ -108,35 +108,6 @@
     .page-section { display: none; padding: 14px; }
     .page-section.active { display: block; }
 
-    /* ======= STAT CARDS ======= */
-    .stat-row {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-    @media (min-width: 600px) { .stat-row { grid-template-columns: repeat(4, 1fr); } }
-    .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 10px;
-      text-align: center;
-    }
-    .stat-card .stat-num {
-      font-family: 'IBM Plex Mono', monospace;
-      font-weight: 600;
-      font-size: 26px;
-      color: var(--neon);
-    }
-    .stat-card .stat-lbl {
-      font-size: 9px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-top: 3px;
-    }
-
     /* ======= SECTION TITLE ======= */
     .section-title {
       font-weight: 700;
@@ -493,6 +464,22 @@
 </head>
 <body>
 
+<!-- ===== CHECKING ACCESS OVERLAY ===== -->
+<div id="accessOverlay" style="position:fixed;inset:0;z-index:99999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;">
+  <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:18px;letter-spacing:6px;text-transform:uppercase;color:var(--neon);">Checking Access</div>
+  <div style="display:flex;gap:10px;">
+    <span style="width:10px;height:10px;border-radius:50%;background:var(--neon);animation:dotpulse 1.2s ease-in-out infinite;display:inline-block;"></span>
+    <span style="width:10px;height:10px;border-radius:50%;background:var(--neon);animation:dotpulse 1.2s ease-in-out 0.4s infinite;display:inline-block;"></span>
+    <span style="width:10px;height:10px;border-radius:50%;background:var(--neon);animation:dotpulse 1.2s ease-in-out 0.8s infinite;display:inline-block;"></span>
+  </div>
+  <div id="accessStatus" style="font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);">Verifying identity...</div>
+</div>
+<style>
+  @keyframes dotpulse{0%,100%{opacity:0.2;transform:scale(0.8);}50%{opacity:1;transform:scale(1.2);}}
+  #dashboardContent{display:none;}
+</style>
+<div id="dashboardContent">
+
 <!-- ======= HEADER ======= -->
 <div class="header-bar" style="position:relative;">
   <span class="brand-teal">LXL</span>&nbsp;HOME IMPROVEMENT
@@ -505,19 +492,9 @@
 
 <!-- ======= TOP NAV ======= -->
 <div class="top-menu">
-  <button class="active" id="tab-reviews"  onclick="showTab('reviews')">⭐ Reviews</button>
+  <button id="tab-gallery"   onclick="showTab('gallery')" class="active">🖼️ Gallery</button>
   <button id="tab-estimates" onclick="showTab('estimates')">📋 Estimates</button>
-  <button id="tab-gallery"   onclick="showTab('gallery')">🖼️ Gallery</button>
 </div>
-
-<!-- ======= REVIEWS SECTION ======= -->
-<div class="page-section active" id="sec-reviews">
-  <div class="stat-row">
-    <div class="stat-card"><div class="stat-num" id="stat-pending">—</div><div class="stat-lbl">Pending</div></div>
-    <div class="stat-card"><div class="stat-num" id="stat-approved">—</div><div class="stat-lbl">Approved</div></div>
-    <div class="stat-card"><div class="stat-num" id="stat-total">—</div><div class="stat-lbl">Total</div></div>
-    <div class="stat-card"><div class="stat-num" id="stat-avg">—</div><div class="stat-lbl">Avg Stars</div></div>
-  </div>
 
   <div class="section-title">⏳ Pending Approval</div>
   <div id="pendingList"><div class="empty-state"><div class="es-icon">⏳</div>Loading...</div></div>
@@ -533,7 +510,7 @@
 </div>
 
 <!-- ======= GALLERY SECTION ======= -->
-<div class="page-section" id="sec-gallery">
+<div class="page-section active" id="sec-gallery">
   <!-- Upload zone -->
   <div class="upload-zone-admin" onclick="document.getElementById('adminPhotoInput').click()">
     <div style="font-size:28px;">📷</div>
@@ -569,7 +546,7 @@
 <!-- ======= FIREBASE MODULE SCRIPT ======= -->
 <script type="module">
 import { initializeApp }        from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, query, orderBy, where }
+import { getFirestore, collection, getDocs, doc, query, orderBy, where }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, signOut }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -588,13 +565,42 @@ const db   = getFirestore(app);
 const auth = getAuth(app);
 
 // ── AUTH GUARD ──────────────────────────────────────────────────────────────
+const ADMIN_UID = 'SewyjnBazRdI19ZHuaqBlx7e8zG2'; // replace with your Firebase UID
+
 onAuthStateChanged(auth, user => {
+  const overlay = document.getElementById('accessOverlay');
+  const status  = document.getElementById('accessStatus');
+  const content = document.getElementById('dashboardContent');
+
   if (!user) {
-    window.location.href = 'index.html';
+    status.textContent = 'Access denied — redirecting...';
+    status.style.color = 'var(--hot)';
+    setTimeout(() => { window.location.href = 'index.html'; }, 1200);
     return;
   }
+
+  if (user.uid !== ADMIN_UID) {
+    status.textContent = 'Unauthorised — signing out...';
+    status.style.color = 'var(--hot)';
+    signOut(auth).then(() => {
+      setTimeout(() => { window.location.href = 'index.html'; }, 1200);
+    });
+    return;
+  }
+
+  // Verified admin — reveal dashboard
   document.getElementById('adminUserEmail').textContent = user.email;
-  loadReviews();
+  status.textContent = 'Access granted';
+  status.style.color = 'var(--green)';
+  setTimeout(() => {
+    overlay.style.transition = 'opacity 0.4s';
+    overlay.style.opacity = '0';
+    setTimeout(() => {
+      overlay.style.display = 'none';
+      content.style.display = 'block';
+    }, 400);
+  }, 700);
+
 });
 
 window.handleSignOut = async function() {
@@ -613,57 +619,6 @@ window.showTab = function(tab) {
     galleryLoaded = true;
     window.fbLoadGallery();
   }
-};
-
-// ── REVIEWS ─────────────────────────────────────────────────────────────────
-async function loadReviews() {
-  const snap = await getDocs(query(collection(db, 'reviews'), orderBy('createdAt', 'desc')));
-  const all = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-  const pending  = all.filter(r => r.status !== 'approved');
-  const approved = all.filter(r => r.status === 'approved');
-
-  document.getElementById('stat-pending').textContent  = pending.length;
-  document.getElementById('stat-approved').textContent = approved.length;
-  document.getElementById('stat-total').textContent    = all.length;
-  const avg = all.length ? (all.reduce((s,r) => s + (r.stars||0), 0) / all.length).toFixed(1) : '—';
-  document.getElementById('stat-avg').textContent = avg;
-
-  renderReviews('pendingList',  pending,  false);
-  renderReviews('approvedList', approved, true);
-}
-
-function renderReviews(containerId, reviews, isApproved) {
-  const el = document.getElementById(containerId);
-  if (!reviews.length) {
-    el.innerHTML = `<div class="empty-state"><div class="es-icon">${isApproved ? '✅' : '⏳'}</div>${isApproved ? 'No approved reviews yet.' : 'No pending reviews.'}</div>`;
-    return;
-  }
-  el.innerHTML = reviews.map(r => {
-    const stars = '★'.repeat(r.stars||0) + '☆'.repeat(5-(r.stars||0));
-    return `
-      <div class="estimate-card-admin" id="rc-${r.id}">
-        <div class="ec-name">${r.name || '—'}${r.borough ? ' · ' + r.borough : ''}</div>
-        <div class="ec-detail" style="color:var(--amber,#F5A623);letter-spacing:2px;">${stars}</div>
-        <div class="ec-detail" style="margin-top:6px;">${r.text || ''}</div>
-        <div class="ec-actions">
-          ${!isApproved ? `<button class="ec-btn primary" onclick="approveReview('${r.id}')">Approve</button>` : ''}
-          <button class="ec-btn danger" onclick="deleteReview('${r.id}')">Delete</button>
-        </div>
-      </div>`;
-  }).join('');
-}
-
-window.approveReview = async function(id) {
-  await updateDoc(doc(db, 'reviews', id), { status: 'approved' });
-  showToast('Review approved!', true);
-  loadReviews();
-};
-
-window.deleteReview = async function(id) {
-  if (!confirm('Delete this review?')) return;
-  await deleteDoc(doc(db, 'reviews', id));
-  showToast('Review deleted.', false);
-  loadReviews();
 };
 
 // ── TOAST ───────────────────────────────────────────────────────────────────
@@ -689,5 +644,6 @@ window.handleUpload = function(files) {
 };
 </script>
 
+</div><!-- end #dashboardContent -->
 </body>
 </html>
