@@ -14,10 +14,10 @@
 
 <style>
 :root {
-  --bg:          #080809;
-  --surface:     #0F0F11;
-  --surface2:    #161618;
-  --surface3:    #1E1E21;
+  --bg:          #000000;
+  --surface:     #0A0A0A;
+  --surface2:    #111111;
+  --surface3:    #181818;
   --neon:        #C9A96E;
   --neon-dim:    rgba(201,169,110,0.08);
   --neon-glow:   rgba(201,169,110,0.22);
@@ -211,7 +211,7 @@ body {
   content: '';
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  height: 2px;
+  height: 1px;
   background: linear-gradient(90deg, transparent, #8A7A5E, #EDE0C4, #8A7A5E, transparent);
   background-size: 300% 100%;
   animation: stripeFlow 5s linear infinite;
@@ -219,6 +219,11 @@ body {
 @keyframes stripeFlow {
   0%   { background-position: 200% center; }
   100% { background-position: -100% center; }
+}
+@keyframes silverSheen {
+  0%   { opacity: 0.6; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.6; }
 }
 
 .header-title {
@@ -1012,6 +1017,100 @@ h1 span.accent { color: var(--neon); }
 .services-section { padding: 0 18px 36px; }
 
 
+
+/* ── SHINY SILVER-BLACK SURFACES ── */
+html, body {
+  background: #000 !important;
+}
+
+/* Cards — black with silver specular sheen */
+.service-card,
+.estimate-card,
+.info-card,
+.review-card,
+.admin-modal,
+.admin-review-card {
+  background: linear-gradient(
+    160deg,
+    #232323 0%,
+    #141414 20%,
+    #080808 60%,
+    #000 100%
+  ) !important;
+  box-shadow:
+    0 1px 0 rgba(220,225,235,0.12) inset,
+    0 0 0 1px rgba(255,255,255,0.04) inset,
+    0 -1px 0 rgba(0,0,0,0.9) inset,
+    0 8px 32px rgba(0,0,0,0.8) !important;
+}
+.service-card:hover,
+.info-card:hover,
+.review-card:hover {
+  background: linear-gradient(
+    160deg,
+    #2a2a2a 0%,
+    #181818 20%,
+    #0a0a0a 60%,
+    #000 100%
+  ) !important;
+  box-shadow:
+    0 1px 0 rgba(220,225,235,0.18) inset,
+    0 0 0 1px rgba(255,255,255,0.06) inset,
+    0 -1px 0 rgba(0,0,0,0.9) inset,
+    0 12px 40px rgba(0,0,0,0.85),
+    0 0 0 1px rgba(201,169,110,0.15) !important;
+}
+
+/* Header — mirror black with silver edge */
+.header-bar {
+  background: rgba(0,0,0,0.97) !important;
+  box-shadow:
+    0 1px 0 rgba(210,215,225,0.08),
+    0 4px 24px rgba(0,0,0,0.8);
+}
+
+/* Sidebar */
+.sidebar-panel {
+  background: linear-gradient(180deg, #0e0e0e 0%, #050505 100%) !important;
+  box-shadow: 4px 0 32px rgba(0,0,0,0.9),
+              1px 0 0 rgba(255,255,255,0.04);
+}
+
+/* Estimate card */
+.estimate-card {
+  background: linear-gradient(160deg, #1e1e1e 0%, #0e0e0e 30%, #000 100%) !important;
+  box-shadow:
+    0 1px 0 rgba(220,225,235,0.1) inset,
+    0 8px 40px rgba(0,0,0,0.85) !important;
+}
+
+/* Buttons — gold on black with silver sheen */
+.cta-btn--primary, .submit-btn {
+  box-shadow:
+    0 2px 20px rgba(201,169,110,0.25),
+    0 1px 0 rgba(255,255,255,0.25) inset,
+    0 -1px 0 rgba(0,0,0,0.4) inset !important;
+}
+.cta-btn--primary:hover, .submit-btn:hover {
+  box-shadow:
+    0 4px 32px rgba(201,169,110,0.4),
+    0 1px 0 rgba(255,255,255,0.35) inset,
+    0 -1px 0 rgba(0,0,0,0.4) inset !important;
+}
+
+/* Payment pill */
+.payment-pill {
+  background: linear-gradient(135deg, #181818, #0a0a0a) !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06) inset !important;
+}
+
+/* Form inputs */
+.form-input, .form-select, .form-textarea {
+  background: #0a0a0a !important;
+  border-color: rgba(255,255,255,0.08) !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset !important;
+}
+
 /* ── SERVICE PHOTO CARDS ── */
 .svc-photo-card {
   padding: 0 !important;
@@ -1076,12 +1175,12 @@ h1 span.accent { color: var(--neon); }
 /* Richer background: subtle warm noise/vignette feel */
 html, body {
   background: var(--bg);
-  background-image: radial-gradient(ellipse at 50% 0%, rgba(201,169,110,0.04) 0%, transparent 60%);
+  background-image: radial-gradient(ellipse at 50% 0%, rgba(201,169,110,0.07) 0%, transparent 55%);
 }
 
 /* Header — frosted obsidian with gold underline */
 .header-bar {
-  background: rgba(8,8,9,0.92);
+  background: rgba(0,0,0,0.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(201,169,110,0.12);
@@ -1108,7 +1207,7 @@ html, body {
 }
 .hero-title .accent {
   font-style: normal;
-  background: linear-gradient(135deg, #D4B97A 0%, #F0E0A8 45%, #B8924A 100%);
+  background: linear-gradient(135deg, #D4B97A 0%, #F0E0A8 45%, #8A7A5E 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1123,7 +1222,7 @@ h1 {
   letter-spacing: 0 !important;
 }
 h1 span.accent {
-  background: linear-gradient(135deg, #D4B97A 0%, #F0E0A8 50%, #B8924A 100%);
+  background: linear-gradient(135deg, #D4B97A 0%, #F0E0A8 50%, #8A7A5E 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1146,7 +1245,7 @@ h1 span.accent {
 
 /* Sidebar — deeper obsidian surface */
 .sidebar-panel {
-  background: #0A0A0C;
+  background: #000000;
   border-right: 1px solid rgba(201,169,110,0.08);
 }
 
@@ -1155,7 +1254,7 @@ h1 span.accent {
 
 /* Service cards — richer dark with gold hover line */
 .service-card {
-  background: linear-gradient(145deg, #131315, #0F0F11);
+  background: linear-gradient(145deg, #111111, #080808);
   border: 1px solid rgba(255,255,255,0.05);
   border-radius: 6px;
 }
@@ -1166,46 +1265,46 @@ h1 span.accent {
 
 /* Primary CTA button — gold gradient */
 .cta-btn--primary {
-  background: linear-gradient(135deg, #C9A96E 0%, #E8D090 50%, #B8924A 100%) !important;
+  background: linear-gradient(135deg, #C9A96E 0%, #E8D090 50%, #8A7A5E 100%) !important;
   color: #07060A !important;
   letter-spacing: 3px;
   box-shadow: 0 2px 20px rgba(201,169,110,0.2);
 }
 .cta-btn--primary:hover {
-  background: linear-gradient(135deg, #D4B97A 0%, #F0E0A8 50%, #C9A050 100%) !important;
+  background: linear-gradient(135deg, #D4B97A 0%, #F0E0A8 50%, #906A38 100%) !important;
   box-shadow: 0 4px 28px rgba(201,169,110,0.35);
 }
 
 /* Submit btn — same gold gradient */
 .submit-btn {
-  background: linear-gradient(135deg, #C9A96E 0%, #E8D090 50%, #B8924A 100%) !important;
+  background: linear-gradient(135deg, #C9A96E 0%, #E8D090 50%, #8A7A5E 100%) !important;
   box-shadow: 0 2px 16px rgba(201,169,110,0.18);
 }
 .submit-btn:hover {
-  background: linear-gradient(135deg, #D4B97A 0%, #F0E0A8 50%, #C9A050 100%) !important;
+  background: linear-gradient(135deg, #D4B97A 0%, #F0E0A8 50%, #906A38 100%) !important;
   box-shadow: 0 4px 24px rgba(201,169,110,0.32) !important;
 }
 
 /* Estimate card — subtle warm glow */
 .estimate-card {
-  background: linear-gradient(145deg, #121214, #0E0E10);
+  background: linear-gradient(145deg, #111111, #080808);
   border: 1px solid rgba(201,169,110,0.1);
   box-shadow: 0 4px 40px rgba(0,0,0,0.4);
 }
 
 /* Info cards */
-.info-card { background: linear-gradient(145deg, #131315, #0F0F11); }
+.info-card { background: linear-gradient(145deg, #111111, #080808); }
 
 /* Review cards */
 .review-card {
-  background: linear-gradient(145deg, #131315, #0F0F11);
+  background: linear-gradient(145deg, #111111, #080808);
 }
 .review-card::before { color: rgba(201,169,110,0.08) !important; }
 .review-author { color: var(--neon) !important; }
 
 /* Form inputs — warmer dark */
 .form-input, .form-select, .form-textarea {
-  background: rgba(255,255,255,0.03) !important;
+  background: rgba(255,255,255,0.04) !important;
   border: 1px solid rgba(255,255,255,0.07) !important;
 }
 .form-input:focus, .form-select:focus, .form-textarea:focus {
@@ -2084,6 +2183,6 @@ window.closeAdminPanel = function() { document.getElementById('adminOverlay').cl
 </script>
 
 <!-- Footer Banner -->
-<div style="position:fixed;bottom:0;left:0;right:0;background-color:#121417;border-top:2px solid var(--neon);text-align:center;padding:5px 20px;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:2px;color:#aaa;z-index:1000;"><a href="https://webvtec.com" target="_blank" style="color:#aaa;text-decoration:underline;display:block;width:100%;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">CLICK TO REQUEST YOUR OWN WEBSITE. <span style="color:var(--neon);">webvtec.com</span></a></div>
+<div style="position:fixed;bottom:0;left:0;right:0;background-color:#000000;border-top:2px solid var(--neon);text-align:center;padding:5px 20px;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:2px;color:#aaa;z-index:1000;"><a href="https://webvtec.com" target="_blank" style="color:#aaa;text-decoration:underline;display:block;width:100%;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">CLICK TO REQUEST YOUR OWN WEBSITE. <span style="color:var(--neon);">webvtec.com</span></a></div>
 </body>
 </html>
