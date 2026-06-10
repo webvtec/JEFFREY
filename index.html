@@ -594,7 +594,7 @@ h1 span.accent { color: var(--neon); }
   transform: translateY(-2px);
 }
 .service-card:hover::before { transform: scaleX(1); }
-.service-card .svc-icon { font-size: 72px; margin-bottom: 8px; display: block; }
+/* .svc-icon removed — photo cards used instead */
 .service-card .svc-name {
   font-family: 'Inter', sans-serif;
   font-weight: 700;
@@ -1011,6 +1011,64 @@ h1 span.accent { color: var(--neon); }
 .relative-z { position: relative; z-index: 1; }
 .services-section { padding: 0 18px 36px; }
 
+
+/* ── SERVICE PHOTO CARDS ── */
+.svc-photo-card {
+  padding: 0 !important;
+  overflow: hidden;
+  border-radius: 6px;
+  position: relative;
+  cursor: pointer;
+  aspect-ratio: 4/3;
+  display: flex;
+  flex-direction: column;
+}
+.svc-photo-card .svc-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+  flex: 1;
+  min-height: 0;
+}
+.svc-photo-card:hover .svc-photo { transform: scale(1.06); }
+.svc-photo-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(4,3,5,0.88) 0%, transparent 100%);
+  padding: 22px 12px 10px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #F0EDE8;
+}
+/* On full services page, make card taller and stack desc below */
+.services-section .svc-photo-card {
+  aspect-ratio: auto;
+  display: flex;
+  flex-direction: column;
+}
+.services-section .svc-photo-card .svc-photo {
+  height: 160px;
+  flex: none;
+}
+.services-section .svc-photo-card .svc-photo-label {
+  position: relative;
+  background: linear-gradient(to top, rgba(4,3,5,0.92) 0%, rgba(12,11,14,0.7) 100%);
+  padding: 8px 12px 6px;
+  font-size: 10px;
+}
+.services-section .svc-photo-card .svc-desc {
+  color: var(--text-dim);
+  font-size: 11px;
+  line-height: 1.5;
+  background: var(--surface);
+  flex: 1;
+}
+
 /* ══════════════════════════════════════════════
    LUXURY PREMIUM OVERRIDES
 ══════════════════════════════════════════════ */
@@ -1338,14 +1396,40 @@ document.addEventListener("DOMContentLoaded", loadGallery);
     <div class="section-kicker">What We Do</div>
     <h1 style="margin:8px 0 18px;">OUR <span class="accent">SERVICES</span></h1>
     <div class="services-grid">
-      <div class="service-card" onclick="showSection('servicesSection')"><span class="svc-icon">🪚</span><div class="svc-name">Carpentry</div></div>
-      <div class="service-card" onclick="showSection('servicesSection')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="90" height="90" style="display:block;margin:0 auto 8px;"><defs><linearGradient id="pb_h" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#6B3E1E"/><stop offset="35%" stop-color="#A0622A"/><stop offset="65%" stop-color="#C07A38"/><stop offset="100%" stop-color="#7A4820"/></linearGradient><linearGradient id="pb_f" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#6A7885"/><stop offset="40%" stop-color="#B8C8D4"/><stop offset="70%" stop-color="#D8E4EE"/><stop offset="100%" stop-color="#8A9AAA"/></linearGradient><linearGradient id="pb_b" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#C8A860"/><stop offset="40%" stop-color="#ECD898"/><stop offset="70%" stop-color="#F4E8B0"/><stop offset="100%" stop-color="#C8A860"/></linearGradient><linearGradient id="pb_p" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D4B97A"/><stop offset="100%" stop-color="#8A7A5E"/></linearGradient></defs><g transform="rotate(-40,60,60)"><rect x="52" y="8" width="10" height="56" rx="5" fill="url(#pb_h)"/><line x1="55" y1="10" x2="54" y2="62" stroke="#6B3E1E" stroke-width="0.6" opacity="0.5"/><line x1="59" y1="10" x2="60" y2="62" stroke="#C07A38" stroke-width="0.5" opacity="0.35"/><ellipse cx="57" cy="10" rx="5" ry="2.5" fill="#5A3010"/><rect x="50" y="62" width="14" height="12" rx="1" fill="url(#pb_f)"/><line x1="50" y1="65" x2="64" y2="65" stroke="#9AAAB8" stroke-width="0.6" opacity="0.6"/><line x1="50" y1="68" x2="64" y2="68" stroke="#9AAAB8" stroke-width="0.6" opacity="0.6"/><line x1="50" y1="71" x2="64" y2="71" stroke="#9AAAB8" stroke-width="0.6" opacity="0.4"/><path d="M48 74 L66 74 L68 96 Q62 100 57 101 Q52 100 46 96 Z" fill="url(#pb_b)"/><path d="M48 74 L51 74 L49 96 Q47 97 46 96 Z" fill="#B09050" opacity="0.5"/><path d="M63 74 L66 74 L68 96 Q67 97 65 96 L63 96 Z" fill="#B09050" opacity="0.5"/><line x1="51" y1="74" x2="50" y2="100" stroke="#A08040" stroke-width="0.7" opacity="0.45"/><line x1="54" y1="74" x2="53" y2="101" stroke="#A08040" stroke-width="0.7" opacity="0.4"/><line x1="57" y1="74" x2="57" y2="101" stroke="#907030" stroke-width="0.8" opacity="0.45"/><line x1="60" y1="74" x2="61" y2="101" stroke="#A08040" stroke-width="0.7" opacity="0.4"/><line x1="63" y1="74" x2="64" y2="100" stroke="#A08040" stroke-width="0.7" opacity="0.45"/><path d="M47 94 Q52 98 57 99 Q62 98 67 94 L68 96 Q62 101 57 102 Q52 101 46 96 Z" fill="url(#pb_p)"/><path d="M50 96 Q57 100 64 96" fill="none" stroke="#F0F3F6" stroke-width="0.8" opacity="0.5"/></g></svg><div class="svc-name">Painting</div></div>
-      <div class="service-card" onclick="showSection('servicesSection')"><img src="https://res.cloudinary.com/dqqr9udcs/image/upload/v1780507007/WhatsApp_Image_2026-06-03_at_10.06.23_AM_widn8o.jpg" alt="Flooring" style="display:block;margin:0 auto 8px;width:90px;height:90px;object-fit:cover;border-radius:8px;"><div class="svc-name">Flooring</div></div>
-      <div class="service-card" onclick="showSection('servicesSection')"><span class="svc-icon">🧱</span><div class="svc-name">Masonry</div></div>
-      <div class="service-card" onclick="showSection('servicesSection')"><span class="svc-icon">🪟</span><div class="svc-name">Windows</div></div>
-      <div class="service-card" onclick="showSection('servicesSection')"><span class="svc-icon">🔲</span><div class="svc-name">Tiling</div></div>
-      <div class="service-card" onclick="showSection('servicesSection')"><img src="https://res.cloudinary.com/dqqr9udcs/image/upload/v1780507007/WhatsApp_Image_2026-06-03_at_10.07.15_AM_d6cb3g.jpg" alt="Kitchen" style="display:block;margin:0 auto 8px;width:90px;height:90px;object-fit:cover;border-radius:8px;"><div class="svc-name">Kitchen</div></div>
-      <div class="service-card" onclick="showSection('servicesSection')"><span class="svc-icon">🚿</span><div class="svc-name">Bathroom</div></div>
+      
+      <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
+  <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&auto=format&fit=crop" alt="Carpentry" class="svc-photo" loading="lazy">
+  <div class="svc-photo-label">Carpentry</div>
+</div>
+      <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
+  <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=600&q=80&auto=format&fit=crop" alt="Painting" class="svc-photo" loading="lazy">
+  <div class="svc-photo-label">Painting</div>
+</div>
+      <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
+  <img src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=600&q=80&auto=format&fit=crop" alt="Flooring" class="svc-photo" loading="lazy">
+  <div class="svc-photo-label">Flooring</div>
+</div>
+      <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
+  <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80&auto=format&fit=crop" alt="Masonry" class="svc-photo" loading="lazy">
+  <div class="svc-photo-label">Masonry</div>
+</div>
+      <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
+  <img src="https://images.unsplash.com/photo-1503594384566-461fe158e797?w=600&q=80&auto=format&fit=crop" alt="Windows" class="svc-photo" loading="lazy">
+  <div class="svc-photo-label">Windows</div>
+</div>
+      <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
+  <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80&auto=format&fit=crop" alt="Tiling" class="svc-photo" loading="lazy">
+  <div class="svc-photo-label">Tiling</div>
+</div>
+      <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
+  <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80&auto=format&fit=crop" alt="Kitchen" class="svc-photo" loading="lazy">
+  <div class="svc-photo-label">Kitchen</div>
+</div>
+      <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
+  <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=600&q=80&auto=format&fit=crop" alt="Bathroom" class="svc-photo" loading="lazy">
+  <div class="svc-photo-label">Bathroom</div>
+</div>
+    
     </div>
     <div style="text-align:center; margin-top:18px;">
       <button class="cta-btn cta-btn--outline" onclick="showSection('estimateSection')">Request Free Estimate →</button>
@@ -1358,11 +1442,11 @@ document.addEventListener("DOMContentLoaded", loadGallery);
     <div class="section-kicker">Where We Work</div>
     <h1 style="margin:8px 0 18px;">NYC <span class="accent">BOROUGHS</span></h1>
     <div class="location-grid" style="max-width:380px; margin:0 auto;">
-      <div class="location-pill">📍 Bronx</div>
-      <div class="location-pill">📍 Queens</div>
-      <div class="location-pill">📍 Brooklyn</div>
-      <div class="location-pill">📍 Manhattan</div>
-      <div class="location-pill" style="grid-column:1/-1; justify-content:center;">📍 Staten Island</div>
+      <div class="location-pill">Bronx</div>
+      <div class="location-pill">Queens</div>
+      <div class="location-pill">Brooklyn</div>
+      <div class="location-pill">Manhattan</div>
+      <div class="location-pill" style="grid-column:1/-1; justify-content:center;">Staten Island</div>
     </div>
   </div>
 </div>
@@ -1394,14 +1478,48 @@ document.addEventListener("DOMContentLoaded", loadGallery);
   </div>
   <div class="services-section">
     <div class="services-grid">
-      <div class="service-card"><span class="svc-icon">🪚</span><div class="svc-name">Carpentry</div><div class="svc-desc">Custom cabinetry, trim work, framing, doors &amp; structural woodwork.</div></div>
-      <div class="service-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="90" height="90" style="display:block;margin:0 auto 8px;"><defs><linearGradient id="pb_h" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#6B3E1E"/><stop offset="35%" stop-color="#A0622A"/><stop offset="65%" stop-color="#C07A38"/><stop offset="100%" stop-color="#7A4820"/></linearGradient><linearGradient id="pb_f" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#6A7885"/><stop offset="40%" stop-color="#B8C8D4"/><stop offset="70%" stop-color="#D8E4EE"/><stop offset="100%" stop-color="#8A9AAA"/></linearGradient><linearGradient id="pb_b" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#C8A860"/><stop offset="40%" stop-color="#ECD898"/><stop offset="70%" stop-color="#F4E8B0"/><stop offset="100%" stop-color="#C8A860"/></linearGradient><linearGradient id="pb_p" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D4B97A"/><stop offset="100%" stop-color="#8A7A5E"/></linearGradient></defs><g transform="rotate(-40,60,60)"><rect x="52" y="8" width="10" height="56" rx="5" fill="url(#pb_h)"/><line x1="55" y1="10" x2="54" y2="62" stroke="#6B3E1E" stroke-width="0.6" opacity="0.5"/><line x1="59" y1="10" x2="60" y2="62" stroke="#C07A38" stroke-width="0.5" opacity="0.35"/><ellipse cx="57" cy="10" rx="5" ry="2.5" fill="#5A3010"/><rect x="50" y="62" width="14" height="12" rx="1" fill="url(#pb_f)"/><line x1="50" y1="65" x2="64" y2="65" stroke="#9AAAB8" stroke-width="0.6" opacity="0.6"/><line x1="50" y1="68" x2="64" y2="68" stroke="#9AAAB8" stroke-width="0.6" opacity="0.6"/><line x1="50" y1="71" x2="64" y2="71" stroke="#9AAAB8" stroke-width="0.6" opacity="0.4"/><path d="M48 74 L66 74 L68 96 Q62 100 57 101 Q52 100 46 96 Z" fill="url(#pb_b)"/><path d="M48 74 L51 74 L49 96 Q47 97 46 96 Z" fill="#B09050" opacity="0.5"/><path d="M63 74 L66 74 L68 96 Q67 97 65 96 L63 96 Z" fill="#B09050" opacity="0.5"/><line x1="51" y1="74" x2="50" y2="100" stroke="#A08040" stroke-width="0.7" opacity="0.45"/><line x1="54" y1="74" x2="53" y2="101" stroke="#A08040" stroke-width="0.7" opacity="0.4"/><line x1="57" y1="74" x2="57" y2="101" stroke="#907030" stroke-width="0.8" opacity="0.45"/><line x1="60" y1="74" x2="61" y2="101" stroke="#A08040" stroke-width="0.7" opacity="0.4"/><line x1="63" y1="74" x2="64" y2="100" stroke="#A08040" stroke-width="0.7" opacity="0.45"/><path d="M47 94 Q52 98 57 99 Q62 98 67 94 L68 96 Q62 101 57 102 Q52 101 46 96 Z" fill="url(#pb_p)"/><path d="M50 96 Q57 100 64 96" fill="none" stroke="#F0F3F6" stroke-width="0.8" opacity="0.5"/></g></svg><div class="svc-name">Painting</div><div class="svc-desc">Interior &amp; exterior painting with premium finishes and clean lines.</div></div>
-      <div class="service-card"><img src="https://res.cloudinary.com/dqqr9udcs/image/upload/v1780507007/WhatsApp_Image_2026-06-03_at_10.06.23_AM_widn8o.jpg" alt="Flooring" style="display:block;margin:0 auto 8px;width:90px;height:90px;object-fit:cover;border-radius:8px;"><div class="svc-name">Flooring</div><div class="svc-desc">Hardwood, laminate, vinyl, and engineered flooring installation.</div></div>
-      <div class="service-card"><span class="svc-icon">🧱</span><div class="svc-name">Masonry</div><div class="svc-desc">Brick, stone, concrete, and block work for walls, steps &amp; facades.</div></div>
-      <div class="service-card"><span class="svc-icon">🪟</span><div class="svc-name">Window Replacement</div><div class="svc-desc">Energy-efficient window installation and frame repairs.</div></div>
-      <div class="service-card"><span class="svc-icon">🔲</span><div class="svc-name">Tiling</div><div class="svc-desc">Floor and wall tiling for kitchens, bathrooms, and living spaces.</div></div>
-      <div class="service-card"><img src="https://res.cloudinary.com/dqqr9udcs/image/upload/v1780507007/WhatsApp_Image_2026-06-03_at_10.07.15_AM_d6cb3g.jpg" alt="Kitchen" style="display:block;margin:0 auto 8px;width:90px;height:90px;object-fit:cover;border-radius:8px;"><div class="svc-name">Kitchen Refurbishment</div><div class="svc-desc">Full kitchen remodels — cabinets, countertops, backsplash &amp; more.</div></div>
-      <div class="service-card"><span class="svc-icon">🚿</span><div class="svc-name">Bathroom Refurbishment</div><div class="svc-desc">Bathroom renovations — vanities, showers, tubs, and tiling.</div></div>
+      
+      <div class="service-card svc-photo-card">
+  <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&auto=format&fit=crop" alt="Carpentry" class="svc-photo" loading="lazy">
+  <div class="svc-photo-label">Carpentry</div>
+  <div class="svc-desc" style="padding:10px 12px 14px;">Custom cabinetry, trim work, framing, doors &amp; structural woodwork.</div>
+</div>
+      <div class="service-card svc-photo-card">
+  <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=600&q=80&auto=format&fit=crop" alt="Painting" class="svc-photo" loading="lazy">
+  <div class="svc-photo-label">Painting</div>
+  <div class="svc-desc" style="padding:10px 12px 14px;">Interior &amp; exterior painting with premium finishes and clean lines.</div>
+</div>
+      <div class="service-card svc-photo-card">
+  <img src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=600&q=80&auto=format&fit=crop" alt="Flooring" class="svc-photo" loading="lazy">
+  <div class="svc-photo-label">Flooring</div>
+  <div class="svc-desc" style="padding:10px 12px 14px;">Hardwood, laminate, vinyl, and engineered flooring installation.</div>
+</div>
+      <div class="service-card svc-photo-card">
+  <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80&auto=format&fit=crop" alt="Masonry" class="svc-photo" loading="lazy">
+  <div class="svc-photo-label">Masonry</div>
+  <div class="svc-desc" style="padding:10px 12px 14px;">Brick, stone, concrete, and block work for walls, steps &amp; facades.</div>
+</div>
+      <div class="service-card svc-photo-card">
+  <img src="https://images.unsplash.com/photo-1503594384566-461fe158e797?w=600&q=80&auto=format&fit=crop" alt="Window Replacement" class="svc-photo" loading="lazy">
+  <div class="svc-photo-label">Window Replacement</div>
+  <div class="svc-desc" style="padding:10px 12px 14px;">Energy-efficient window installation and frame repairs.</div>
+</div>
+      <div class="service-card svc-photo-card">
+  <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80&auto=format&fit=crop" alt="Tiling" class="svc-photo" loading="lazy">
+  <div class="svc-photo-label">Tiling</div>
+  <div class="svc-desc" style="padding:10px 12px 14px;">Floor and wall tiling for kitchens, bathrooms, and living spaces.</div>
+</div>
+      <div class="service-card svc-photo-card">
+  <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80&auto=format&fit=crop" alt="Kitchen Refurbishment" class="svc-photo" loading="lazy">
+  <div class="svc-photo-label">Kitchen Refurbishment</div>
+  <div class="svc-desc" style="padding:10px 12px 14px;">Full kitchen remodels — cabinets, countertops, backsplash &amp; more.</div>
+</div>
+      <div class="service-card svc-photo-card">
+  <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=600&q=80&auto=format&fit=crop" alt="Bathroom Refurbishment" class="svc-photo" loading="lazy">
+  <div class="svc-photo-label">Bathroom Refurbishment</div>
+  <div class="svc-desc" style="padding:10px 12px 14px;">Bathroom renovations — vanities, showers, tubs, and tiling.</div>
+</div>
+    
     </div>
     <div style="text-align:center; margin-top:24px;">
       <div style="font-family:'Inter',sans-serif; font-size:12px; color:var(--text-dim); margin-bottom:12px;">Ready to transform your space?</div>
@@ -1473,11 +1591,11 @@ document.addEventListener("DOMContentLoaded", loadGallery);
     <div style="margin-top:18px;">
       <div class="section-kicker">We Serve</div>
       <div class="location-grid" style="max-width:380px; margin:14px auto 0;">
-        <div class="location-pill">📍 Bronx</div>
-        <div class="location-pill">📍 Queens</div>
-        <div class="location-pill">📍 Brooklyn</div>
-        <div class="location-pill">📍 Manhattan</div>
-        <div class="location-pill" style="grid-column:1/-1; justify-content:center;">📍 Staten Island</div>
+        <div class="location-pill">Bronx</div>
+        <div class="location-pill">Queens</div>
+        <div class="location-pill">Brooklyn</div>
+        <div class="location-pill">Manhattan</div>
+        <div class="location-pill" style="grid-column:1/-1; justify-content:center;">Staten Island</div>
       </div>
     </div>
   </div>
@@ -1566,13 +1684,13 @@ document.addEventListener("DOMContentLoaded", loadGallery);
         </div>
       </div>
       <div class="info-card">
-        <div class="info-card-title"><span class="ic-icon">📍</span> Work Locations</div>
+        <div class="info-card-title"><span class="ic-icon" style="font-size:11px;">◎</span> Work Locations</div>
         <div class="location-grid">
-          <div class="location-pill">📍 Bronx</div>
-          <div class="location-pill">📍 Queens</div>
-          <div class="location-pill">📍 Brooklyn</div>
-          <div class="location-pill">📍 Manhattan</div>
-          <div class="location-pill" style="grid-column:1/-1;">📍 Staten Island</div>
+          <div class="location-pill">Bronx</div>
+          <div class="location-pill">Queens</div>
+          <div class="location-pill">Brooklyn</div>
+          <div class="location-pill">Manhattan</div>
+          <div class="location-pill" style="grid-column:1/-1;">Staten Island</div>
         </div>
       </div>
     </div>
