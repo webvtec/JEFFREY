@@ -1018,98 +1018,19 @@ h1 span.accent { color: var(--neon); }
 
 
 
-/* ── SHINY SILVER-BLACK SURFACES ── */
-html, body {
-  background: #000 !important;
-}
-
-/* Cards — black with silver specular sheen */
-.service-card,
-.estimate-card,
-.info-card,
-.review-card,
-.admin-modal,
-.admin-review-card {
-  background: linear-gradient(
-    160deg,
-    #232323 0%,
-    #141414 20%,
-    #080808 60%,
-    #000 100%
-  ) !important;
-  box-shadow:
-    0 1px 0 rgba(220,225,235,0.12) inset,
-    0 0 0 1px rgba(255,255,255,0.04) inset,
-    0 -1px 0 rgba(0,0,0,0.9) inset,
-    0 8px 32px rgba(0,0,0,0.8) !important;
-}
-.service-card:hover,
-.info-card:hover,
-.review-card:hover {
-  background: linear-gradient(
-    160deg,
-    #2a2a2a 0%,
-    #181818 20%,
-    #0a0a0a 60%,
-    #000 100%
-  ) !important;
-  box-shadow:
-    0 1px 0 rgba(220,225,235,0.18) inset,
-    0 0 0 1px rgba(255,255,255,0.06) inset,
-    0 -1px 0 rgba(0,0,0,0.9) inset,
-    0 12px 40px rgba(0,0,0,0.85),
-    0 0 0 1px rgba(201,169,110,0.15) !important;
-}
-
-/* Header — mirror black with silver edge */
-.header-bar {
-  background: rgba(0,0,0,0.97) !important;
-  box-shadow:
-    0 1px 0 rgba(210,215,225,0.08),
-    0 4px 24px rgba(0,0,0,0.8);
-}
-
-/* Sidebar */
-.sidebar-panel {
-  background: linear-gradient(180deg, #0e0e0e 0%, #050505 100%) !important;
-  box-shadow: 4px 0 32px rgba(0,0,0,0.9),
-              1px 0 0 rgba(255,255,255,0.04);
-}
-
-/* Estimate card */
-.estimate-card {
-  background: linear-gradient(160deg, #1e1e1e 0%, #0e0e0e 30%, #000 100%) !important;
-  box-shadow:
-    0 1px 0 rgba(220,225,235,0.1) inset,
-    0 8px 40px rgba(0,0,0,0.85) !important;
-}
-
-/* Buttons — gold on black with silver sheen */
+/* ── GOLD + BLACK ── */
+html, body { background: #000 !important; }
+.header-bar { background: rgba(0,0,0,0.96) !important; }
+.sidebar-panel { background: #050505 !important; }
+.estimate-card { background: linear-gradient(145deg, #111111, #080808) !important; }
 .cta-btn--primary, .submit-btn {
-  box-shadow:
-    0 2px 20px rgba(201,169,110,0.25),
-    0 1px 0 rgba(255,255,255,0.25) inset,
-    0 -1px 0 rgba(0,0,0,0.4) inset !important;
+  box-shadow: 0 2px 20px rgba(201,169,110,0.25), 0 1px 0 rgba(255,255,255,0.15) inset !important;
 }
 .cta-btn--primary:hover, .submit-btn:hover {
-  box-shadow:
-    0 4px 32px rgba(201,169,110,0.4),
-    0 1px 0 rgba(255,255,255,0.35) inset,
-    0 -1px 0 rgba(0,0,0,0.4) inset !important;
+  box-shadow: 0 4px 32px rgba(201,169,110,0.4), 0 1px 0 rgba(255,255,255,0.2) inset !important;
 }
-
-/* Payment pill */
-.payment-pill {
-  background: linear-gradient(135deg, #181818, #0a0a0a) !important;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.06) inset !important;
-}
-
-/* Form inputs */
-.form-input, .form-select, .form-textarea {
-  background: #0a0a0a !important;
-  border-color: rgba(255,255,255,0.08) !important;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset !important;
-}
+.payment-pill { background: #0e0e0e !important; }
+.form-input, .form-select, .form-textarea { background: #0d0d0d !important; border-color: rgba(255,255,255,0.07) !important; }
 
 /* ── SERVICE PHOTO CARDS ── */
 .svc-photo-card {
@@ -1498,42 +1419,42 @@ document.addEventListener("DOMContentLoaded", loadGallery);
       
       <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
   <!-- PHOTO_CARPENTRY: paste your Cloudinary URL below -->
-  <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&q=80&auto=format&fit=crop" alt="Carpentry" class="svc-photo" loading="lazy">
+  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_CARPENTRY_PHOTO_HERE" alt="Carpentry" class="svc-photo" loading="lazy">
   <div class="svc-photo-label">Carpentry</div>
 </div>
       <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
   <!-- PHOTO_PAINTING: paste your Cloudinary URL below -->
-  <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=600&q=80&auto=format&fit=crop" alt="Painting" class="svc-photo" loading="lazy">
+  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_PAINTING_PHOTO_HERE" alt="Painting" class="svc-photo" loading="lazy">
   <div class="svc-photo-label">Painting</div>
 </div>
       <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
   <!-- PHOTO_FLOORING: paste your Cloudinary URL below -->
-  <img src="https://images.unsplash.com/photo-1516455207990-7a41ce80f7ee?w=600&q=80&auto=format&fit=crop" alt="Flooring" class="svc-photo" loading="lazy">
+  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/v1780507007/WhatsApp_Image_2026-06-03_at_10.06.23_AM_widn8o.jpg" alt="Flooring" class="svc-photo" loading="lazy">
   <div class="svc-photo-label">Flooring</div>
 </div>
       <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
   <!-- PHOTO_MASONRY: paste your Cloudinary URL below -->
-  <img src="https://images.unsplash.com/photo-1590664216659-f31d96e5f5e0?w=600&q=80&auto=format&fit=crop" alt="Masonry" class="svc-photo" loading="lazy">
+  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_MASONRY_PHOTO_HERE" alt="Masonry" class="svc-photo" loading="lazy">
   <div class="svc-photo-label">Masonry</div>
 </div>
       <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
   <!-- PHOTO_WINDOWS: paste your Cloudinary URL below -->
-  <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80&auto=format&fit=crop" alt="Windows" class="svc-photo" loading="lazy">
+  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_WINDOWS_PHOTO_HERE" alt="Windows" class="svc-photo" loading="lazy">
   <div class="svc-photo-label">Windows</div>
 </div>
       <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
   <!-- PHOTO_TILING: paste your Cloudinary URL below -->
-  <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80&auto=format&fit=crop" alt="Tiling" class="svc-photo" loading="lazy">
+  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_TILING_PHOTO_HERE" alt="Tiling" class="svc-photo" loading="lazy">
   <div class="svc-photo-label">Tiling</div>
 </div>
       <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
   <!-- PHOTO_KITCHEN: paste your Cloudinary URL below -->
-  <img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=600&q=80&auto=format&fit=crop" alt="Kitchen" class="svc-photo" loading="lazy">
+  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/v1780507007/WhatsApp_Image_2026-06-03_at_10.07.15_AM_d6cb3g.jpg" alt="Kitchen" class="svc-photo" loading="lazy">
   <div class="svc-photo-label">Kitchen</div>
 </div>
       <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
   <!-- PHOTO_BATHROOM: paste your Cloudinary URL below -->
-  <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80&auto=format&fit=crop" alt="Bathroom" class="svc-photo" loading="lazy">
+  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_BATHROOM_PHOTO_HERE" alt="Bathroom" class="svc-photo" loading="lazy">
   <div class="svc-photo-label">Bathroom</div>
 </div>
     
@@ -1588,25 +1509,25 @@ document.addEventListener("DOMContentLoaded", loadGallery);
       
       <div class="service-card svc-photo-card">
   <!-- PHOTO_CARPENTRY: paste your Cloudinary URL below -->
-  <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&q=80&auto=format&fit=crop" alt="Carpentry" class="svc-photo" loading="lazy">
+  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_CARPENTRY_PHOTO_HERE" alt="Carpentry" class="svc-photo" loading="lazy">
   <div class="svc-photo-label">Carpentry</div>
   <div class="svc-desc" style="padding:10px 12px 14px;">Custom cabinetry, trim work, framing, doors &amp; structural woodwork.</div>
 </div>
       <div class="service-card svc-photo-card">
   <!-- PHOTO_PAINTING: paste your Cloudinary URL below -->
-  <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=600&q=80&auto=format&fit=crop" alt="Painting" class="svc-photo" loading="lazy">
+  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_PAINTING_PHOTO_HERE" alt="Painting" class="svc-photo" loading="lazy">
   <div class="svc-photo-label">Painting</div>
   <div class="svc-desc" style="padding:10px 12px 14px;">Interior &amp; exterior painting with premium finishes and clean lines.</div>
 </div>
       <div class="service-card svc-photo-card">
   <!-- PHOTO_FLOORING: paste your Cloudinary URL below -->
-  <img src="https://images.unsplash.com/photo-1516455207990-7a41ce80f7ee?w=600&q=80&auto=format&fit=crop" alt="Flooring" class="svc-photo" loading="lazy">
+  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/v1780507007/WhatsApp_Image_2026-06-03_at_10.06.23_AM_widn8o.jpg" alt="Flooring" class="svc-photo" loading="lazy">
   <div class="svc-photo-label">Flooring</div>
   <div class="svc-desc" style="padding:10px 12px 14px;">Hardwood, laminate, vinyl, and engineered flooring installation.</div>
 </div>
       <div class="service-card svc-photo-card">
   <!-- PHOTO_MASONRY: paste your Cloudinary URL below -->
-  <img src="https://images.unsplash.com/photo-1590664216659-f31d96e5f5e0?w=600&q=80&auto=format&fit=crop" alt="Masonry" class="svc-photo" loading="lazy">
+  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_MASONRY_PHOTO_HERE" alt="Masonry" class="svc-photo" loading="lazy">
   <div class="svc-photo-label">Masonry</div>
   <div class="svc-desc" style="padding:10px 12px 14px;">Brick, stone, concrete, and block work for walls, steps &amp; facades.</div>
 </div>
@@ -1617,7 +1538,7 @@ document.addEventListener("DOMContentLoaded", loadGallery);
 </div>
       <div class="service-card svc-photo-card">
   <!-- PHOTO_TILING: paste your Cloudinary URL below -->
-  <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80&auto=format&fit=crop" alt="Tiling" class="svc-photo" loading="lazy">
+  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_TILING_PHOTO_HERE" alt="Tiling" class="svc-photo" loading="lazy">
   <div class="svc-photo-label">Tiling</div>
   <div class="svc-desc" style="padding:10px 12px 14px;">Floor and wall tiling for kitchens, bathrooms, and living spaces.</div>
 </div>
