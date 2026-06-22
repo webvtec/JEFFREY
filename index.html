@@ -1,2109 +1,1267 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
-<title>LXL Home Improvement LLC – House Remodeling Experts NYC</title>
-<meta name="description" content="LXL Home Improvement LLC – Licensed Home Improvement Contractor serving the Bronx, Queens, Brooklyn, Manhattan, and Staten Island.">
-<meta name="keywords" content="LXL Home Improvement, home remodeling NYC, house renovation Bronx, kitchen remodeling Queens, bathroom remodeling Brooklyn, flooring NYC, painting contractor Manhattan, carpentry Staten Island, licensed contractor NYC, tiling, masonry, window replacement">
-<meta name="author" content="LXL Home Improvement LLC">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAISON — Luxury Redefined</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
+/* ═══════════════════════════════════════════════════════
+   MAISON — Luxury E-Commerce
+   Palette: Obsidian, Charcoal, Ivory, Champagne Gold, Warm Taupe
+   Type: Cormorant Garamond (display) + DM Sans (body)
+   ═══════════════════════════════════════════════════════ */
+
 :root {
-  --bg:          #000000;
-  --surface:     #0A0A0A;
-  --surface2:    #111111;
-  --surface3:    #181818;
-  --neon:        #C9A96E;
-  --neon-dim:    rgba(201,169,110,0.08);
-  --neon-glow:   rgba(201,169,110,0.22);
-  --hot:         #B8A090;
-  --hot-dim:     rgba(184,160,144,0.1);
-  --amber:       #D4AF6A;
-  --text:        #F0EDE8;
-  --text-dim:    #6E6A62;
-  --text-mid:    #A09888;
-  --border:      rgba(255,255,255,0.055);
-  --border-lit:  rgba(201,169,110,0.25);
-  --green:       #7AAB82;
+  --obsidian: #0a0a0a;
+  --charcoal: #161616;
+  --onyx: #1e1e1e;
+  --ivory: #f5f0e8;
+  --gold: #c8a55e;
+  --gold-light: #d4b56e;
+  --taupe: #8a7d6b;
+  --white: #ffffff;
+  --smoke: rgba(255,255,255,.06);
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --sans: "DM Sans", -apple-system, sans-serif;
 }
 
-
-
-/* ── ADMIN BUTTON ── */
-.sidebar-admin-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 10px 14px 10px;
-  padding: 11px 14px;
-  border-radius: 8px;
-  border: 1px solid rgba(201,169,110,0.35);
-  background: rgba(201,169,110,0.08);
-  color: var(--neon);
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  width: calc(100% - 28px);
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-}
-.sidebar-admin-btn:hover { background: rgba(201,169,110,0.14); border-color: var(--neon); }
-.sidebar-admin-btn .admin-avatar {
-  width: 22px; height: 22px; border-radius: 50%;
-  object-fit: cover; display: none;
-}
-.sidebar-admin-btn.signed-in { border-color: var(--green); background: rgba(122,171,130,0.08); color: var(--green); }
-
-/* ── ADMIN MODAL ── */
-.admin-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
-  z-index: 2000; align-items: flex-start; justify-content: center;
-  padding: 60px 16px 40px; overflow-y: auto;
-}
-.admin-overlay.show { display: flex; }
-.admin-modal {
-  background: var(--surface); border: 1px solid var(--border-lit);
-  border-radius: 16px; width: 100%; max-width: 560px;
-  padding: 28px 22px; position: relative;
-}
-.admin-modal-title {
-  font-family: 'Inter', sans-serif; font-weight: 800;
-  font-size: 18px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--neon); margin-bottom: 6px;
-}
-.admin-modal-sub { font-size: 11px; color: var(--text-dim); letter-spacing: 1px; margin-bottom: 22px; }
-.admin-close-btn {
-  position: absolute; top: 16px; right: 16px;
-  background: transparent; border: 1px solid var(--border);
-  color: var(--text-dim); border-radius: 6px;
-  width: 30px; height: 30px; cursor: pointer; font-size: 14px;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s;
-}
-.admin-close-btn:hover { border-color: var(--hot); color: var(--hot); }
-
-/* sign-in screen */
-.admin-signin-screen { text-align: center; padding: 20px 0 10px; }
-.admin-signin-screen p { color: var(--text-mid); font-size: 13px; margin-bottom: 22px; line-height: 1.6; }
-.google-signin-btn {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: #fff; color: #333; border: none; border-radius: 8px;
-  padding: 12px 22px; font-family: 'Inter', sans-serif;
-  font-weight: 700; font-size: 13px; cursor: pointer;
-  transition: box-shadow 0.2s; letter-spacing: 0.5px;
-}
-.google-signin-btn:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
-.google-signin-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
-
-/* review cards in admin */
-.admin-review-card {
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: 10px; padding: 14px 16px; margin-bottom: 12px;
-}
-.admin-review-card .arc-header {
-  display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;
-}
-.admin-review-card .arc-name { font-weight: 700; font-size: 13px; color: var(--text); }
-.admin-review-card .arc-stars { color: var(--amber); font-size: 13px; }
-.admin-review-card .arc-meta { font-size: 11px; color: var(--text-dim); margin-bottom: 6px; }
-.admin-review-card .arc-text { font-size: 12px; color: var(--text-mid); line-height: 1.55; }
-.admin-review-card .arc-actions { display: flex; gap: 8px; margin-top: 10px; }
-.arc-btn {
-  font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  border-radius: 6px; padding: 6px 14px; cursor: pointer;
-  border: 1px solid; transition: all 0.18s;
-}
-.arc-btn--approve { border-color: var(--green); color: var(--green); background: rgba(122,171,130,0.07); }
-.arc-btn--approve:hover { background: rgba(122,171,130,0.18); }
-.arc-btn--delete  { border-color: var(--hot);   color: var(--hot);   background: rgba(184,160,144,0.07); }
-.arc-btn--delete:hover  { background: rgba(184,160,144,0.18); }
-.arc-status-badge {
-  font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-  padding: 3px 8px; border-radius: 20px;
-}
-.arc-status-badge.pending  { background: rgba(201,168,106,0.15); color: var(--amber); }
-.arc-status-badge.approved { background: rgba(122,171,130,0.15);  color: var(--green); }
-.admin-empty { text-align:center; color: var(--text-dim); font-size: 12px; padding: 30px 0; letter-spacing: 1px; }
-.admin-section-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--text-dim); margin: 18px 0 10px; padding-bottom: 6px;
-  border-bottom: 1px solid var(--border);
-}
-.admin-signout-btn {
-  width: 100%; margin-top: 18px; padding: 10px;
-  background: transparent; border: 1px solid var(--border);
-  border-radius: 8px; color: var(--text-dim); font-family: 'Inter', sans-serif;
-  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-  cursor: pointer; transition: all 0.2s;
-}
-.admin-signout-btn:hover { border-color: var(--hot); color: var(--hot); }
-
-/* ── PUBLIC REVIEWS ── */
-.review-submit-card {
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: 14px; padding: 22px 18px; margin: 0 auto;
-  max-width: 480px;
-}
-.review-submit-card .form-label { font-size: 10px; }
-.star-picker { display: flex; gap: 6px; margin: 4px 0 14px; }
-.star-picker span {
-  font-size: 26px; cursor: pointer; color: var(--border);
-  transition: color 0.15s; line-height: 1;
-}
-.star-picker span.lit { color: var(--amber); }
-.public-reviews-list { margin-top: 26px; }
-.pub-review-card {
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: 10px; padding: 14px 16px; margin-bottom: 12px;
-  animation: fadeSlideIn 0.4s ease;
-}
-.pub-review-card .prc-stars { color: var(--amber); font-size: 13px; margin-bottom: 4px; }
-.pub-review-card .prc-text  { font-size: 13px; color: var(--text-mid); line-height: 1.55; margin-bottom: 8px; }
-.pub-review-card .prc-meta  { font-size: 11px; color: var(--text-dim); }
-.reviews-loading { text-align:center; color: var(--text-dim); font-size: 12px; padding: 20px 0; letter-spacing: 1px; }
-
-@keyframes fadeSlideIn {
-  from { opacity: 0; transform: translateY(-8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-#exactAddressGroup {
-  animation: fadeSlideIn 0.3s ease;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-html, body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--obsidian);
+  color: var(--ivory);
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-body {
-  background: var(--bg);
-  padding-bottom: 36px;
-  min-height: 100vh;
+/* ── UTILITY ─────────────────────────────────────────── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: .12s; }
+.reveal-delay-2 { transition-delay: .24s; }
+.reveal-delay-3 { transition-delay: .36s; }
+.reveal-delay-4 { transition-delay: .48s; }
+
+/* ── NAV ─────────────────────────────────────────────── */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 0 clamp(24px, 5vw, 80px);
+  height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10,10,10,.88);
+  backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  transition: background .4s;
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: 6px;
+  color: var(--white);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.nav-logo span {
+  color: var(--gold);
+}
+.nav-center {
+  display: flex; gap: 8px;
+  position: absolute; left: 50%; transform: translateX(-50%);
+}
+.nav-link {
+  color: rgba(245,240,232,.55);
+  text-decoration: none;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: 4px;
+  transition: color .25s, background .25s;
+  cursor: pointer;
+}
+.nav-link:hover, .nav-link.active {
+  color: var(--white);
+  background: rgba(255,255,255,.06);
+}
+.nav-right {
+  display: flex; align-items: center; gap: 20px;
+}
+.nav-icon {
+  color: rgba(245,240,232,.55);
+  cursor: pointer;
+  transition: color .25s;
+  display: flex; align-items: center;
+}
+.nav-icon:hover { color: var(--gold); }
+.nav-cart-count {
+  background: var(--gold);
+  color: var(--obsidian);
+  font-size: 9px;
+  font-weight: 700;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-left: -8px;
+  margin-top: -10px;
 }
 
-/* ========================= HEADER ========================= */
-.header-bar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 52px;
-  background: var(--surface);
+/* Hamburger (mobile) */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav-hamburger span {
+  width: 22px; height: 1.5px;
+  background: var(--ivory);
+  transition: all .3s;
+}
+
+/* ── HERO ────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  border-bottom: 1px solid var(--border);
+  align-items: flex-end;
+  overflow: hidden;
 }
-.header-bar::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #8A7A5E, #EDE0C4, #8A7A5E, transparent);
-  background-size: 300% 100%;
-  animation: stripeFlow 5s linear infinite;
+.hero-media {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center 30%;
+  transform: scale(1.05);
+  transition: transform 8s ease-out;
 }
-@keyframes stripeFlow {
-  0%   { background-position: 200% center; }
-  100% { background-position: -100% center; }
+.hero.loaded .hero-media {
+  transform: scale(1);
 }
-@keyframes silverSheen {
-  0%   { opacity: 0.6; }
-  50%  { opacity: 1; }
-  100% { opacity: 0.6; }
+.hero-overlay {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10,10,10,.25) 0%, rgba(10,10,10,.12) 40%, rgba(10,10,10,.7) 85%, rgba(10,10,10,.95) 100%),
+    linear-gradient(90deg, rgba(10,10,10,.35) 0%, transparent 50%);
 }
-
-.header-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 800;
-  font-size: 13px;
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 0 clamp(32px, 6vw, 100px) clamp(60px, 8vh, 120px);
+  max-width: 720px;
+}
+.hero-eyebrow {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
   letter-spacing: 4px;
   text-transform: uppercase;
-  color: #fff;
-  text-align: center;
-  padding: 0 50px;
+  color: var(--gold);
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroFadeUp .9s .6s cubic-bezier(.22,1,.36,1) forwards;
 }
-.header-title .brand-teal { color: var(--neon); }
-
-.header-icons {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.hero-headline {
+  font-family: var(--serif);
+  font-size: clamp(42px, 6.5vw, 82px);
+  font-weight: 300;
+  line-height: 1.08;
+  color: var(--white);
+  letter-spacing: -1px;
+  margin-bottom: 24px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: heroFadeUp 1s .8s cubic-bezier(.22,1,.36,1) forwards;
 }
-.header-icon-btn {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 6px;
-  height: 32px;
-  width: 32px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: var(--text-mid);
-  transition: all 0.2s ease;
-  cursor: pointer;
-  flex-shrink: 0;
+.hero-headline em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-light);
+}
+.hero-sub {
   font-size: 15px;
+  line-height: 1.75;
+  color: rgba(245,240,232,.6);
+  max-width: 440px;
+  margin-bottom: 36px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroFadeUp .9s 1s cubic-bezier(.22,1,.36,1) forwards;
 }
-.header-icon-btn:hover {
-  background: rgba(201,169,110,0.1);
-  border-color: var(--border-lit);
-  color: var(--neon);
+@keyframes heroFadeUp {
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Hamburger */
-.hamburger-btn {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 6px;
-  height: 32px;
-  width: 32px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  cursor: pointer;
-  z-index: 1001;
-  transition: all 0.2s ease;
-}
-.hamburger-btn span {
-  display: block;
-  width: 16px;
-  height: 1.5px;
-  background: var(--text-mid);
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
-.hamburger-btn.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
-.hamburger-btn.open span:nth-child(2) { opacity: 0; }
-.hamburger-btn.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
-.hamburger-btn:hover { border-color: var(--border-lit); background: rgba(201,169,110,0.06); }
-
-/* ========================= SIDEBAR ========================= */
-.sidebar-scrim {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 998;
-  backdrop-filter: blur(4px);
-}
-.sidebar-scrim.show { display: block; }
-.sidebar-panel {
-  position: fixed;
-  top: 52px; left: 0; bottom: 0;
-  width: 220px;
-  background: var(--surface);
-  border-right: 1px solid var(--border);
-  z-index: 999;
-  transform: translateX(-100%);
-  transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
-  overflow-y: auto;
-  padding: 12px 0 40px;
-  display: flex;
-  flex-direction: column;
-}
-.sidebar-panel.open { transform: translateX(0); }
-.sidebar-panel::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #3A3020, var(--neon));
-}
-.sidebar-nav-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 18px;
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
+/* CTA button */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 40px;
+  background: var(--gold);
+  color: var(--obsidian);
+  font-family: var(--sans);
+  font-size: 11.5px;
   font-weight: 600;
-  font-size: 11px;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: var(--text-dim);
+  text-decoration: none;
   border: none;
+  cursor: pointer;
+  transition: all .3s;
+  opacity: 0;
+  animation: heroFadeUp .8s 1.2s cubic-bezier(.22,1,.36,1) forwards;
+}
+.btn-primary:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(200,165,94,.25);
+}
+.btn-primary svg { transition: transform .3s; }
+.btn-primary:hover svg { transform: translateX(4px); }
+
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 36px;
   background: transparent;
-  width: 100%;
-  text-align: left;
-  transition: all 0.18s ease;
+  color: var(--ivory);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid rgba(245,240,232,.25);
+  cursor: pointer;
+  transition: all .3s;
+}
+.btn-outline:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(200,165,94,.06);
+}
+
+/* ── SECTION COMMON ──────────────────────────────────── */
+.section-pad {
+  padding: clamp(80px, 10vh, 140px) clamp(24px, 5vw, 80px);
+}
+.section-eyebrow {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.15;
+  letter-spacing: -.5px;
+}
+.section-title em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* ── CATEGORIES ──────────────────────────────────────── */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 52px;
+}
+.cat-card {
   position: relative;
+  height: clamp(340px, 42vh, 520px);
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
 }
-.sidebar-nav-item:hover { color: var(--text-mid); background: rgba(255,255,255,0.03); }
-.sidebar-nav-item.active { color: var(--neon); background: var(--neon-dim); }
-.sidebar-nav-item.active::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 20%; bottom: 20%;
-  width: 2px;
-  background: var(--neon);
-  border-radius: 0 2px 2px 0;
+.cat-card-img {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform .7s cubic-bezier(.22,1,.36,1);
 }
-.snav-icon { font-size: 15px; flex-shrink: 0; }
-.sidebar-divider {
-  height: 1px;
-  background: var(--border);
-  margin: 6px 14px;
+.cat-card:hover .cat-card-img {
+  transform: scale(1.06);
 }
-.sidebar-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 9px;
+.cat-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,10,0) 40%, rgba(10,10,10,.75) 100%);
+  transition: background .5s;
+}
+.cat-card:hover .cat-card-overlay {
+  background: linear-gradient(180deg, rgba(10,10,10,.1) 0%, rgba(10,10,10,.82) 100%);
+}
+.cat-card-content {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 28px 24px;
+  z-index: 2;
+}
+.cat-card-label {
+  font-family: var(--sans);
+  font-size: 9.5px;
+  font-weight: 600;
   letter-spacing: 3px;
-  color: var(--hot);
   text-transform: uppercase;
-  padding: 8px 18px 4px;
-  opacity: 0.7;
+  color: var(--gold);
+  margin-bottom: 8px;
 }
-.sidebar-phone-block {
-  padding: 12px 18px;
+.cat-card-name {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--white);
+  letter-spacing: .5px;
 }
-.sidebar-phone-block .spb-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 9px;
+.cat-card-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 14px;
+  font-size: 10.5px;
+  font-weight: 600;
   letter-spacing: 2px;
-  color: var(--text-dim);
   text-transform: uppercase;
+  color: rgba(245,240,232,.5);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all .45s cubic-bezier(.22,1,.36,1);
+}
+.cat-card:hover .cat-card-cta {
+  opacity: 1;
+  transform: translateY(0);
+  color: var(--gold);
+}
+
+/* ── PRODUCTS GRID ───────────────────────────────────── */
+.products-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 52px;
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.product-card {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+.product-img-wrap {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--charcoal);
+  margin-bottom: 18px;
+}
+.product-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .7s cubic-bezier(.22,1,.36,1);
+}
+.product-card:hover .product-img {
+  transform: scale(1.05);
+}
+.product-badge {
+  position: absolute;
+  top: 14px; left: 14px;
+  background: var(--gold);
+  color: var(--obsidian);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 3px;
+}
+.product-quick {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 14px;
+  background: rgba(10,10,10,.88);
+  backdrop-filter: blur(12px);
+  text-align: center;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ivory);
+  opacity: 0;
+  transform: translateY(100%);
+  transition: all .4s cubic-bezier(.22,1,.36,1);
+}
+.product-card:hover .product-quick {
+  opacity: 1;
+  transform: translateY(0);
+}
+.product-brand {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--taupe);
   margin-bottom: 6px;
 }
-.sidebar-phone-block a {
-  display: block;
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 600;
-  font-size: 16px;
-  color: var(--neon);
-  text-decoration: none;
-  letter-spacing: 1px;
+.product-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--ivory);
+  margin-bottom: 8px;
+  line-height: 1.35;
 }
-.sidebar-phone-block .spb-days {
-  font-family: 'Inter', sans-serif;
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  margin-top: 4px;
+.product-price {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: .5px;
+}
+.product-price .original {
+  color: var(--taupe);
+  text-decoration: line-through;
+  margin-left: 8px;
+  font-size: 12px;
 }
 
-/* ========================= CONTENT ========================= */
-.content-section {
-  display: none;
-  padding-top: 52px;
-  min-height: calc(100vh - 52px);
-  position: relative;
-  z-index: 1;
+/* ── EDITORIAL / BRAND STORY ─────────────────────────── */
+.editorial {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 80vh;
 }
-.content-section.active { display: block; }
-
-/* ========================= HERO ========================= */
-.hero-section {
-  text-align: center;
-  padding: 36px 20px 28px;
+.editorial-img {
+  background-size: cover;
+  background-position: center;
+  min-height: 500px;
 }
-.hero-kicker {
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 10px;
-  letter-spacing: 5px;
-  color: var(--hot);
-  text-transform: uppercase;
-  margin-bottom: 10px;
+.editorial-content {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  gap: 10px;
+  padding: clamp(48px, 6vw, 100px);
+  background: var(--charcoal);
 }
-.hero-kicker::before, .hero-kicker::after {
-  content: ''; width: 20px; height: 1px;
-  background: var(--hot); opacity: 0.4;
+.editorial-text {
+  font-family: var(--serif);
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(245,240,232,.7);
+  margin: 28px 0 40px;
+  font-style: italic;
 }
-.hero-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 900;
-  font-size: clamp(36px, 11vw, 64px);
-  line-height: 1;
-  text-transform: uppercase;
-  color: var(--text);
-  margin: 0 0 10px;
-  letter-spacing: -1px;
-}
-.hero-title .accent { color: var(--neon); }
-.hero-sub {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  color: var(--text-dim);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 14px;
-}
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: rgba(122,171,130,0.08);
-  border: 1px solid rgba(122,171,130,0.2);
-  border-radius: 20px;
-  padding: 6px 14px;
-  font-family: 'Inter', sans-serif;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  color: var(--green);
-  text-transform: uppercase;
-  margin-bottom: 24px;
-}
-.hero-badge .dot {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--green);
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.7); }
-}
-.hero-cta-row {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
+.editorial-divider {
+  width: 48px;
+  height: 1px;
+  background: var(--gold);
   margin-bottom: 28px;
 }
 
-/* ========================= BUTTONS ========================= */
-.cta-btn {
-  display: inline-block;
-  padding: 11px 24px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 10px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  text-decoration: none;
+/* ── LOOKBOOK BANNER ─────────────────────────────────── */
+.lookbook {
+  position: relative;
+  height: clamp(420px, 55vh, 600px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.lookbook-bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+.lookbook-overlay {
+  position: absolute; inset: 0;
+  background: rgba(10,10,10,.55);
+}
+.lookbook-content {
+  position: relative; z-index: 2;
+  max-width: 680px;
+  padding: 0 24px;
+}
+.lookbook-title {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 12px;
+  letter-spacing: -.5px;
+}
+.lookbook-sub {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(245,240,232,.55);
+  margin-bottom: 36px;
+}
+
+/* ── NEWSLETTER ──────────────────────────────────────── */
+.newsletter {
+  text-align: center;
+  max-width: 540px;
+  margin: 0 auto;
+}
+.newsletter-form {
+  display: flex;
+  gap: 0;
+  margin-top: 32px;
+  border: 1px solid rgba(245,240,232,.15);
   border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.18s ease;
-  border: none;
+  overflow: hidden;
+  transition: border-color .3s;
 }
-.cta-btn--primary {
-  background: var(--neon);
-  color: #07060A;
+.newsletter-form:focus-within {
+  border-color: var(--gold);
 }
-.cta-btn--primary:hover { background: #D4B97A; transform: translateY(-1px); }
-.cta-btn--outline {
+.newsletter-input {
+  flex: 1;
   background: transparent;
-  color: var(--text-mid);
-  border: 1px solid rgba(255,255,255,0.12) !important;
-}
-.cta-btn--outline:hover {
-  border-color: var(--border-lit) !important;
-  color: var(--neon);
-  transform: translateY(-1px);
-}
-
-/* ========================= SECTION KICKER ========================= */
-.section-kicker {
-  text-align: center;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 9px;
-  color: var(--hot);
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  margin-top: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-.section-kicker::before, .section-kicker::after {
-  content: '';
-  width: 22px; height: 1px;
-  background: var(--hot); opacity: 0.4;
-}
-
-h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 900;
-  font-size: clamp(28px, 8vw, 44px);
-  letter-spacing: -0.5px;
-  text-transform: uppercase;
-  color: var(--text);
-  text-align: center;
-  margin: 8px 0 6px;
-  line-height: 1;
-}
-h1 span.accent { color: var(--neon); }
-
-/* ========================= DIVIDER ========================= */
-.section-divider {
-  height: 1px;
-  background: var(--border);
-  margin: 0 18px 24px;
-}
-
-/* ========================= SERVICES ========================= */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin-top: 20px;
-}
-@media (min-width: 600px) { .services-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 900px) { .services-grid { grid-template-columns: repeat(4, 1fr); } }
-
-.service-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 18px 14px;
-  text-align: center;
-  transition: all 0.2s ease;
-  cursor: default;
-  position: relative;
-  overflow: hidden;
-}
-.service-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #3A3020, var(--neon));
-  transform: scaleX(0);
-  transition: transform 0.2s ease;
-  transform-origin: left;
-}
-.service-card:hover {
-  border-color: rgba(201,169,110,0.2);
-  transform: translateY(-2px);
-}
-.service-card:hover::before { transform: scaleX(1); }
-/* .svc-icon removed — photo cards used instead */
-.service-card .svc-name {
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  color: var(--text);
-}
-.service-card .svc-desc {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  color: var(--text-dim);
-  margin-top: 5px;
-  line-height: 1.4;
-}
-
-/* ========================= GALLERY ========================= */
-.gallery-hero {
-  text-align: center;
-  padding: 32px 20px 20px;
-}
-.gallery-category { margin-top: 24px; }
-.gallery-category h3 {
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 10px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--text-mid);
-  padding: 0 18px;
-  margin: 0 0 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.gallery-category h3::before {
-  content: '';
-  width: 3px; height: 14px;
-  background: var(--neon);
-  border-radius: 2px;
-  flex-shrink: 0;
-}
-.ba-grid {
-  display: flex;
-  overflow-x: auto;
-  gap: 10px;
-  padding: 0 18px 14px;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: var(--surface3) transparent;
-}
-.ba-grid::-webkit-scrollbar { height: 2px; }
-.ba-grid::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 2px; }
-.ba-card {
-  flex-shrink: 0;
-  width: 190px;
-  scroll-snap-align: start;
-  border-radius: 7px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-.ba-card:hover { transform: translateY(-3px); border-color: var(--border-lit); }
-.ba-card-img { width: 100%; height: 160px; object-fit: cover; display: block; }
-.ba-card-placeholder {
-  width: 100%;
-  height: 160px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  background: var(--surface2);
-  color: var(--text-dim);
-}
-.ba-card-placeholder span {
-  font-family: 'Inter', sans-serif;
-  font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-top: 6px;
-}
-.ba-card-label {
-  padding: 7px 10px;
-  font-family: 'Inter', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* ========================= ESTIMATE FORM ========================= */
-.estimate-section { padding: 0 18px 36px; }
-.estimate-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 24px 20px;
-  position: relative;
-  overflow: hidden;
-  margin-top: 18px;
-}
-.estimate-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #3A3020, var(--neon));
-}
-.form-group { margin-bottom: 14px; }
-.form-label {
-  display: block;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 9px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 5px;
-}
-.form-input, .form-select, .form-textarea {
-  width: 100%;
-  padding: 10px 12px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  color: var(--text);
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  transition: border-color 0.2s ease;
+  border: none;
+  padding: 16px 22px;
+  color: var(--ivory);
+  font-family: var(--sans);
+  font-size: 14px;
   outline: none;
 }
-.form-input:focus, .form-select:focus, .form-textarea:focus {
-  border-color: var(--neon);
-  box-shadow: 0 0 0 3px rgba(201,169,110,0.08);
-}
-.form-select option { background: var(--surface2); }
-.form-textarea { resize: vertical; min-height: 90px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-@media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
-.submit-btn {
-  width: 100%;
-  padding: 13px;
-  background: var(--neon);
-  color: #07060A;
+.newsletter-input::placeholder { color: var(--taupe); }
+.newsletter-btn {
+  background: var(--gold);
+  color: var(--obsidian);
   border: none;
-  border-radius: 5px;
-  font-family: 'Inter', sans-serif;
+  padding: 16px 32px;
+  font-family: var(--sans);
+  font-size: 10.5px;
   font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.18s ease;
-  margin-top: 6px;
-}
-.submit-btn:hover { background: #D4B97A; transform: translateY(-1px); }
-
-/* ========================= INFO SECTION ========================= */
-.info-section { padding: 0 18px 36px; }
-.info-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  margin-top: 18px;
-}
-@media (min-width: 600px) { .info-grid { grid-template-columns: 1fr 1fr; } }
-.info-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 18px 16px;
-  transition: border-color 0.2s ease;
-}
-.info-card:hover { border-color: var(--border-lit); }
-.info-card-title {
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--hot);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-.ic-icon { font-size: 14px; }
-.info-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  color: var(--text);
-}
-.ii-icon { font-size: 14px; flex-shrink: 0; color: var(--neon); }
-.info-item a { color: var(--neon); text-decoration: none; }
-.info-item a:hover { text-decoration: underline; }
-.payment-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 6px; }
-.payment-pill {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 5px 12px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 10px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--text-mid);
-}
-.location-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 7px;
-  margin-top: 7px;
-}
-.location-pill {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background: rgba(184,160,144,0.06);
-  border: 1px solid rgba(184,160,144,0.15);
-  border-radius: 5px;
-  padding: 7px 10px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 10px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--hot);
-}
-
-/* ========================= REVIEWS ========================= */
-.reviews-section { padding: 0 18px 36px; }
-.reviews-strip {
-  display: flex;
-  overflow-x: auto;
-  gap: 12px;
-  padding: 18px 0 14px;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: var(--surface3) transparent;
-}
-.reviews-strip::-webkit-scrollbar { height: 2px; }
-.review-card {
-  flex-shrink: 0;
-  width: 250px;
-  scroll-snap-align: start;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 16px 14px;
-  transition: border-color 0.2s ease;
-  position: relative;
-}
-.review-card:hover { border-color: var(--border-lit); }
-.review-card::before {
-  content: '"';
-  position: absolute;
-  top: 6px; right: 12px;
-  font-family: 'Inter', sans-serif;
-  font-size: 44px;
-  color: rgba(201,169,110,0.1);
-  line-height: 1;
-}
-.review-stars { font-size: 11px; margin-bottom: 7px; letter-spacing: 2px; color: var(--amber); }
-.review-text {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: var(--text-mid);
-  line-height: 1.55;
-  margin-bottom: 12px;
-}
-.review-author {
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--neon);
-}
-.review-location {
-  font-family: 'Inter', sans-serif;
-  font-size: 10px;
-  color: var(--text-dim);
-  margin-top: 2px;
-}
-
-/* ========================= ABOUT ========================= */
-.about-section { padding: 0 18px 36px; }
-.about-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 24px 20px;
-  margin-top: 18px;
-  position: relative;
-  overflow: hidden;
-}
-.about-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #3A3020, var(--neon));
-}
-.about-text {
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  color: var(--text-mid);
-  line-height: 1.7;
-  margin-bottom: 14px;
-}
-.badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-.info-badge-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  padding: 8px 14px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 10px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--text-mid);
-}
-
-/* ========================= TOAST ========================= */
-.toast {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--neon);
-  color: #07060A;
-  padding: 10px 22px;
-  border-radius: 6px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  z-index: 9999;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.3s, bottom 0.3s;
+  transition: background .3s;
   white-space: nowrap;
 }
+.newsletter-btn:hover { background: var(--gold-light); }
 
-/* ========================= FOOTER ========================= */
+/* ── FOOTER ──────────────────────────────────────────── */
 .site-footer {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  text-align: center;
-  padding: 6px 20px;
-  font-family: 'Inter', sans-serif;
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: var(--text-dim);
-  z-index: 1000;
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: clamp(60px, 8vh, 100px) clamp(24px, 5vw, 80px) 40px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: clamp(32px, 5vw, 80px);
+  margin-bottom: 60px;
+}
+.footer-brand-name {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 5px;
+  color: var(--white);
   text-transform: uppercase;
+  margin-bottom: 16px;
 }
-
-/* ========================= PHOTO MODAL ========================= */
-.photo-modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  z-index: 9000;
-  align-items: center;
-  justify-content: center;
+.footer-brand-desc {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--taupe);
+  max-width: 300px;
 }
-.photo-modal-overlay.show { display: flex; }
-.photo-modal-inner { max-width: 90vw; max-height: 90vh; position: relative; }
-.photo-modal-inner img { max-width: 100%; max-height: 85vh; border-radius: 6px; display: block; }
-.photo-modal-close {
-  position: absolute;
-  top: -14px; right: -14px;
-  background: var(--hot);
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 28px; height: 28px;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
+.footer-heading {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
 }
-
-/* ========================= SCROLLBAR ========================= */
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 2px; }
-
-@keyframes spin { to { transform: rotate(360deg); } }
-.relative-z { position: relative; z-index: 1; }
-.services-section { padding: 0 18px 36px; }
-
-
-
-/* ── GOLD + BLACK ── */
-html, body { background: #000 !important; }
-.header-bar { background: rgba(0,0,0,0.96) !important; }
-.sidebar-panel { background: #050505 !important; }
-.estimate-card { background: linear-gradient(145deg, #111111, #080808) !important; }
-.cta-btn--primary, .submit-btn {
-  box-shadow: 0 2px 20px rgba(201,169,110,0.25), 0 1px 0 rgba(255,255,255,0.15) inset !important;
-}
-.cta-btn--primary:hover, .submit-btn:hover {
-  box-shadow: 0 4px 32px rgba(201,169,110,0.4), 0 1px 0 rgba(255,255,255,0.2) inset !important;
-}
-.payment-pill { background: #0e0e0e !important; }
-.form-input, .form-select, .form-textarea { background: #0d0d0d !important; border-color: rgba(255,255,255,0.07) !important; }
-
-/* ── SERVICE PHOTO CARDS ── */
-.svc-photo-card {
-  padding: 0 !important;
-  overflow: hidden;
-  border-radius: 6px;
-  position: relative;
-  cursor: pointer;
-  aspect-ratio: 4/3;
+.footer-links {
+  list-style: none;
   display: flex;
   flex-direction: column;
+  gap: 12px;
 }
-.svc-photo-card .svc-photo {
+.footer-links a {
+  color: var(--taupe);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color .25s;
+}
+.footer-links a:hover { color: var(--ivory); }
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,.06);
+  font-size: 12px;
+  color: var(--taupe);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ── COLLECTIONS PAGE ────────────────────────────────── */
+.page-hero {
+  padding: 140px clamp(24px,5vw,80px) 60px;
+  text-align: center;
+}
+.page-hero-title {
+  font-family: var(--serif);
+  font-size: clamp(38px, 5vw, 62px);
+  font-weight: 300;
+  color: var(--white);
+  letter-spacing: -.5px;
+}
+.page-hero-sub {
+  font-size: 14px;
+  color: var(--taupe);
+  margin-top: 14px;
+  max-width: 460px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+.filter-bar {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 0 clamp(24px,5vw,80px) 48px;
+}
+.filter-btn {
+  padding: 10px 24px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.1);
+  color: var(--taupe);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all .25s;
+}
+.filter-btn:hover, .filter-btn.active {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(200,165,94,.06);
+}
+
+/* ── ABOUT PAGE ──────────────────────────────────────── */
+.about-hero-img {
   width: 100%;
-  height: 100%;
+  height: clamp(360px, 45vh, 520px);
   object-fit: cover;
   display: block;
-  transition: transform 0.4s ease;
-  flex: 1;
-  min-height: 0;
 }
-.svc-photo-card:hover .svc-photo { transform: scale(1.06); }
-.svc-photo-label {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  background: linear-gradient(to top, rgba(4,3,5,0.88) 0%, transparent 100%);
-  padding: 22px 12px 10px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
+.about-content {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: clamp(60px, 8vh, 100px) 24px;
+}
+.about-text {
+  font-family: var(--serif);
+  font-size: clamp(17px, 2vw, 21px);
+  line-height: 2;
+  color: rgba(245,240,232,.65);
+  font-weight: 300;
+}
+.about-text + .about-text {
+  margin-top: 28px;
+}
+.about-values {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 60px;
+  padding-top: 60px;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.about-value-title {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+.about-value-desc {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--taupe);
+}
+
+/* ── CONTACT PAGE ────────────────────────────────────── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 100px);
+  max-width: 1060px;
+  margin: 0 auto;
+}
+.contact-info-item {
+  margin-bottom: 36px;
+}
+.contact-info-label {
   font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.contact-info-value {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--ivory);
+  line-height: 1.6;
+}
+.form-group { margin-bottom: 22px; }
+.form-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #F0EDE8;
+  color: var(--taupe);
+  margin-bottom: 8px;
 }
-/* On full services page, make card taller and stack desc below */
-.services-section .svc-photo-card {
-  aspect-ratio: auto;
-  display: flex;
-  flex-direction: column;
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 4px;
+  color: var(--ivory);
+  font-family: var(--sans);
+  font-size: 14px;
+  outline: none;
+  transition: border-color .3s;
 }
-.services-section .svc-photo-card .svc-photo {
-  height: 160px;
-  flex: none;
+.form-input:focus, .form-textarea:focus {
+  border-color: var(--gold);
 }
-.services-section .svc-photo-card .svc-photo-label {
-  position: relative;
-  background: linear-gradient(to top, rgba(4,3,5,0.92) 0%, rgba(12,11,14,0.7) 100%);
-  padding: 8px 12px 6px;
-  font-size: 10px;
+.form-input::placeholder, .form-textarea::placeholder { color: rgba(138,125,107,.6); }
+.form-textarea { resize: vertical; min-height: 120px; }
+
+/* ── RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .categories-grid { grid-template-columns: repeat(2, 1fr); }
+  .products-grid { grid-template-columns: repeat(3, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
 }
-.services-section .svc-photo-card .svc-desc {
-  color: var(--text-dim);
-  font-size: 11px;
-  line-height: 1.5;
-  background: var(--surface);
-  flex: 1;
-}
-
-/* ══════════════════════════════════════════════
-   LUXURY PREMIUM OVERRIDES
-══════════════════════════════════════════════ */
-
-/* Richer background: subtle warm noise/vignette feel */
-html, body {
-  background: var(--bg);
-  background-image: radial-gradient(ellipse at 50% 0%, rgba(201,169,110,0.07) 0%, transparent 55%);
-}
-
-/* Header — frosted obsidian with gold underline */
-.header-bar {
-  background: rgba(0,0,0,0.96);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(201,169,110,0.12);
-}
-
-/* Brand name in header — serif italic for elegance */
-.header-title {
-  font-family: 'Cormorant Garamond', serif !important;
-  font-weight: 600 !important;
-  font-style: italic;
-  font-size: 15px !important;
-  letter-spacing: 3px !important;
-}
-.header-title .brand-teal { font-style: normal; }
-
-/* Hero title — large italic serif */
-.hero-title {
-  font-family: 'Cormorant Garamond', serif !important;
-  font-weight: 700 !important;
-  font-style: italic;
-  font-size: clamp(44px, 13vw, 80px) !important;
-  letter-spacing: -0.5px !important;
-  line-height: 0.95 !important;
-}
-.hero-title .accent {
-  font-style: normal;
-  background: linear-gradient(135deg, #D4B97A 0%, #F0E0A8 45%, #8A7A5E 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Section h1s — refined serif */
-h1 {
-  font-family: 'Cormorant Garamond', serif !important;
-  font-weight: 600 !important;
-  font-style: italic;
-  font-size: clamp(32px, 9vw, 52px) !important;
-  letter-spacing: 0 !important;
-}
-h1 span.accent {
-  background: linear-gradient(135deg, #D4B97A 0%, #F0E0A8 50%, #8A7A5E 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Kicker lines — thinner, more spaced */
-.hero-kicker, .section-kicker {
-  font-weight: 500 !important;
-  letter-spacing: 6px !important;
-  font-size: 9px !important;
-  color: var(--neon) !important;
-  opacity: 0.85;
-}
-.hero-kicker::before, .hero-kicker::after,
-.section-kicker::before, .section-kicker::after {
-  background: var(--neon) !important;
-  opacity: 0.35 !important;
-  width: 28px !important;
-}
-
-/* Sidebar — deeper obsidian surface */
-.sidebar-panel {
-  background: #000000;
-  border-right: 1px solid rgba(201,169,110,0.08);
-}
-
-/* Active nav item gold bar */
-.sidebar-nav-item.active { color: var(--neon) !important; }
-
-/* Service cards — richer dark with gold hover line */
-.service-card {
-  background: linear-gradient(145deg, #111111, #080808);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 6px;
-}
-.service-card:hover {
-  border-color: rgba(201,169,110,0.18);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(201,169,110,0.08);
-}
-
-/* Primary CTA button — gold gradient */
-.cta-btn--primary {
-  background: linear-gradient(135deg, #C9A96E 0%, #E8D090 50%, #8A7A5E 100%) !important;
-  color: #07060A !important;
-  letter-spacing: 3px;
-  box-shadow: 0 2px 20px rgba(201,169,110,0.2);
-}
-.cta-btn--primary:hover {
-  background: linear-gradient(135deg, #D4B97A 0%, #F0E0A8 50%, #906A38 100%) !important;
-  box-shadow: 0 4px 28px rgba(201,169,110,0.35);
-}
-
-/* Submit btn — same gold gradient */
-.submit-btn {
-  background: linear-gradient(135deg, #C9A96E 0%, #E8D090 50%, #8A7A5E 100%) !important;
-  box-shadow: 0 2px 16px rgba(201,169,110,0.18);
-}
-.submit-btn:hover {
-  background: linear-gradient(135deg, #D4B97A 0%, #F0E0A8 50%, #906A38 100%) !important;
-  box-shadow: 0 4px 24px rgba(201,169,110,0.32) !important;
-}
-
-/* Estimate card — subtle warm glow */
-.estimate-card {
-  background: linear-gradient(145deg, #111111, #080808);
-  border: 1px solid rgba(201,169,110,0.1);
-  box-shadow: 0 4px 40px rgba(0,0,0,0.4);
-}
-
-/* Info cards */
-.info-card { background: linear-gradient(145deg, #111111, #080808); }
-
-/* Review cards */
-.review-card {
-  background: linear-gradient(145deg, #111111, #080808);
-}
-.review-card::before { color: rgba(201,169,110,0.08) !important; }
-.review-author { color: var(--neon) !important; }
-
-/* Form inputs — warmer dark */
-.form-input, .form-select, .form-textarea {
-  background: rgba(255,255,255,0.04) !important;
-  border: 1px solid rgba(255,255,255,0.07) !important;
-}
-.form-input:focus, .form-select:focus, .form-textarea:focus {
-  border-color: rgba(201,169,110,0.4) !important;
-  box-shadow: 0 0 0 3px rgba(201,169,110,0.07) !important;
-}
-
-/* Payment pill gold tint */
-.payment-pill { border-color: rgba(201,169,110,0.1) !important; }
-
-/* Hero badge — gold bordered */
-.hero-badge {
-  border-color: rgba(201,169,110,0.25) !important;
-  background: rgba(201,169,110,0.06) !important;
-  color: var(--neon) !important;
-}
-.hero-badge .dot { background: var(--neon) !important; }
-
-/* Admin modal */
-.admin-modal { background: #0F0F11; border-color: rgba(201,169,110,0.15); }
-.admin-review-card { background: #161618; }
-
-/* gallery card border hover */
-.ba-card:hover { border-color: rgba(201,169,110,0.2) !important; }
-
-/* Subtle bottom footer strip */
-div[style*="webvtec"] a { color: #6E6A62 !important; }
-
-</style>
-
-  <!-- Firebase Gallery (reads from Firestore galleryMeta) -->
-<script type="module">
-import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, getDocs, query, orderBy }
-  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-const _app = initializeApp({
-  apiKey:            "AIzaSyDZsl7wCM4ABai7-YMg_6PzPUOsq2M9CKM",
-  authDomain:        "lxl-home-improvement-llc.firebaseapp.com",
-  projectId:         "lxl-home-improvement-llc",
-  storageBucket:     "lxl-home-improvement-llc.firebasestorage.app",
-  messagingSenderId: "690054839471",
-  appId:             "1:690054839471:web:59a803e363766c75e6e85a"
-}, "gallery-app");
-const _db = getFirestore(_app);
-
-async function loadGallery() {
-  const container = document.getElementById("firebaseGalleryContainer");
-  if (!container) return;
-
-  try {
-    const snap = await getDocs(query(collection(_db, "galleryMeta"), orderBy("sortOrder", "asc")));
-
-    if (snap.empty) {
-      container.innerHTML = "<p style='text-align:center;color:#6E6A62;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:40px;'>Photos coming soon</p>";
-      return;
-    }
-
-    const photos = snap.docs.map(d => d.data());
-
-    // Derive category order from first appearance in sorted Firestore results
-    // This matches exactly what the admin set in the dashboard
-    const groups = {};
-    const catOrder = [];
-    photos.forEach(p => {
-      const cat = p.category || "General";
-      if (!groups[cat]) { groups[cat] = []; catOrder.push(cat); }
-      groups[cat].push(p);
-    });
-
-    container.innerHTML = "";
-    catOrder.forEach(cat => {
-      if (!groups[cat] || !groups[cat].length) return;
-
-      const section = document.createElement("div");
-      section.className = "gallery-category";
-
-      const h3 = document.createElement("h3");
-      h3.textContent = cat;
-      section.appendChild(h3);
-
-      const grid = document.createElement("div");
-      grid.className = "ba-grid";
-
-      groups[cat].forEach(photo => {
-        const card = document.createElement("div");
-        card.className = "ba-card";
-        card.style.cursor = "pointer";
-        card.addEventListener("click", () => openPhotoModal(photo.url));
-
-        const img = document.createElement("img");
-        img.className = "ba-card-img";
-        img.src = photo.url;
-        img.alt = cat;
-        img.loading = "lazy";
-
-        card.appendChild(img);
-        grid.appendChild(card);
-      });
-
-      section.appendChild(grid);
-      container.appendChild(section);
-    });
-
-  } catch(e) {
-    console.error(e);
-    container.innerHTML = "<p style='text-align:center;color:#6E6A62;padding:40px;font-size:12px;'>Could not load gallery.</p>";
+@media (max-width: 768px) {
+  .nav-center { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-mobile-menu {
+    display: none;
+    position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
+    background: rgba(10,10,10,.97);
+    backdrop-filter: blur(24px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    z-index: 999;
   }
+  .nav-mobile-menu.open { display: flex; }
+  .nav-mobile-menu .nav-link {
+    font-size: 14px;
+    letter-spacing: 3px;
+    padding: 14px 28px;
+  }
+  .hero-headline { font-size: clamp(34px, 8vw, 52px); }
+  .categories-grid { grid-template-columns: 1fr 1fr; }
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .editorial { grid-template-columns: 1fr; }
+  .editorial-img { min-height: 360px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .about-values { grid-template-columns: 1fr; }
+  .lookbook-bg { background-attachment: scroll; }
+}
+@media (max-width: 480px) {
+  .categories-grid { grid-template-columns: 1fr; }
+  .products-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .newsletter-form { flex-direction: column; }
+  .newsletter-btn { padding: 14px; }
 }
 
-document.addEventListener("DOMContentLoaded", loadGallery);
-</script>
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .hero-media { transform: none; transition: none; }
+  .hero-eyebrow, .hero-headline, .hero-sub, .btn-primary { opacity: 1; transform: none; animation: none; }
+}
+</style>
 </head>
 <body>
 
-<!-- ========================= HEADER ========================= -->
-<div class="header-bar">
-  <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+<!-- ═══════════════ NAVIGATION ═══════════════ -->
+<nav class="site-nav">
+  <a href="#" class="nav-logo" onclick="showPage('home'); return false;">MAIS<span>O</span>N</a>
 
-  <div class="header-title">
-    <span class="brand-teal">LXL</span> HOME IMPROVEMENT
+  <div class="nav-center">
+    <a class="nav-link active" data-page="home" onclick="showPage('home')">Home</a>
+    <a class="nav-link" data-page="collections" onclick="showPage('collections')">Collections</a>
+    <a class="nav-link" data-page="about" onclick="showPage('about')">About</a>
+    <a class="nav-link" data-page="contact" onclick="showPage('contact')">Contact</a>
   </div>
 
-  <div class="header-icons">
-    <a class="header-icon-btn" href="tel:+13322608942" title="Call Us">📞</a>
-  </div>
-</div>
-
-<!-- ========================= SIDEBAR ========================= -->
-<div class="sidebar-scrim" id="sidebarScrim" onclick="closeSidebar()"></div>
-<div class="sidebar-panel" id="sidebarPanel">
-  <div class="sidebar-label">Navigation</div>
-  <button class="sidebar-nav-item active" id="snav-home" onclick="showSection('homeSection'); closeSidebar();">
-    <span class="snav-icon">◈</span> Home
-  </button>
-  <button class="sidebar-nav-item" id="snav-gallery" onclick="showSection('gallerySection'); closeSidebar();">
-    <span class="snav-icon">◈</span> Our Work
-  </button>
-  <button class="sidebar-nav-item" id="snav-services" onclick="showSection('servicesSection'); closeSidebar();">
-    <span class="snav-icon">◈</span> Our Services
-  </button>
-  <button class="sidebar-nav-item" id="snav-estimate" onclick="showSection('estimateSection'); closeSidebar();">
-    <span class="snav-icon">◈</span> Free Estimate
-  </button>
-  <div class="sidebar-divider"></div>
-  <div class="sidebar-label">Company</div>
-  <button class="sidebar-nav-item" id="snav-about" onclick="showSection('aboutSection'); closeSidebar();">
-    <span class="snav-icon">◈</span> About Us
-  </button>
-  <button class="sidebar-nav-item" id="snav-reviews" onclick="showSection('reviewsSection'); closeSidebar();">
-    <span class="snav-icon">◈</span> Reviews
-  </button>
-  <button class="sidebar-nav-item" id="snav-contact" onclick="showSection('contactSection'); closeSidebar();">
-    <span class="snav-icon">◈</span> Contact &amp; Info
-  </button>
-  <div class="sidebar-divider"></div>
-  <button class="sidebar-admin-btn" id="sidebarAdminBtn" onclick="openAdminPanel()">
-    <img class="admin-avatar" id="adminAvatar" src="" alt="">
-    <span id="adminBtnLabel">⚙ Admin</span>
-  </button>
-  <div class="sidebar-phone-block">
-    <div class="spb-label">Call Anytime</div>
-    <a href="tel:+13322608942">(332) 260-8942</a>
-    <div class="spb-days">Mon–Fri &amp; Weekends Flexible</div>
-  </div>
-</div>
-
-<!-- ========================= HOME SECTION ========================= -->
-<div class="content-section active relative-z" id="homeSection">
-  <div class="hero-section">
-    <div class="hero-kicker">NYC's Trusted Remodelers</div>
-    <div class="hero-title"><span class="accent">LXL</span><br>HOME<br>IMPROVEMENT</div>
-    <div class="hero-sub">Licensed Home Improvement Contractor</div>
-    <div class="hero-badge">
-      <span class="dot"></span> Open Mon–Fri &amp; Weekends Flexible
+  <div class="nav-right">
+    <!-- Search -->
+    <div class="nav-icon">
+      <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="6"/><line x1="13" y1="13" x2="17.5" y2="17.5"/></svg>
     </div>
-    <div class="hero-cta-row">
-      <button class="cta-btn cta-btn--primary" onclick="showSection('estimateSection')">Get Free Estimate</button>
-      <button class="cta-btn cta-btn--outline" onclick="showSection('gallerySection')">View Our Work</button>
+    <!-- Cart -->
+    <div class="nav-icon" style="display:flex;align-items:flex-start;">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v12a1 1 0 001 1h12a1 1 0 001-1V6l-3-4z"/><line x1="3" y1="6" x2="17" y2="6"/><path d="M13 10a3 3 0 01-6 0"/></svg>
+      <span class="nav-cart-count">3</span>
+    </div>
+    <!-- Mobile hamburger -->
+    <div class="nav-hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
     </div>
   </div>
+</nav>
 
-  <div class="section-divider"></div>
+<!-- Mobile menu -->
+<div class="nav-mobile-menu" id="mobileMenu">
+  <a class="nav-link" onclick="showPage('home'); closeMobileMenu()">Home</a>
+  <a class="nav-link" onclick="showPage('collections'); closeMobileMenu()">Collections</a>
+  <a class="nav-link" onclick="showPage('about'); closeMobileMenu()">About</a>
+  <a class="nav-link" onclick="showPage('contact'); closeMobileMenu()">Contact</a>
+</div>
 
-  <div style="padding: 0 18px 28px;">
-    <div class="section-kicker">What We Do</div>
-    <h1 style="margin:8px 0 18px;">OUR <span class="accent">SERVICES</span></h1>
-    <div class="services-grid">
-      
-      <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
-  <!-- PHOTO_CARPENTRY: paste your Cloudinary URL below -->
-  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_CARPENTRY_PHOTO_HERE" alt="Carpentry" class="svc-photo" loading="lazy">
-  <div class="svc-photo-label">Carpentry</div>
-</div>
-      <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
-  <!-- PHOTO_PAINTING: paste your Cloudinary URL below -->
-  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_PAINTING_PHOTO_HERE" alt="Painting" class="svc-photo" loading="lazy">
-  <div class="svc-photo-label">Painting</div>
-</div>
-      <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
-  <!-- PHOTO_FLOORING: paste your Cloudinary URL below -->
-  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/v1780507007/WhatsApp_Image_2026-06-03_at_10.06.23_AM_widn8o.jpg" alt="Flooring" class="svc-photo" loading="lazy">
-  <div class="svc-photo-label">Flooring</div>
-</div>
-      <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
-  <!-- PHOTO_MASONRY: paste your Cloudinary URL below -->
-  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_MASONRY_PHOTO_HERE" alt="Masonry" class="svc-photo" loading="lazy">
-  <div class="svc-photo-label">Masonry</div>
-</div>
-      <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
-  <!-- PHOTO_WINDOWS: paste your Cloudinary URL below -->
-  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_WINDOWS_PHOTO_HERE" alt="Windows" class="svc-photo" loading="lazy">
-  <div class="svc-photo-label">Windows</div>
-</div>
-      <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
-  <!-- PHOTO_TILING: paste your Cloudinary URL below -->
-  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_TILING_PHOTO_HERE" alt="Tiling" class="svc-photo" loading="lazy">
-  <div class="svc-photo-label">Tiling</div>
-</div>
-      <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
-  <!-- PHOTO_KITCHEN: paste your Cloudinary URL below -->
-  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/v1780507007/WhatsApp_Image_2026-06-03_at_10.07.15_AM_d6cb3g.jpg" alt="Kitchen" class="svc-photo" loading="lazy">
-  <div class="svc-photo-label">Kitchen</div>
-</div>
-      <div class="service-card svc-photo-card" onclick="showSection('servicesSection')">
-  <!-- PHOTO_BATHROOM: paste your Cloudinary URL below -->
-  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_BATHROOM_PHOTO_HERE" alt="Bathroom" class="svc-photo" loading="lazy">
-  <div class="svc-photo-label">Bathroom</div>
-</div>
-    
+
+<!-- ═══════════════════════════════════════════
+     HOME PAGE
+     ═══════════════════════════════════════════ -->
+<div id="home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero" id="mainHero">
+    <div class="hero-media" style="background-image:url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1920&q=85')"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Autumn / Winter 2026</div>
+      <h1 class="hero-headline">The Art of<br><em>Refined Living</em></h1>
+      <p class="hero-sub">Curated luxury for those who understand that true elegance lies in the details. Discover our latest collection.</p>
+      <a class="btn-primary" onclick="showPage('collections')">
+        Explore Collection
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="0" y1="8" x2="14" y2="8"/><polyline points="8 2 14 8 8 14"/></svg>
+      </a>
     </div>
-    <div style="text-align:center; margin-top:18px;">
-      <button class="cta-btn cta-btn--outline" onclick="showSection('estimateSection')">Request Free Estimate →</button>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="section-pad">
+    <div class="reveal">
+      <div class="section-eyebrow">Shop by Category</div>
+      <div class="section-title">Find Your <em>Distinction</em></div>
     </div>
-  </div>
-
-  <div class="section-divider"></div>
-
-  <div style="padding: 0 18px 36px;">
-    <div class="section-kicker">Where We Work</div>
-    <h1 style="margin:8px 0 18px;">NYC <span class="accent">BOROUGHS</span></h1>
-    <div class="location-grid" style="max-width:380px; margin:0 auto;">
-      <div class="location-pill">Bronx</div>
-      <div class="location-pill">Queens</div>
-      <div class="location-pill">Brooklyn</div>
-      <div class="location-pill">Manhattan</div>
-      <div class="location-pill" style="grid-column:1/-1; justify-content:center;">Staten Island</div>
-    </div>
-  </div>
-</div>
-
-<!-- ========================= GALLERY SECTION ========================= -->
-<div class="content-section relative-z" id="gallerySection">
-  <div class="gallery-hero">
-    <div class="hero-kicker">Our Projects</div>
-    <h1>OUR <span class="accent">WORK</span></h1>
-    <p style="font-family:'Inter',sans-serif; font-size:12px; color:var(--text-dim); letter-spacing:1px;">Projects across all five boroughs.</p>
-  </div>
-
-  <!-- Photos loaded from Firebase Storage -->
-  <div id="firebaseGalleryContainer">
-    <div style="text-align:center;padding:48px;color:var(--text-dim);font-size:24px;animation:spin 1s linear infinite;">↻</div>
-  </div>
-
-  <div style="padding: 0 18px 36px; text-align:center; margin-top:16px;">
-    <button class="cta-btn cta-btn--primary" onclick="showSection('estimateSection')">Get Your Free Estimate</button>
-  </div>
-</div>
-
-<!-- ========================= SERVICES SECTION ========================= -->
-<div class="content-section relative-z" id="servicesSection">
-  <div style="padding: 32px 20px 8px; text-align:center;">
-    <div class="hero-kicker">Expert Craftsmanship</div>
-    <h1>OUR <span class="accent">SERVICES</span></h1>
-    <p style="font-family:'Inter',sans-serif; font-size:12px; color:var(--text-dim); letter-spacing:1px; margin-top:6px;">Full-service home remodeling across all NYC boroughs.</p>
-  </div>
-  <div class="services-section">
-    <div class="services-grid">
-      
-      <div class="service-card svc-photo-card">
-  <!-- PHOTO_CARPENTRY: paste your Cloudinary URL below -->
-  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_CARPENTRY_PHOTO_HERE" alt="Carpentry" class="svc-photo" loading="lazy">
-  <div class="svc-photo-label">Carpentry</div>
-  <div class="svc-desc" style="padding:10px 12px 14px;">Custom cabinetry, trim work, framing, doors &amp; structural woodwork.</div>
-</div>
-      <div class="service-card svc-photo-card">
-  <!-- PHOTO_PAINTING: paste your Cloudinary URL below -->
-  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_PAINTING_PHOTO_HERE" alt="Painting" class="svc-photo" loading="lazy">
-  <div class="svc-photo-label">Painting</div>
-  <div class="svc-desc" style="padding:10px 12px 14px;">Interior &amp; exterior painting with premium finishes and clean lines.</div>
-</div>
-      <div class="service-card svc-photo-card">
-  <!-- PHOTO_FLOORING: paste your Cloudinary URL below -->
-  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/v1780507007/WhatsApp_Image_2026-06-03_at_10.06.23_AM_widn8o.jpg" alt="Flooring" class="svc-photo" loading="lazy">
-  <div class="svc-photo-label">Flooring</div>
-  <div class="svc-desc" style="padding:10px 12px 14px;">Hardwood, laminate, vinyl, and engineered flooring installation.</div>
-</div>
-      <div class="service-card svc-photo-card">
-  <!-- PHOTO_MASONRY: paste your Cloudinary URL below -->
-  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_MASONRY_PHOTO_HERE" alt="Masonry" class="svc-photo" loading="lazy">
-  <div class="svc-photo-label">Masonry</div>
-  <div class="svc-desc" style="padding:10px 12px 14px;">Brick, stone, concrete, and block work for walls, steps &amp; facades.</div>
-</div>
-      <div class="service-card svc-photo-card">
-  <img src="https://images.unsplash.com/photo-1464146072230-91cabc968266?w=600&q=80&auto=format&fit=crop" alt="Window Replacement" class="svc-photo" loading="lazy">
-  <div class="svc-photo-label">Window Replacement</div>
-  <div class="svc-desc" style="padding:10px 12px 14px;">Energy-efficient window installation and frame repairs.</div>
-</div>
-      <div class="service-card svc-photo-card">
-  <!-- PHOTO_TILING: paste your Cloudinary URL below -->
-  <img src="https://res.cloudinary.com/dqqr9udcs/image/upload/YOUR_TILING_PHOTO_HERE" alt="Tiling" class="svc-photo" loading="lazy">
-  <div class="svc-photo-label">Tiling</div>
-  <div class="svc-desc" style="padding:10px 12px 14px;">Floor and wall tiling for kitchens, bathrooms, and living spaces.</div>
-</div>
-      <div class="service-card svc-photo-card">
-  <img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=600&q=80&auto=format&fit=crop" alt="Kitchen Refurbishment" class="svc-photo" loading="lazy">
-  <div class="svc-photo-label">Kitchen Refurbishment</div>
-  <div class="svc-desc" style="padding:10px 12px 14px;">Full kitchen remodels — cabinets, countertops, backsplash &amp; more.</div>
-</div>
-      <div class="service-card svc-photo-card">
-  <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80&auto=format&fit=crop" alt="Bathroom Refurbishment" class="svc-photo" loading="lazy">
-  <div class="svc-photo-label">Bathroom Refurbishment</div>
-  <div class="svc-desc" style="padding:10px 12px 14px;">Bathroom renovations — vanities, showers, tubs, and tiling.</div>
-</div>
-    
-    </div>
-    <div style="text-align:center; margin-top:24px;">
-      <div style="font-family:'Inter',sans-serif; font-size:12px; color:var(--text-dim); margin-bottom:12px;">Ready to transform your space?</div>
-      <button class="cta-btn cta-btn--primary" onclick="showSection('estimateSection')">Get Free Estimate</button>
-    </div>
-  </div>
-</div>
-
-<!-- ========================= ESTIMATE SECTION ========================= -->
-<div class="content-section relative-z" id="estimateSection">
-  <div style="padding: 32px 20px 8px; text-align:center;">
-    <div class="hero-kicker">No Obligation</div>
-    <h1>FREE <span class="accent">ESTIMATE</span></h1>
-    <p style="font-family:'Inter',sans-serif; font-size:12px; color:var(--text-dim); letter-spacing:1px; margin-top:6px;">Tell us about your project and we'll get back to you within 24 hours.</p>
-  </div>
-  <div class="estimate-section">
-    <div class="estimate-card">
-      <div class="form-row">
-        <div class="form-group"><label class="form-label">First Name</label><input type="text" class="form-input" id="firstName" placeholder="John"></div>
-        <div class="form-group"><label class="form-label">Last Name</label><input type="text" class="form-input" id="lastName" placeholder="Smith"></div>
+    <div class="categories-grid">
+      <div class="cat-card reveal reveal-delay-1" onclick="showPage('collections')">
+        <div class="cat-card-img" style="background-image:url('https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=800&q=80')"></div>
+        <div class="cat-card-overlay"></div>
+        <div class="cat-card-content">
+          <div class="cat-card-label">Collection</div>
+          <div class="cat-card-name">Timepieces</div>
+          <div class="cat-card-cta">
+            Discover
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="0" y1="7" x2="12" y2="7"/><polyline points="7 2 12 7 7 12"/></svg>
+          </div>
+        </div>
       </div>
-      <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" class="form-input" id="phone" placeholder="(718) 000-0000"></div>
-      <div class="form-group"><label class="form-label">Email Address</label><input type="email" class="form-input" id="email" placeholder="john@email.com"></div>
-      <div class="form-group">
-        <label class="form-label">Borough / Location</label>
-        <select class="form-select" id="borough" onchange="handleBoroughChange(this.value)">
-          <option value="">Select Borough</option>
-          <option>Bronx</option><option>Queens</option><option>Brooklyn</option><option>Manhattan</option><option>Staten Island</option><option>Other</option>
-        </select>
+      <div class="cat-card reveal reveal-delay-2" onclick="showPage('collections')">
+        <div class="cat-card-img" style="background-image:url('https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80')"></div>
+        <div class="cat-card-overlay"></div>
+        <div class="cat-card-content">
+          <div class="cat-card-label">Collection</div>
+          <div class="cat-card-name">Leather Goods</div>
+          <div class="cat-card-cta">
+            Discover
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="0" y1="7" x2="12" y2="7"/><polyline points="7 2 12 7 7 12"/></svg>
+          </div>
+        </div>
       </div>
-      <div class="form-group" id="exactAddressGroup" style="display:none;">
-        <label class="form-label">Exact Address <span style="color:var(--neon);">*</span></label>
-        <input type="text" class="form-input" id="exactAddress" placeholder="e.g. 123 Main St, Apt 2B, Bronx, NY 10451">
+      <div class="cat-card reveal reveal-delay-3" onclick="showPage('collections')">
+        <div class="cat-card-img" style="background-image:url('https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80')"></div>
+        <div class="cat-card-overlay"></div>
+        <div class="cat-card-content">
+          <div class="cat-card-label">Collection</div>
+          <div class="cat-card-name">Fragrances</div>
+          <div class="cat-card-cta">
+            Discover
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="0" y1="7" x2="12" y2="7"/><polyline points="7 2 12 7 7 12"/></svg>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Service Needed</label>
-        <select class="form-select" id="service">
-          <option value="">Select Service</option>
-          <option>Carpentry</option><option>Painting</option><option>Flooring</option><option>Masonry</option>
-          <option>Window Replacement</option><option>Tiling</option><option>Kitchen Refurbishment</option>
-          <option>Bathroom Refurbishment</option><option>Multiple Services</option><option>Other</option>
-        </select>
-      </div>
-      <div class="form-group"><label class="form-label">Project Description</label><textarea class="form-textarea" id="description" placeholder="Describe your project — what rooms, what needs to be done, your timeline, etc."></textarea></div>
-      <button class="submit-btn" onclick="submitEstimate()">Submit Free Estimate Request</button>
-    </div>
-    <div style="text-align:center; margin-top:16px; font-family:'Inter',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase;">
-      Or call us: <a href="tel:+13322608942" style="color:var(--neon); text-decoration:none; font-weight:700;">(332) 260-8942</a>
-    </div>
-  </div>
-</div>
-
-<!-- ========================= ABOUT SECTION ========================= -->
-<div class="content-section relative-z" id="aboutSection">
-  <div style="padding: 32px 20px 8px; text-align:center;">
-    <div class="hero-kicker">Who We Are</div>
-    <h1>ABOUT <span class="accent">US</span></h1>
-  </div>
-  <div class="about-section">
-    <div class="about-card">
-      <p class="about-text">LXL Home Improvement LLC is a fully licensed home improvement contractor based in New York City. We serve homeowners across all five boroughs — the Bronx, Queens, Brooklyn, Manhattan, and Staten Island.</p>
-      <p class="about-text">Our team of skilled tradespeople specializes in full residential remodels — from carpentry and flooring to complete kitchen and bathroom transformations. We take pride in clean workmanship, honest pricing, and treating every home like our own.</p>
-      <p class="about-text">We are available Monday to Friday and offer flexible weekend availability to work around your schedule.</p>
-      <div class="badge-row">
-        <div class="info-badge-pill">🏛️ Licensed Contractor</div>
-        <div class="info-badge-pill">📅 Mon–Fri &amp; Weekends Flexible</div>
+      <div class="cat-card reveal reveal-delay-4" onclick="showPage('collections')">
+        <div class="cat-card-img" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=800&q=80')"></div>
+        <div class="cat-card-overlay"></div>
+        <div class="cat-card-content">
+          <div class="cat-card-label">Collection</div>
+          <div class="cat-card-name">Ready-to-Wear</div>
+          <div class="cat-card-cta">
+            Discover
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="0" y1="7" x2="12" y2="7"/><polyline points="7 2 12 7 7 12"/></svg>
+          </div>
+        </div>
       </div>
     </div>
-    <div style="margin-top:18px;">
-      <div class="section-kicker">We Serve</div>
-      <div class="location-grid" style="max-width:380px; margin:14px auto 0;">
-        <div class="location-pill">Bronx</div>
-        <div class="location-pill">Queens</div>
-        <div class="location-pill">Brooklyn</div>
-        <div class="location-pill">Manhattan</div>
-        <div class="location-pill" style="grid-column:1/-1; justify-content:center;">Staten Island</div>
+  </section>
+
+  <!-- FEATURED PRODUCTS -->
+  <section class="section-pad" style="background:var(--charcoal);">
+    <div class="products-header reveal">
+      <div>
+        <div class="section-eyebrow">New Arrivals</div>
+        <div class="section-title">Recently Added</div>
+      </div>
+      <a class="btn-outline" onclick="showPage('collections')">
+        View All
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="0" y1="7" x2="12" y2="7"/><polyline points="7 2 12 7 7 12"/></svg>
+      </a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card reveal reveal-delay-1">
+        <div class="product-img-wrap">
+          <img class="product-img" src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=600&q=80" alt="Chronograph Watch" loading="lazy">
+          <div class="product-badge">New</div>
+          <div class="product-quick">Quick View</div>
+        </div>
+        <div class="product-brand">Maison Atelier</div>
+        <div class="product-name">Heritage Chronograph</div>
+        <div class="product-price">$4,850</div>
+      </div>
+      <div class="product-card reveal reveal-delay-2">
+        <div class="product-img-wrap">
+          <img class="product-img" src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80" alt="Leather Bag" loading="lazy">
+          <div class="product-quick">Quick View</div>
+        </div>
+        <div class="product-brand">Maison Leather</div>
+        <div class="product-name">Voyageur Briefcase</div>
+        <div class="product-price">$2,200</div>
+      </div>
+      <div class="product-card reveal reveal-delay-3">
+        <div class="product-img-wrap">
+          <img class="product-img" src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=600&q=80" alt="Perfume Bottles" loading="lazy">
+          <div class="product-badge">Exclusive</div>
+          <div class="product-quick">Quick View</div>
+        </div>
+        <div class="product-brand">Maison Parfums</div>
+        <div class="product-name">Noir Absolu Eau de Parfum</div>
+        <div class="product-price">$385</div>
+      </div>
+      <div class="product-card reveal reveal-delay-4">
+        <div class="product-img-wrap">
+          <img class="product-img" src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=600&q=80" alt="Tailored Jacket" loading="lazy">
+          <div class="product-quick">Quick View</div>
+        </div>
+        <div class="product-brand">Maison Couture</div>
+        <div class="product-name">Structured Wool Overcoat</div>
+        <div class="product-price">$3,400</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITORIAL / BRAND STORY -->
+  <section class="editorial">
+    <div class="editorial-img reveal" style="background-image:url('https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&w=1200&q=80')"></div>
+    <div class="editorial-content">
+      <div class="reveal">
+        <div class="section-eyebrow">Our Philosophy</div>
+        <div class="editorial-divider"></div>
+        <div class="section-title" style="font-size:clamp(28px,3.5vw,42px);">Crafted Without<br>Compromise</div>
+        <p class="editorial-text">"We believe luxury is not about excess — it is about intention. Every piece in our collection is sourced from artisans who share our reverence for materials, heritage, and the quiet confidence of exceptional craft."</p>
+        <a class="btn-outline" onclick="showPage('about')">
+          Our Story
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="0" y1="7" x2="12" y2="7"/><polyline points="7 2 12 7 7 12"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOOKBOOK BANNER -->
+  <section class="lookbook">
+    <div class="lookbook-bg" style="background-image:url('https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&fit=crop&w=1920&q=85')"></div>
+    <div class="lookbook-overlay"></div>
+    <div class="lookbook-content reveal">
+      <div class="section-eyebrow" style="text-align:center;">Limited Edition</div>
+      <div class="lookbook-title">The Midnight<br>Collection</div>
+      <p class="lookbook-sub">Twelve pieces. Handcrafted. Numbered. Once they're gone, they're gone.</p>
+      <a class="btn-primary" onclick="showPage('collections')" style="animation:none;opacity:1;">
+        View the Collection
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="0" y1="8" x2="14" y2="8"/><polyline points="8 2 14 8 8 14"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="section-pad">
+    <div class="newsletter reveal">
+      <div class="section-eyebrow" style="text-align:center;">Stay Informed</div>
+      <div class="section-title" style="text-align:center;font-size:clamp(26px,3.5vw,40px);">Join the Inner Circle</div>
+      <p style="color:var(--taupe);margin-top:14px;font-size:14px;line-height:1.7;">Early access to new collections, private events, and members-only pricing. No noise — just what matters.</p>
+      <div class="newsletter-form">
+        <input class="newsletter-input" type="email" placeholder="Your email address">
+        <button class="newsletter-btn">Subscribe</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     COLLECTIONS PAGE
+     ═══════════════════════════════════════════ -->
+<div id="collections" class="page">
+  <div class="page-hero">
+    <div class="section-eyebrow">Explore</div>
+    <h1 class="page-hero-title">All Collections</h1>
+    <p class="page-hero-sub">Timeless pieces for those who demand nothing less than the extraordinary.</p>
+  </div>
+  <div class="filter-bar">
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">Timepieces</button>
+    <button class="filter-btn">Leather</button>
+    <button class="filter-btn">Fragrance</button>
+    <button class="filter-btn">Ready-to-Wear</button>
+    <button class="filter-btn">Accessories</button>
+  </div>
+  <div class="section-pad" style="padding-top:0;">
+    <div class="products-grid">
+      <div class="product-card reveal"><div class="product-img-wrap"><img class="product-img" src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy"><div class="product-badge">New</div><div class="product-quick">Quick View</div></div><div class="product-brand">Maison Atelier</div><div class="product-name">Heritage Chronograph</div><div class="product-price">$4,850</div></div>
+      <div class="product-card reveal"><div class="product-img-wrap"><img class="product-img" src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy"><div class="product-quick">Quick View</div></div><div class="product-brand">Maison Leather</div><div class="product-name">Voyageur Briefcase</div><div class="product-price">$2,200</div></div>
+      <div class="product-card reveal"><div class="product-img-wrap"><img class="product-img" src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy"><div class="product-badge">Exclusive</div><div class="product-quick">Quick View</div></div><div class="product-brand">Maison Parfums</div><div class="product-name">Noir Absolu Eau de Parfum</div><div class="product-price">$385</div></div>
+      <div class="product-card reveal"><div class="product-img-wrap"><img class="product-img" src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy"><div class="product-quick">Quick View</div></div><div class="product-brand">Maison Couture</div><div class="product-name">Structured Wool Overcoat</div><div class="product-price">$3,400</div></div>
+      <div class="product-card reveal"><div class="product-img-wrap"><img class="product-img" src="https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy"><div class="product-quick">Quick View</div></div><div class="product-brand">Maison Atelier</div><div class="product-name">Moonphase Dress Watch</div><div class="product-price">$6,200</div></div>
+      <div class="product-card reveal"><div class="product-img-wrap"><img class="product-img" src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy"><div class="product-badge">New</div><div class="product-quick">Quick View</div></div><div class="product-brand">Maison Leather</div><div class="product-name">Artisan Weekender</div><div class="product-price">$1,850</div></div>
+      <div class="product-card reveal"><div class="product-img-wrap"><img class="product-img" src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy"><div class="product-quick">Quick View</div></div><div class="product-brand">Maison Couture</div><div class="product-name">Italian Leather Loafers</div><div class="product-price">$890</div></div>
+      <div class="product-card reveal"><div class="product-img-wrap"><img class="product-img" src="https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy"><div class="product-badge">Limited</div><div class="product-quick">Quick View</div></div><div class="product-brand">Maison Parfums</div><div class="product-name">Oud & Amber Collection</div><div class="product-price">$520</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     ABOUT PAGE
+     ═══════════════════════════════════════════ -->
+<div id="about" class="page">
+  <div class="page-hero">
+    <div class="section-eyebrow">Est. 2014</div>
+    <h1 class="page-hero-title">The House of Maison</h1>
+    <p class="page-hero-sub">Where tradition meets modern refinement.</p>
+  </div>
+  <img class="about-hero-img" src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=1920&q=85" alt="Luxury atelier" loading="lazy">
+  <div class="about-content">
+    <p class="about-text reveal">Maison was founded on a singular belief: that the things we surround ourselves with should be worthy of the lives we lead. We began as a small atelier in Milan, working with a handful of master craftsmen who refused to rush their work.</p>
+    <p class="about-text reveal">Over a decade later, that founding principle remains unchanged. We partner directly with artisans across Europe and Japan, selecting materials with the same scrutiny our clients bring to their own choices. No shortcuts, no compromises — only the genuine article.</p>
+    <div class="about-values">
+      <div class="reveal">
+        <div class="about-value-title">Heritage</div>
+        <p class="about-value-desc">Every piece carries the weight of tradition — techniques passed down through generations of master craftsmen.</p>
+      </div>
+      <div class="reveal">
+        <div class="about-value-title">Integrity</div>
+        <p class="about-value-desc">We source ethically, price transparently, and stand behind every product with a lifetime guarantee.</p>
+      </div>
+      <div class="reveal">
+        <div class="about-value-title">Restraint</div>
+        <p class="about-value-desc">We release fewer pieces, not more. Quality demands patience, and our clients understand the value of waiting.</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ========================= REVIEWS SECTION ========================= -->
-<div class="content-section relative-z" id="reviewsSection">
-  <div style="padding: 32px 20px 8px; text-align:center;">
-    <div class="hero-kicker">What Clients Say</div>
-    <h1>CLIENT <span class="accent">REVIEWS</span></h1>
-  </div>
-  <div class="reviews-section">
 
-    <!-- Submit a review -->
-    <div class="review-submit-card">
-      <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--neon);margin-bottom:16px;">Leave a Review</div>
-      <div class="form-row">
+<!-- ═══════════════════════════════════════════
+     CONTACT PAGE
+     ═══════════════════════════════════════════ -->
+<div id="contact" class="page">
+  <div class="page-hero">
+    <div class="section-eyebrow">Get in Touch</div>
+    <h1 class="page-hero-title">Contact Us</h1>
+    <p class="page-hero-sub">We'd love to hear from you. Reach out for inquiries, appointments, or private viewings.</p>
+  </div>
+  <div class="section-pad" style="padding-top:0;">
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info-item reveal">
+          <div class="contact-info-label">Flagship Store</div>
+          <div class="contact-info-value">47 Via Monte Napoleone<br>Milan, 20121, Italy</div>
+        </div>
+        <div class="contact-info-item reveal">
+          <div class="contact-info-label">Email</div>
+          <div class="contact-info-value">concierge@maison.com</div>
+        </div>
+        <div class="contact-info-item reveal">
+          <div class="contact-info-label">Telephone</div>
+          <div class="contact-info-value">+39 02 7601 2800</div>
+        </div>
+        <div class="contact-info-item reveal">
+          <div class="contact-info-label">Hours</div>
+          <div class="contact-info-value">Monday – Saturday<br>10:00 – 19:00 CET</div>
+        </div>
+      </div>
+      <div class="reveal">
         <div class="form-group">
-          <label class="form-label">First Name</label>
-          <input type="text" class="form-input" id="rv_first" placeholder="Maria">
+          <label class="form-label">Full Name</label>
+          <input class="form-input" type="text" placeholder="Your name">
         </div>
         <div class="form-group">
-          <label class="form-label">Last Name</label>
-          <input type="text" class="form-input" id="rv_last" placeholder="G.">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" placeholder="your@email.com">
         </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Borough</label>
-        <select class="form-select" id="rv_borough">
-          <option value="">Select Borough</option>
-          <option>Bronx</option><option>Queens</option><option>Brooklyn</option><option>Manhattan</option><option>Staten Island</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Rating</label>
-        <div class="star-picker" id="starPicker">
-          <span data-v="1">★</span>
-          <span data-v="2">★</span>
-          <span data-v="3">★</span>
-          <span data-v="4">★</span>
-          <span data-v="5">★</span>
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <input class="form-input" type="text" placeholder="How can we help?">
         </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Your Review</label>
-        <textarea class="form-textarea" id="rv_text" placeholder="Tell us about your experience with LXL Home Improvement..." style="min-height:90px;"></textarea>
-      </div>
-      <button class="submit-btn" onclick="submitReview()">Submit Review</button>
-    </div>
-
-    <!-- Approved public reviews -->
-    <div class="public-reviews-list" id="publicReviewsList">
-      <div class="reviews-loading" id="reviewsLoading">Loading reviews...</div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ========================= CONTACT SECTION ========================= -->
-<div class="content-section relative-z" id="contactSection">
-  <div style="padding: 32px 20px 8px; text-align:center;">
-    <div class="hero-kicker">Reach Us</div>
-    <h1>CONTACT <span class="accent">&amp; INFO</span></h1>
-  </div>
-  <div class="info-section">
-    <div class="info-grid">
-      <div class="info-card">
-        <div class="info-card-title"><span class="ic-icon">📞</span> Contact Info</div>
-        <div class="info-item"><span class="ii-icon">📞</span><a href="tel:+13322608942">(332) 260-8942</a></div>
-        <div class="info-item"><span class="ii-icon">📧</span><a href="mailto:lucansfrancis21@gmail.com">lucansfrancis21@gmail.com</a></div>
-        <div class="info-item"><span class="ii-icon">📅</span><span>Mon–Fri &amp; Weekends Flexible</span></div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-title"><span class="ic-icon">🏛️</span> License &amp; Hours</div>
-        <div class="info-item"><span class="ii-icon">✅</span><span>Licensed Home Improvement Contractor</span></div>
-        <div class="info-item"><span class="ii-icon">🕐</span><span>Mon–Fri: 7:00 AM – 7:00 PM · Weekends Flexible</span></div>
-        <div class="info-item"><span class="ii-icon">🆓</span><span>Free Estimates Available</span></div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-title"><span class="ic-icon">💳</span> Payment Methods</div>
-        <div class="payment-row">
-          <div class="payment-pill">💜 Zelle</div>
-          <div class="payment-pill">💵 Cash</div>
-          <div class="payment-pill">🏦 Direct Deposit</div>
-          <div class="payment-pill">📝 Cheque</div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Tell us more..."></textarea>
         </div>
+        <button class="btn-primary" style="animation:none;opacity:1;width:100%;justify-content:center;">
+          Send Message
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="0" y1="8" x2="14" y2="8"/><polyline points="8 2 14 8 8 14"/></svg>
+        </button>
       </div>
-      <div class="info-card">
-        <div class="info-card-title"><span class="ic-icon" style="font-size:11px;">◎</span> Work Locations</div>
-        <div class="location-grid">
-          <div class="location-pill">Bronx</div>
-          <div class="location-pill">Queens</div>
-          <div class="location-pill">Brooklyn</div>
-          <div class="location-pill">Manhattan</div>
-          <div class="location-pill" style="grid-column:1/-1;">Staten Island</div>
-        </div>
-      </div>
-    </div>
-    <div style="text-align:center; margin-top:24px;">
-      <button class="cta-btn cta-btn--primary" onclick="showSection('estimateSection')">Request Free Estimate</button>
     </div>
   </div>
 </div>
 
-<!-- ========================= TOAST ========================= -->
-<div class="toast" id="toast">Message sent!</div>
 
-<!-- ========================= PHOTO MODAL ========================= -->
-<div class="photo-modal-overlay" id="photoModal" onclick="closePhotoModal()">
-  <div class="photo-modal-inner">
-    <button class="photo-modal-close" onclick="closePhotoModal()">✕</button>
-    <img id="photoModalImg" src="" alt="Project photo">
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-name">Maison</div>
+      <p class="footer-brand-desc">Luxury redefined for the modern connoisseur. Exceptional craftsmanship, curated with intention.</p>
+    </div>
+    <div>
+      <div class="footer-heading">Shop</div>
+      <ul class="footer-links">
+        <li><a href="#" onclick="showPage('collections'); return false;">All Collections</a></li>
+        <li><a href="#">Timepieces</a></li>
+        <li><a href="#">Leather Goods</a></li>
+        <li><a href="#">Fragrances</a></li>
+        <li><a href="#">Ready-to-Wear</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">House</div>
+      <ul class="footer-links">
+        <li><a href="#" onclick="showPage('about'); return false;">Our Story</a></li>
+        <li><a href="#">Craftsmanship</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Client Services</div>
+      <ul class="footer-links">
+        <li><a href="#" onclick="showPage('contact'); return false;">Contact Us</a></li>
+        <li><a href="#">Shipping & Returns</a></li>
+        <li><a href="#">Care Guide</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
   </div>
-</div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Maison. All rights reserved.</span>
+    <span style="display:flex;gap:20px;">
+      <a href="#" style="color:var(--taupe);text-decoration:none;transition:color .25s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--taupe)'">Instagram</a>
+      <a href="#" style="color:var(--taupe);text-decoration:none;transition:color .25s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--taupe)'">Pinterest</a>
+      <a href="#" style="color:var(--taupe);text-decoration:none;transition:color .25s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--taupe)'">LinkedIn</a>
+    </span>
+  </div>
+</footer>
 
-<!-- ========================= FOOTER ========================= -->
-<div class="site-footer">CREATED BY WEBVTEC</div>
 
 <script>
-function showSection(sectionId) {
-  document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-  const target = document.getElementById(sectionId);
-  if (target) { target.classList.add('active'); window.scrollTo(0,0); }
-  document.querySelectorAll('.sidebar-nav-item').forEach(el => el.classList.remove('active'));
-  const map = {
-    'homeSection':'snav-home','gallerySection':'snav-gallery','servicesSection':'snav-services',
-    'estimateSection':'snav-estimate','aboutSection':'snav-about','reviewsSection':'snav-reviews','contactSection':'snav-contact'
-  };
-  const navId = map[sectionId];
-  if (navId) { const el = document.getElementById(navId); if (el) el.classList.add('active'); }
+// ── Page Navigation ──────────────────────────────────
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById(id);
+  if (target) target.classList.add('active');
+
+  document.querySelectorAll('.nav-link').forEach(l => {
+    l.classList.remove('active');
+    if (l.dataset.page === id) l.classList.add('active');
+  });
+
+  window.scrollTo({ top: 0, behavior: 'instant' });
+
+  // Re-trigger scroll reveals for new page
+  requestAnimationFrame(() => initReveals());
 }
 
-function toggleSidebar() {
-  const panel = document.getElementById('sidebarPanel');
-  const scrim = document.getElementById('sidebarScrim');
-  const btn = document.getElementById('hamburgerBtn');
-  if (panel.classList.contains('open')) { closeSidebar(); }
-  else { panel.classList.add('open'); scrim.classList.add('show'); btn.classList.add('open'); }
+// ── Mobile Menu ──────────────────────────────────────
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
 }
-function closeSidebar() {
-  document.getElementById('sidebarPanel').classList.remove('open');
-  document.getElementById('sidebarScrim').classList.remove('show');
-  document.getElementById('hamburgerBtn').classList.remove('open');
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
 }
 
-function handleBoroughChange(val) {
-  const group = document.getElementById('exactAddressGroup');
-  if (val) {
-    group.style.display = 'block';
-    document.getElementById('exactAddress').placeholder =
-      val === 'Other'
-        ? 'e.g. 45 Example Ave, Jersey City, NJ 07302'
-        : `e.g. 123 Main St, Apt 2B, ${val}, NY`;
-  } else {
-    group.style.display = 'none';
-    document.getElementById('exactAddress').value = '';
-  }
-}
-
-async function submitEstimate() {
-  const first = document.getElementById('firstName').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const service = document.getElementById('service').value;
-  if (!first || !phone || !service) { showToast('Please fill in name, phone, and service.', false); return; }
-
-  const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE';
-  const TELEGRAM_CHAT_ID   = 'YOUR_CHAT_ID_HERE';
-
-  const text =
-    `🔨 *NEW ESTIMATE REQUEST*\n` +
-    `👤 Name: ${first} ${document.getElementById('lastName').value}\n` +
-    `📞 Phone: ${phone}\n` +
-    `📧 Email: ${document.getElementById('email').value || '—'}\n` +
-    `📍 Borough: ${document.getElementById('borough').value || '—'}\n` +
-    `🏠 Address: ${document.getElementById('exactAddress').value || '—'}\n` +
-    `🛠 Service: ${service}\n` +
-    `📝 Description: ${document.getElementById('description').value || '—'}`;
-
-  try {
-    const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text, parse_mode: 'Markdown' })
+// ── Scroll Reveal ────────────────────────────────────
+function initReveals() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
     });
-    const data = await res.json();
-    if (!data.ok) throw new Error(data.description);
-    ['firstName','lastName','phone','email','description'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('borough').value = '';
-    document.getElementById('exactAddress').value = '';
-    document.getElementById('exactAddressGroup').style.display = 'none';
-    document.getElementById('service').value = '';
-    showToast("Estimate request sent! We'll be in touch soon.", true);
-  } catch (err) {
-    console.error('Telegram error:', err);
-    showToast('Something went wrong. Please call us directly.', false);
-  }
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => observer.observe(el));
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  const phoneInput = document.getElementById('phone');
-  if (phoneInput) {
-    phoneInput.addEventListener('input', function(e) {
-      let input = e.target.value.replace(/\D/g, '');
-      if (input.length > 10) input = input.substring(0, 10);
-      let formatted = input;
-      if (input.length > 6) formatted = `(${input.substring(0,3)}) ${input.substring(3,6)}-${input.substring(6)}`;
-      else if (input.length > 3) formatted = `(${input.substring(0,3)}) ${input.substring(3)}`;
-      else if (input.length > 0) formatted = `(${input}`;
-      e.target.value = formatted;
-    });
-  }
-});
-
-function openPhotoModal(src) {
-  document.getElementById('photoModalImg').src = src;
-  document.getElementById('photoModal').classList.add('show');
-}
-function closePhotoModal() {
-  document.getElementById('photoModal').classList.remove('show');
-}
-
-function showToast(message, success = true) {
-  const toast = document.getElementById('toast');
-  toast.innerText = message;
-  toast.style.backgroundColor = success ? 'var(--neon)' : 'var(--hot)';
-  toast.style.color = success ? '#000' : '#fff';
-  toast.style.visibility = 'visible';
-  toast.style.opacity = '1';
-  toast.style.bottom = '40px';
+// ── Hero zoom-in on load ─────────────────────────────
+window.addEventListener('load', () => {
   setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.bottom = '20px';
-    setTimeout(() => { toast.style.visibility = 'hidden'; }, 400);
-  }, 2800);
-}
-</script>
-
-<!-- ========================= ADMIN MODAL ========================= -->
-<div class="admin-overlay" id="adminOverlay">
-  <div class="admin-modal">
-    <button class="admin-close-btn" onclick="closeAdminPanel()">✕</button>
-
-    <!-- Sign-in screen -->
-    <div id="adminSigninScreen" class="admin-signin-screen">
-      <div class="admin-modal-title">Admin Access</div>
-      <div class="admin-modal-sub">Sign in with the authorized Google account</div>
-      <button class="google-signin-btn" onclick="adminGoogleSignIn()">
-        <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 33.6 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 19.7-8 19.7-20 0-1.3-.1-2.7-.3-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16 19 13 24 13c3 0 5.8 1.1 7.9 3l5.7-5.7C34 6.5 29.3 4 24 4 16.3 4 9.7 8.5 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.5-5l-6.2-5.2C29.5 35.5 26.9 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.3 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.9 2.5-2.6 4.6-4.8 6l6.2 5.2C40.7 35.7 44 30.3 44 24c0-1.3-.1-2.7-.4-4z"/></svg>
-        Sign in with Google
-      </button>
-    </div>
-
-    <!-- Admin dashboard -->
-    <div id="adminDashboard" style="display:none;">
-      <div class="admin-modal-title">Review Manager</div>
-      <div class="admin-modal-sub" id="adminUserLabel">Signed in as —</div>
-
-      <div class="admin-section-label">⏳ Pending Approval</div>
-      <div id="adminPendingList"><div class="admin-empty">No pending reviews.</div></div>
-
-      <div class="admin-section-label">✅ Approved Reviews</div>
-      <div id="adminApprovedList"><div class="admin-empty">No approved reviews yet.</div></div>
-
-      <button class="admin-signout-btn" onclick="adminSignOut()">Sign Out</button>
-    </div>
-  </div>
-</div>
-
-
-<!-- Firebase -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, orderBy, serverTimestamp }
-  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
-  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDZsl7wCM4ABai7-YMg_6PzPUOsq2M9CKM",
-  authDomain: "lxl-home-improvement-llc.firebaseapp.com",
-  projectId: "lxl-home-improvement-llc",
-  storageBucket: "lxl-home-improvement-llc.firebasestorage.app",
-  messagingSenderId: "690054839471",
-  appId: "1:690054839471:web:59a803e363766c75e6e85a"
-};
-
-const app  = initializeApp(firebaseConfig);
-const db   = getFirestore(app);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
-
-// ── AUTH STATE ──────────────────────────────────────────────────────────────
-onAuthStateChanged(auth, user => {
-  const btn   = document.getElementById('sidebarAdminBtn');
-  const label = document.getElementById('adminBtnLabel');
-  const avatar = document.getElementById('adminAvatar');
-  if (user) {
-    // Redirect to the admin dashboard page
-    window.location.href = 'dashboard.html';
-  } else {
-    btn.classList.remove('signed-in');
-    label.textContent = '⚙ Admin';
-    avatar.style.display = 'none';
-    document.getElementById('adminSigninScreen').style.display = 'block';
-    document.getElementById('adminDashboard').style.display = 'none';
-  }
+    document.getElementById('mainHero')?.classList.add('loaded');
+  }, 100);
+  initReveals();
 });
 
-// ── ADMIN SIGN IN / OUT ─────────────────────────────────────────────────────
-window.adminGoogleSignIn = async function() {
-  try {
-    await signInWithPopup(auth, provider);
-  } catch(e) {
-    showToast('Sign-in failed: ' + e.message, false);
-  }
-};
-window.adminSignOut = async function() {
-  await signOut(auth);
-  showToast('Signed out.', true);
-};
-
-// ── STAR PICKER ─────────────────────────────────────────────────────────────
-let selectedStars = 0;
-document.querySelectorAll('#starPicker span').forEach(star => {
-  star.addEventListener('click', () => {
-    selectedStars = parseInt(star.dataset.v);
-    document.querySelectorAll('#starPicker span').forEach(s => {
-      s.classList.toggle('lit', parseInt(s.dataset.v) <= selectedStars);
-    });
-  });
-  star.addEventListener('mouseover', () => {
-    document.querySelectorAll('#starPicker span').forEach(s => {
-      s.classList.toggle('lit', parseInt(s.dataset.v) <= parseInt(star.dataset.v));
-    });
-  });
-  star.addEventListener('mouseout', () => {
-    document.querySelectorAll('#starPicker span').forEach(s => {
-      s.classList.toggle('lit', parseInt(s.dataset.v) <= selectedStars);
-    });
+// ── Filter buttons toggle ────────────────────────────
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
   });
 });
-
-// ── SUBMIT REVIEW (public) ──────────────────────────────────────────────────
-window.submitReview = async function() {
-  const first   = document.getElementById('rv_first').value.trim();
-  const last    = document.getElementById('rv_last').value.trim();
-  const borough = document.getElementById('rv_borough').value;
-  const text    = document.getElementById('rv_text').value.trim();
-  if (!first || !text || !selectedStars) {
-    showToast('Please fill in your name, rating, and review.', false); return;
-  }
-  try {
-    await addDoc(collection(db, 'reviews'), {
-      name: first + (last ? ' ' + last : ''),
-      borough: borough || '',
-      text,
-      stars: selectedStars,
-      status: 'pending',
-      createdAt: serverTimestamp()
-    });
-    document.getElementById('rv_first').value = '';
-    document.getElementById('rv_last').value  = '';
-    document.getElementById('rv_borough').value = '';
-    document.getElementById('rv_text').value  = '';
-    selectedStars = 0;
-    document.querySelectorAll('#starPicker span').forEach(s => s.classList.remove('lit'));
-    showToast('Thank you! Your review is pending approval.', true);
-  } catch(e) {
-    showToast('Error submitting review. Try again.', false);
-    console.error(e);
-  }
-};
-
-// ── LOAD PUBLIC APPROVED REVIEWS ────────────────────────────────────────────
-async function loadPublicReviews() {
-  const list = document.getElementById('publicReviewsList');
-  const loading = document.getElementById('reviewsLoading');
-  try {
-    const q = query(collection(db, 'reviews'), where('status','==','approved'), orderBy('createdAt','desc'));
-    const snap = await getDocs(q);
-    loading && loading.remove();
-    if (snap.empty) {
-      list.innerHTML = '<div class="reviews-loading">No reviews yet. Be the first!</div>'; return;
-    }
-    list.innerHTML = '';
-    snap.forEach(docSnap => {
-      const r = docSnap.data();
-      const stars = '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars);
-      list.innerHTML += `
-        <div class="pub-review-card">
-          <div class="prc-stars">${stars}</div>
-          <p class="prc-text">${r.text}</p>
-          <div class="prc-meta">${r.name}${r.borough ? ' · ' + r.borough + ', NY' : ''}</div>
-        </div>`;
-    });
-  } catch(e) {
-    loading && (loading.textContent = 'Could not load reviews.');
-    console.error(e);
-  }
-}
-loadPublicReviews();
-
-// ── LOAD ADMIN REVIEWS ───────────────────────────────────────────────────────
-window.loadAdminReviews = async function() {
-  const pendingEl  = document.getElementById('adminPendingList');
-  const approvedEl = document.getElementById('adminApprovedList');
-  pendingEl.innerHTML  = '<div class="reviews-loading">Loading...</div>';
-  approvedEl.innerHTML = '<div class="reviews-loading">Loading...</div>';
-  try {
-    const snap = await getDocs(query(collection(db, 'reviews'), orderBy('createdAt','desc')));
-    const pending = [], approved = [];
-    snap.forEach(d => {
-      const r = { id: d.id, ...d.data() };
-      r.status === 'approved' ? approved.push(r) : pending.push(r);
-    });
-
-    pendingEl.innerHTML = pending.length ? '' : '<div class="admin-empty">No pending reviews.</div>';
-    pending.forEach(r => { pendingEl.innerHTML += adminCard(r); });
-
-    approvedEl.innerHTML = approved.length ? '' : '<div class="admin-empty">No approved reviews yet.</div>';
-    approved.forEach(r => { approvedEl.innerHTML += adminCard(r); });
-
-  } catch(e) {
-    pendingEl.innerHTML = '<div class="admin-empty">Error loading reviews.</div>';
-    console.error(e);
-  }
-};
-
-function adminCard(r) {
-  const stars = '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars);
-  const badge = r.status === 'approved'
-    ? '<span class="arc-status-badge approved">Approved</span>'
-    : '<span class="arc-status-badge pending">Pending</span>';
-  const approveBtn = r.status !== 'approved'
-    ? `<button class="arc-btn arc-btn--approve" onclick="approveReview('${r.id}')">Approve</button>` : '';
-  return `
-    <div class="admin-review-card" id="arc-${r.id}">
-      <div class="arc-header">
-        <span class="arc-name">${r.name}${r.borough ? ' · ' + r.borough : ''}</span>
-        ${badge}
-      </div>
-      <div class="arc-stars">${stars}</div>
-      <div class="arc-text">${r.text}</div>
-      <div class="arc-actions">
-        ${approveBtn}
-        <button class="arc-btn arc-btn--delete" onclick="deleteReview('${r.id}')">Delete</button>
-      </div>
-    </div>`;
-}
-
-window.approveReview = async function(id) {
-  try {
-    await updateDoc(doc(db, 'reviews', id), { status: 'approved' });
-    showToast('Review approved!', true);
-    loadAdminReviews();
-    loadPublicReviews();
-  } catch(e) { showToast('Error approving.', false); }
-};
-
-window.deleteReview = async function(id) {
-  try {
-    await deleteDoc(doc(db, 'reviews', id));
-    showToast('Review deleted.', true);
-    loadAdminReviews();
-    loadPublicReviews();
-  } catch(e) { showToast('Error deleting.', false); }
-};
-
-// ── ADMIN PANEL OPEN/CLOSE ───────────────────────────────────────────────────
-window.openAdminPanel  = function() { document.getElementById('adminOverlay').classList.add('show'); closeSidebar(); };
-window.closeAdminPanel = function() { document.getElementById('adminOverlay').classList.remove('show'); };
-
 </script>
 
-<!-- Footer Banner -->
-<div style="position:fixed;bottom:0;left:0;right:0;background-color:#000000;border-top:2px solid var(--neon);text-align:center;padding:5px 20px;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:2px;color:#aaa;z-index:1000;"><a href="https://webvtec.com" target="_blank" style="color:#aaa;text-decoration:underline;display:block;width:100%;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">CLICK TO REQUEST YOUR OWN WEBSITE. <span style="color:var(--neon);">webvtec.com</span></a></div>
 </body>
 </html>
